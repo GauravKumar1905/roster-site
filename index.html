@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Roster — Google Ads reporting for agencies</title>
+<meta name="description" content="Design a client report once. Roster refreshes it every month, with live Google Ads numbers and a link you can send." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #14181f;
+    --ink-soft: #4a5462;
+    --ink-faint: #7b8593;
+    --paper: #f6f7f8;
+    --card: #ffffff;
+    --rule: #e2e5e9;
+    --teal: #1f6f6b;
+    --teal-soft: #e4efee;
+    --flag: #ad3f3b;
+
+    --display: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .eyebrow, .btn, .nav-link, .brand {
+    font-family: var(--display);
+  }
+
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  a { color: var(--teal); }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+
+  .masthead-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 68px;
+  }
+
+  .brand {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--ink);
+    margin-right: auto;
+  }
+
+  .brand span { color: var(--teal); }
+
+  .nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .nav-link:hover { color: var(--ink); }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding: 88px 0 72px; }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-size: clamp(38px, 5.4vw, 62px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.032em;
+    margin: 0;
+  }
+
+  h1 em {
+    font-family: var(--body);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .lede {
+    margin: 26px 0 0;
+    font-size: 19px;
+    color: var(--ink-soft);
+    max-width: 42ch;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 34px;
+  }
+
+  .btn {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 22px;
+    border-radius: 7px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .btn-primary { background: var(--teal); color: #fff; }
+  .btn-primary:hover { background: #175551; }
+
+  .btn-quiet {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--rule);
+  }
+
+  .btn-quiet:hover { border-color: var(--ink-faint); }
+
+  .cta-note {
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  /* ---------- signature: the month ledger ---------- */
+
+  .ledger {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .ledger-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .ledger-title {
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .ledger-sub {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-family: var(--display);
+  }
+
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 62px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    animation: settle 0.5s ease forwards;
+  }
+
+  .ledger-row:last-child { border-bottom: none; }
+
+  .ledger-row:nth-child(1) { animation-delay: 0.05s; }
+  .ledger-row:nth-child(2) { animation-delay: 0.14s; }
+  .ledger-row:nth-child(3) { animation-delay: 0.23s; }
+  .ledger-row:nth-child(4) { animation-delay: 0.32s; }
+  .ledger-row:nth-child(5) { animation-delay: 0.41s; }
+
+  @keyframes settle {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .month {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  .row-name {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .row-figure {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .ledger-foot {
+    margin: 0;
+    padding: 13px 20px;
+    background: var(--teal-soft);
+    font-size: 13px;
+    color: #17564f;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ---------- generic section ---------- */
+
+  .band { padding: 76px 0; border-top: 1px solid var(--rule); }
+
+  .band-head { max-width: 56ch; margin-bottom: 40px; }
+
+  h2 {
+    font-size: clamp(26px, 3.2vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.024em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .band-head p {
+    margin: 16px 0 0;
+    color: var(--ink-soft);
+    font-size: 18px;
+  }
+
+  /* ---------- steps: a real sequence, so it is numbered ---------- */
+
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .step { background: var(--card); padding: 26px 24px 30px; }
+
+  .step-n {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .step h3 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+
+  .step p { margin: 0; font-size: 15.5px; color: var(--ink-soft); }
+
+  /* ---------- proof ---------- */
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .proof-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+
+  .proof-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+
+  .proof-line:last-of-type { border-bottom: none; }
+
+  .proof-label {
+    font-family: var(--display);
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .proof-value {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .is-wrong .proof-label,
+  .is-wrong .proof-value { color: var(--flag); }
+
+  .proof-tag {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 999px;
+    margin-left: 8px;
+    vertical-align: 1px;
+  }
+
+  .tag-ok { background: var(--teal-soft); color: #17564f; }
+  .tag-bad { background: #f7e4e3; color: var(--flag); }
+
+  /* ---------- limits ---------- */
+
+  .limits { list-style: none; margin: 0; padding: 0; max-width: 62ch; }
+
+  .limit {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 14px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .limit:last-child { border-bottom: none; }
+
+  .limit-mark {
+    font-family: var(--mono);
+    color: var(--ink-faint);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .limit b {
+    font-family: var(--display);
+    font-weight: 600;
+    display: block;
+    font-size: 15.5px;
+  }
+
+  .limit span { color: var(--ink-soft); font-size: 15.5px; }
+
+  /* ---------- close ---------- */
+
+  .close { padding: 84px 0 96px; border-top: 1px solid var(--rule); }
+
+  .close-inner { max-width: 52ch; }
+
+  .close h2 { margin-bottom: 16px; }
+
+  .close p { color: var(--ink-soft); margin: 0 0 30px; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 26px 0 40px;
+    font-size: 13.5px;
+    color: var(--ink-faint);
+  }
+
+  .footer-inner { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; }
+
+  .footer-inner p { margin: 0; margin-right: auto; }
+
+  /* ---------- accessibility + responsive ---------- */
+
+  a:focus-visible,
+  .btn:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ledger-row { animation: none; opacity: 1; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid, .proof-grid { grid-template-columns: 1fr; gap: 44px; }
+    .steps { grid-template-columns: 1fr; }
+    .hero { padding: 60px 0 52px; }
+    .band { padding: 60px 0; }
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 20px; }
+    .ledger-row { grid-template-columns: 54px 1fr; }
+    .row-figure { grid-column: 2; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="#top">Roster<span>.</span></a>
+    <a class="nav-link" href="#how">How it works</a>
+    <a class="nav-link" href="#numbers">The numbers</a>
+    <a class="nav-link" href="#access">Get access</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Google Ads reporting for agencies</p>
+        <h1>Design the report once. <em>Then stop touching it.</em></h1>
+        <p class="lede">
+          You decide what a client's report should contain. Roster fetches the numbers every
+          month after that, and gives you a link to send.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#access">Get access</a>
+          <a class="btn btn-quiet" href="#how">See how it works</a>
+        </div>
+        <p class="cta-note">Currently onboarding a small number of agencies.</p>
+      </div>
+
+      <div class="ledger" aria-label="One report template, rendered each month">
+        <div class="ledger-head">
+          <span class="ledger-title">Monthly performance — Northside Coffee</span>
+          <span class="ledger-sub">one template</span>
+        </div>
+        <div class="ledger-row">
+          <span class="month">SEP</span>
+          <span class="row-name">Refreshed automatically</span>
+          <span class="row-figure">£48,210</span>
+        </div>
+        <div class="ledger-row">
+          <span class="month">AUG</span>
+          <span class="row-name">Refreshed automatically</span>
+          <span class="row-figure">£44,905</span>
+        </div>
+        <div class="ledger-row">
+          <span class="month">JUL</span>
+          <span class="row-name">Refreshed automatically</span>
+          <span class="row-figure">£51,388</span>
+        </div>
+        <div class="ledger-row">
+          <span class="month">JUN</span>
+          <span class="row-name">Refreshed automatically</span>
+          <span class="row-figure">£39,740</span>
+        </div>
+        <div class="ledger-row">
+          <span class="month">MAY</span>
+          <span class="row-name">Designed once, by you</span>
+          <span class="row-figure">£42,116</span>
+        </div>
+        <p class="ledger-foot">
+          Every month after the first costs you nothing to produce.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how">
+    <div class="wrap">
+      <div class="band-head">
+        <h2>Three steps, and only the middle one needs you</h2>
+        <p>
+          Roster splits reporting into the part that takes judgement and the part that takes
+          patience. You keep the first and hand over the second.
+        </p>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-n">Step 1</span>
+          <h3>Connect a client</h3>
+          <p>
+            Each client gets a workspace with its own Google Ads connection. Sign in with Google
+            and pick which of its accounts that client advertises under.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step-n">Step 2</span>
+          <h3>Describe the report</h3>
+          <p>
+            Tell Claude what the report should cover and which campaigns it spans. It inspects the
+            account and builds a template that fits what the data can actually support.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step-n">Step 3</span>
+          <h3>Send the link</h3>
+          <p>
+            Your client opens a live dashboard. It keeps every past version, so the link never
+            goes blank while a refresh is running.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="numbers">
+    <div class="wrap">
+      <div class="band-head">
+        <h2>Ratios are never averaged</h2>
+        <p>
+          Google returns click-through rate per row. Averaging those rows produces a number that
+          looks reasonable and is wrong, which is how a report loses a client's trust.
+        </p>
+      </div>
+
+      <div class="proof-grid">
+        <div class="proof-card">
+          <div class="proof-line">
+            <span class="proof-label">Reported by Google Ads</span>
+            <span class="proof-value num">0.0399%</span>
+          </div>
+          <div class="proof-line">
+            <span class="proof-label">
+              Recomputed by Roster
+              <span class="proof-tag tag-ok">match</span>
+            </span>
+            <span class="proof-value num">0.0399%</span>
+          </div>
+          <div class="proof-line is-wrong">
+            <span class="proof-label">
+              Averaged across rows
+              <span class="proof-tag tag-bad">off by 2&times;</span>
+            </span>
+            <span class="proof-value num">0.0200%</span>
+          </div>
+        </div>
+
+        <div>
+          <p style="margin-top:0">
+            Every rate in Roster carries an explicit numerator and denominator, and is worked out
+            once, after the underlying totals are summed. Cost per acquisition, return on ad
+            spend, conversion rate, click-through rate — all of them.
+          </p>
+          <p style="margin-bottom:0">
+            Divide by zero and you get an em dash, not <span class="num">NaN</span>. These figures
+            come from the check that runs against live accounts, not from a slide.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <h2>What Roster will not do</h2>
+        <p>
+          Worth knowing before you spend an afternoon on it.
+        </p>
+      </div>
+      <ul class="limits">
+        <li class="limit">
+          <span class="limit-mark">&ndash;</span>
+          <span>
+            <b>Google Ads only</b>
+            <span>No Meta, no LinkedIn, no blended cross-channel view. One platform, done properly.</span>
+          </span>
+        </li>
+        <li class="limit">
+          <span class="limit-mark">&ndash;</span>
+          <span>
+            <b>Read-only</b>
+            <span>Roster never changes a bid, a budget or a campaign. It reports and nothing else.</span>
+          </span>
+        </li>
+        <li class="limit">
+          <span class="limit-mark">&ndash;</span>
+          <span>
+            <b>No drag-and-drop chart editor</b>
+            <span>You describe the report in words and it gets built. There is no canvas to fiddle with.</span>
+          </span>
+        </li>
+        <li class="limit">
+          <span class="limit-mark">&ndash;</span>
+          <span>
+            <b>Numbers, not narrative</b>
+            <span>Roster will not write the commentary for you. That part is still your job, and should be.</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="close" id="access">
+    <div class="wrap close-inner">
+      <h2>Get access</h2>
+      <p>
+        Roster is open to a small number of agencies while it settles. Tell us how many clients
+        you report on and which accounts you manage, and we will set you up.
+      </p>
+      <a class="btn btn-primary" href="mailto:REPLACE_ME@example.com?subject=Roster%20access">Request access</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>Roster — Google Ads reporting for agencies.</p>
+    <span>Read-only access to your Google Ads data.</span>
+  </div>
+</footer>
+
+</body>
+</html>
