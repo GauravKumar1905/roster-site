@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — Roster</title>
+<meta name="description" content="What Roster collects, why, who it is shared with, and how to have it deleted." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="index.html">Roster<span>.</span></a>
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="terms.html">Terms</a>
+  </div>
+</header>
+
+<main class="doc">
+  <div class="wrap doc-inner">
+
+    <p class="doc-meta">Last updated <span class="fill">REPLACE_DATE</span></p>
+    <h1>Privacy Policy</h1>
+
+    <div class="doc-note">
+      <p>
+        Roster is a reporting tool for advertising agencies. It reads Google Ads data on your
+        behalf, and never writes to your advertising accounts. This policy explains what it
+        stores, why, and how to get rid of it.
+      </p>
+    </div>
+
+    <ul class="toc">
+      <li><a href="#who">1. Who we are</a></li>
+      <li><a href="#what">2. What we collect</a></li>
+      <li><a href="#google">3. Google user data</a></li>
+      <li><a href="#why">4. Why we process it</a></li>
+      <li><a href="#sharing">5. Who we share it with</a></li>
+      <li><a href="#links">6. Shared report links</a></li>
+      <li><a href="#analytics">7. Analytics and cookies</a></li>
+      <li><a href="#retention">8. How long we keep it</a></li>
+      <li><a href="#security">9. Security</a></li>
+      <li><a href="#rights">10. Your rights</a></li>
+      <li><a href="#children">11. Children</a></li>
+      <li><a href="#changes">12. Changes</a></li>
+      <li><a href="#contact">13. Contact</a></li>
+    </ul>
+
+    <h2 id="who">1. Who we are</h2>
+    <p>
+      Roster is operated by <span class="fill">REPLACE_LEGAL_ENTITY</span>, at
+      <span class="fill">REPLACE_REGISTERED_ADDRESS</span> (&ldquo;we&rdquo;, &ldquo;us&rdquo;).
+      We are the data controller for the account information described below. For the Google Ads
+      performance data you bring into Roster, you are the controller and we act as a processor on
+      your instructions.
+    </p>
+    <p>
+      Questions, requests and complaints go to
+      <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>.
+    </p>
+
+    <h2 id="what">2. What we collect</h2>
+    <dl>
+      <dt>Account details</dt>
+      <dd>
+        Your email address and a password. Passwords are never stored in readable form — we keep
+        only a salted <code>scrypt</code> hash, and cannot recover your password.
+      </dd>
+
+      <dt>Session cookies</dt>
+      <dd>
+        One cookie that identifies your signed-in session, and a short-lived cookie used during
+        Google sign-in to prevent request forgery. Both are <code>httpOnly</code>, so page scripts
+        cannot read them. See section 7.
+      </dd>
+
+      <dt>Workspace details</dt>
+      <dd>
+        The client names you create, and which Google Ads accounts you attach to each. These are
+        typed by you and may identify your clients.
+      </dd>
+
+      <dt>Google Ads data</dt>
+      <dd>
+        Account names and IDs, campaign names and IDs, and performance figures such as spend,
+        impressions, clicks and conversions. Rendered reports are stored as dated snapshots so a
+        report keeps its history and a client link does not go blank mid-refresh.
+      </dd>
+
+      <dt>Google account identity</dt>
+      <dd>
+        The email address of the Google account used to connect, shown so you can tell which
+        login a workspace is using.
+      </dd>
+    </dl>
+    <p>
+      We do not collect payment card details, and we do not ask for or store credentials for any
+      service other than the Google authorisation described below.
+    </p>
+
+    <h2 id="google">3. Google user data</h2>
+    <p>
+      When you connect a workspace, Google asks you to authorise Roster and then issues us a
+      refresh token. We store that token <strong>encrypted at rest</strong> using AES-256-GCM and
+      use it for one purpose: reading the Google Ads data needed to render your reports.
+    </p>
+    <p>
+      Roster requests the <code>https://www.googleapis.com/auth/adwords</code> scope, which Google
+      classes as sensitive, plus your Google account email address. The <code>adwords</code> scope
+      permits writes; Roster performs read operations only and never creates, edits, pauses or
+      deletes anything in your advertising accounts.
+    </p>
+    <p>
+      Roster's use of information received from Google APIs adheres to the
+      <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>,
+      including its Limited Use requirements. Specifically, we do not use Google user data for
+      advertising, we do not sell it, we do not transfer it except as described in section 5, and
+      we do not allow humans to read it except where you have asked us to for support, where it is
+      necessary for security or to comply with law, or where the data is aggregated and
+      de-identified.
+    </p>
+    <p>
+      You can revoke Roster's access at any time from your
+      <a href="https://myaccount.google.com/permissions" rel="noopener">Google account permissions</a>
+      page, or by disconnecting the workspace inside Roster. Disconnecting deletes the stored
+      token and the list of accounts attached to that workspace.
+    </p>
+
+    <h2 id="why">4. Why we process it</h2>
+    <ul>
+      <li><strong>To provide the service</strong> — signing you in, fetching your Google Ads figures and rendering reports. This is necessary to perform our contract with you.</li>
+      <li><strong>To keep the service secure</strong> — session handling, abuse prevention and audit. This is our legitimate interest.</li>
+      <li><strong>To understand how the product is used</strong> — aggregate analytics, as described in section 7.</li>
+      <li><strong>To meet legal obligations</strong> — where we are required to retain or disclose information.</li>
+    </ul>
+    <p>We do not use your data to train machine learning models, and we do not sell it.</p>
+
+    <h2 id="sharing">5. Who we share it with</h2>
+    <p>We use a small number of processors, each only for the function named:</p>
+    <dl>
+      <dt>Google (Google Ads API, Google OAuth)</dt>
+      <dd>The source of the advertising data, and the identity provider for connecting it.</dd>
+
+      <dt>Google Cloud (Cloud Run)</dt>
+      <dd>Hosts the application. Region: <span class="fill">REPLACE_REGION</span>.</dd>
+
+      <dt>Neon</dt>
+      <dd>Hosts the Postgres database holding everything in section 2.</dd>
+
+      <dt>Google Analytics</dt>
+      <dd>Aggregate usage measurement. See section 7.</dd>
+
+      <dt>Anthropic</dt>
+      <dd>
+        Only if you choose to design reports using Claude. In that case the report definition and
+        the account structure it is based on are processed by Anthropic under its own terms. No
+        Google refresh token is ever sent to Anthropic.
+      </dd>
+    </dl>
+    <p>
+      We may also disclose information if compelled by law, or as part of a merger or acquisition,
+      in which case we will tell you before your data becomes subject to a different policy.
+    </p>
+
+    <h2 id="links">6. Shared report links</h2>
+    <p>
+      Report links of the form <code>/r/&lt;report-id&gt;</code> are deliberately viewable
+      <strong>without signing in</strong>, so you can send them to a client. The identifier is long
+      and random, and we do not list or index these pages — but anyone who has the link can see
+      that report. Treat a report link as you would treat the report itself, and disconnect or
+      delete a report if a link should stop working.
+    </p>
+
+    <h2 id="analytics">7. Analytics and cookies</h2>
+    <p>Roster sets cookies in three categories, and only the first is unavoidable:</p>
+    <ul>
+      <li><strong>Strictly necessary</strong> — your session cookie and the sign-in state cookie. Without these you cannot stay logged in.</li>
+      <li><strong>Preference</strong> — small values stored in your browser to remember interface choices. These never leave your device.</li>
+      <li><strong>Analytics</strong> — Google Analytics 4, which measures page views and product events such as a workspace being created or a report being refreshed.</li>
+    </ul>
+    <p>
+      We do not send names, email addresses, client names, account IDs or advertising figures to
+      Google Analytics. Events record that something happened, not whose it was. Analytics is not
+      loaded until you have accepted it where consent is required, and you can withdraw consent at
+      any time. You may also use Google's
+      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">opt-out browser add-on</a>.
+    </p>
+    <p>We do not use advertising cookies and we do not run cross-site tracking.</p>
+
+    <h2 id="retention">8. How long we keep it</h2>
+    <ul>
+      <li><strong>Account and workspace records</strong> — until you ask us to delete them.</li>
+      <li><strong>Google refresh tokens</strong> — until you disconnect the workspace or revoke access at Google, whichever comes first.</li>
+      <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the workspace.</li>
+      <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
+      <li><strong>Analytics</strong> — per the retention period configured in Google Analytics, currently <span class="fill">REPLACE_GA_RETENTION</span>.</li>
+    </ul>
+    <p>Deleting a workspace deletes its connection, its attached accounts, its reports and their snapshots.</p>
+
+    <h2 id="security">9. Security</h2>
+    <ul>
+      <li>Google refresh tokens are encrypted at rest with AES-256-GCM.</li>
+      <li>Passwords are stored as salted <code>scrypt</code> hashes and are not recoverable.</li>
+      <li>Traffic is served over HTTPS.</li>
+      <li>Session cookies are <code>httpOnly</code> and <code>sameSite</code>, and sessions are revoked server-side on sign-out rather than left to expire.</li>
+      <li>Each workspace's data is scoped to its owning account in the database query itself, so a mistaken identifier returns nothing rather than another agency's records.</li>
+    </ul>
+    <p>
+      No system is perfectly secure. If you believe you have found a vulnerability, please write to
+      <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a> before disclosing
+      it publicly.
+    </p>
+
+    <h2 id="rights">10. Your rights</h2>
+    <p>
+      Depending on where you live, you may have the right to access, correct, export, restrict or
+      delete your personal data, to object to processing, and to complain to a supervisory
+      authority. To exercise any of these, email
+      <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>. We will respond
+      within <span class="fill">REPLACE_RESPONSE_WINDOW</span>.
+    </p>
+    <p>
+      One practical note: a single Roster login may be shared by several people at your agency, so
+      we cannot always tell which individual performed an action. If you need per-person
+      accountability, ask us and we will tell you what is and is not attributable.
+    </p>
+
+    <h2 id="children">11. Children</h2>
+    <p>
+      Roster is a business tool and is not directed at anyone under 16. We do not knowingly collect
+      data from children.
+    </p>
+
+    <h2 id="changes">12. Changes</h2>
+    <p>
+      If we change this policy in a way that materially affects how we handle your data, we will
+      email account holders and update the date at the top. Continued use after that date means you
+      accept the revised policy.
+    </p>
+
+    <h2 id="contact">13. Contact</h2>
+    <p>
+      <span class="fill">REPLACE_LEGAL_ENTITY</span><br />
+      <span class="fill">REPLACE_REGISTERED_ADDRESS</span><br />
+      <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>
+    </p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>Roster — Google Ads reporting for agencies.</p>
+    <a class="nav-link" href="privacy.html">Privacy</a>
+    <a class="nav-link" href="terms.html">Terms</a>
+    <a class="nav-link" href="mailto:gauravkr.contact@gmail.com">Contact</a>
+  </div>
+</footer>
+
+<script src="analytics.js"></script>
+</body>
+</html>
