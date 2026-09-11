@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Getting started — Roster</title>
+<meta name="description" content="Connect a client, attach their Google Ads accounts, and design your first report." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="index.html">Roster<span>.</span></a>
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="https://roster-1035727789436.asia-southeast1.run.app/login">Sign in</a>
+  </div>
+</header>
+
+<main class="doc">
+  <div class="wrap doc-inner">
+
+    <p class="doc-meta">About ten minutes, most of it waiting on Google</p>
+    <h1>Getting started</h1>
+
+    <div class="doc-note">
+      <p>
+        Roster is hosted. There is nothing to install, no server to run, and no folder to create
+        on your machine — including for the Claude part. If a step below sounds like setup, it is
+        setup <em>of your clients</em>, not of software.
+      </p>
+    </div>
+
+    <h2 id="account">1. Create your account</h2>
+    <p>
+      One account for your agency, shared by whoever does the reporting.
+      <a href="https://roster-1035727789436.asia-southeast1.run.app/signup">Sign up here</a>.
+    </p>
+    <p>
+      There is no per-seat charge and no invitation flow: the people who need it use the same
+      login. If you need to know which individual did what, Roster does not currently record
+      that, and you should not rely on it for that purpose.
+    </p>
+
+    <h2 id="workspace">2. Add your first client</h2>
+    <p>
+      A <strong>workspace</strong> is one client. Name it after them — &ldquo;Northside
+      Coffee&rdquo;, not &ldquo;Google Ads&rdquo; — because everything else hangs off that name:
+      the connection, the accounts, the reports, and the links you send.
+    </p>
+    <p>
+      Make one workspace per client rather than one big one. Separation is the point: a report
+      lives inside a workspace and cannot see another workspace's data.
+    </p>
+
+    <h2 id="google">3. Connect Google Ads</h2>
+    <p>
+      Inside the workspace, choose <strong>Connect Google Ads</strong> and sign in with the
+      Google account that can reach that client's advertising. That is usually your agency's
+      account, not the client's own login.
+    </p>
+    <p>
+      <strong>Roster only reads.</strong> It never creates, edits, pauses or deletes a campaign,
+      a budget, a bid or a keyword. It cannot, and there is no setting that turns that on.
+    </p>
+    <p class="doc-warn">
+      While Roster is in early access, Google expires this authorisation every seven days. You
+      will need to reconnect each workspace weekly until that changes. It is Google's limit
+      rather than ours, and it goes away once our consent screen is verified.
+    </p>
+
+    <h2 id="accounts">4. Choose the accounts</h2>
+    <p>
+      Roster asks Google what that login can reach and lists everything back — for an agency
+      login that is often a hundred accounts or more, so there is a search box. Add the ones that
+      belong to this client.
+    </p>
+    <p>
+      <strong>Manager accounts appear but cannot be added.</strong> An MCC holds other accounts
+      rather than campaigns of its own, and Google refuses to report metrics on one. Add the
+      client account underneath it instead.
+    </p>
+
+    <h2 id="claude">5. Connect Claude</h2>
+    <p>You design reports by asking for them. Two ways to set that up:</p>
+
+    <h3>The plugin (recommended)</h3>
+    <p>In Claude Code:</p>
+    <pre><code>/plugin marketplace add GauravKumar1905/roster-plugin
+/plugin install roster@roster
+/roster:setup</code></pre>
+    <p>
+      That brings commands, an agent for building several reports at once, and the guidance
+      Claude needs to design reports that hold up over time rather than ones shaped around this
+      month's numbers.
+    </p>
+
+    <h3>Or the connector on its own</h3>
+    <p>
+      In Claude&rsquo;s settings, add a custom connector pointing at:
+    </p>
+    <pre><code>https://roster-1035727789436.asia-southeast1.run.app/api/mcp</code></pre>
+    <p>
+      Either way, the first time Claude uses Roster it opens a browser so you can sign in and
+      approve the connection. That happens once. Claude sees only your agency's workspaces.
+    </p>
+
+    <h2 id="report">6. Ask for a report</h2>
+    <p>Plain language is the interface:</p>
+    <blockquote class="doc-quote">
+      Build a monthly performance report for Northside Coffee.
+    </blockquote>
+    <p>
+      Claude inspects the account first, then designs around what the data actually supports — an
+      account with no conversion tracking gets reach and efficiency rather than empty
+      cost-per-acquisition charts. It saves the design and hands back a dashboard URL.
+    </p>
+    <p>
+      <strong>That link is what you send your client.</strong> It refreshes on its own from then
+      on, and it keeps every past version, so it never goes blank while an update is running.
+      Anyone with the link can open it without signing in, so treat it as you would treat the
+      report itself.
+    </p>
+
+    <h2 id="after">What happens after</h2>
+    <p>
+      Nothing, which is the point. The report you designed once keeps producing current numbers
+      without you, and without further cost. You come back when a client wants something
+      different.
+    </p>
+
+    <h2 id="help">If something goes wrong</h2>
+    <dl>
+      <dt>&ldquo;This is a manager account&rdquo;</dt>
+      <dd>You added an MCC. Add one of the client accounts underneath it instead.</dd>
+
+      <dt>A report shows fewer widgets than expected</dt>
+      <dd>
+        Widgets needing data the account does not have are skipped rather than shown empty. The
+        report page lists what was skipped and why.
+      </dd>
+
+      <dt>&ldquo;No Google connection&rdquo;</dt>
+      <dd>
+        The workspace's authorisation has expired — the seven-day limit above. Reconnect it in
+        that workspace's settings.
+      </dd>
+
+      <dt>Claude cannot see your clients</dt>
+      <dd>
+        It is connected to a different Roster account, or not connected at all. Run
+        <code>/roster:setup</code>, or re-approve the connector.
+      </dd>
+    </dl>
+    <p>
+      Anything else: <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>.
+    </p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>Roster — Google Ads reporting for agencies.</p>
+    <a class="nav-link" href="privacy.html">Privacy</a>
+    <a class="nav-link" href="terms.html">Terms</a>
+    <a class="nav-link" href="mailto:gauravkr.contact@gmail.com">Contact</a>
+  </div>
+</footer>
+
+<script src="analytics.js"></script>
+</body>
+</html>

@@ -525,3 +525,44 @@
 @media (max-width: 620px) {
   .toc { columns: 1; }
 }
+
+/* ---------- getting started extras ---------- */
+
+.doc pre {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  background: var(--ink);
+  color: #e7eaed;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.doc pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.doc-warn {
+  padding: 13px 16px;
+  background: #fdf3d6;
+  border-left: 3px solid #d9c07a;
+  border-radius: 0 8px 8px 0;
+  font-size: 15px;
+}
+
+.doc-quote {
+  margin: 0 0 16px;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--ink);
+}
