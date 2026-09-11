@@ -5,7 +5,7 @@
 // and loading the tag first and asking afterwards would make it untrue.
 
 (function () {
-  var MEASUREMENT_ID = "G-REPLACE_ME"; // GA4 property for the marketing site
+  var MEASUREMENT_ID = "G-JW8Y77HM3M"; // GA4 "Roster" web stream
   var STORE_KEY = "roster.consent.analytics";
 
   if (MEASUREMENT_ID.indexOf("REPLACE") !== -1) return;
