@@ -1,13 +1,15 @@
-// Google Analytics 4 behind Consent Mode v2.
+// Google Analytics in permanently cookieless mode, plus section-level attention.
 //
-// Consent defaults to denied and gtag.js is not fetched at all until someone accepts, so a
-// visitor who ignores the banner is never measured. That is what the privacy policy promises,
-// and loading the tag first and asking afterwards would make it untrue.
+// analytics_storage is denied and never granted. That is the configuration, not a placeholder
+// for a consent prompt: with storage denied gtag writes no _ga cookie and keeps no persistent
+// identifier, so GA receives counts of what happened without anything identifying who did it.
+// There is no cookie banner because there is no cookie to ask about.
+//
+// The trade shows up when reading reports. Page views, events and engagement are accurate;
+// "users" and "returning users" are not, because nothing links one visit to the next.
 
 (function () {
-  var MEASUREMENT_ID = "G-JW8Y77HM3M"; // GA4 "Roster" web stream
-  var STORE_KEY = "roster.consent.analytics";
-
+  var MEASUREMENT_ID = "G-JW8Y77HM3M";
   if (MEASUREMENT_ID.indexOf("REPLACE") !== -1) return;
 
   window.dataLayer = window.dataLayer || [];
@@ -20,85 +22,100 @@
     ad_user_data: "denied",
     ad_personalization: "denied",
     analytics_storage: "denied",
-    wait_for_update: 500,
   });
 
-  function stored() {
-    try {
-      return localStorage.getItem(STORE_KEY);
-    } catch (e) {
-      // Private browsing and blocked site data both throw here. No stored choice means the
-      // banner shows again, which is the safe direction to fail.
-      return null;
+  gtag("js", new Date());
+  gtag("config", MEASUREMENT_ID, { anonymize_ip: true });
+
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
+  document.head.appendChild(s);
+
+  // ---- attention -----------------------------------------------------------------
+  //
+  // Which parts of the page hold people, rather than merely which were scrolled past. A section
+  // counts as read only while it is both on screen and in a visible tab, so a page left open in
+  // a background tab does not register as an hour of rapt attention.
+
+  function start() {
+    var sections = document.querySelectorAll("[data-track]");
+    if (!sections.length) return;
+
+    var state = new Map();
+
+    function bank(el) {
+      var s = state.get(el);
+      if (s && s.since) {
+        s.ms += Date.now() - s.since;
+        s.since = 0;
+      }
     }
-  }
 
-  function remember(value) {
-    try {
-      localStorage.setItem(STORE_KEY, value);
-    } catch (e) {
-      /* choice lasts for this page view only */
+    function resume(el) {
+      var s = state.get(el);
+      if (s && s.onScreen && document.visibilityState === "visible" && !s.since) {
+        s.since = Date.now();
+      }
     }
-  }
 
-  var loaded = false;
-  function load() {
-    if (loaded) return;
-    loaded = true;
-
-    var s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
-    document.head.appendChild(s);
-
-    gtag("js", new Date());
-    gtag("config", MEASUREMENT_ID, { anonymize_ip: true });
-  }
-
-  function accept() {
-    remember("granted");
-    gtag("consent", "update", { analytics_storage: "granted" });
-    load();
-  }
-
-  function decline() {
-    remember("denied");
-  }
-
-  function banner() {
-    var bar = document.createElement("div");
-    bar.className = "consent";
-    bar.setAttribute("role", "dialog");
-    bar.setAttribute("aria-label", "Analytics cookies");
-    bar.innerHTML =
-      '<p class="consent-text">We would like to measure which pages people find useful. ' +
-      'Analytics only runs if you say yes. <a href="privacy.html">What we collect</a>.</p>' +
-      '<div class="consent-actions">' +
-      '<button type="button" class="consent-no">No thanks</button>' +
-      '<button type="button" class="consent-yes">Allow</button>' +
-      "</div>";
-
-    bar.querySelector(".consent-yes").addEventListener("click", function () {
-      accept();
-      bar.remove();
-    });
-    bar.querySelector(".consent-no").addEventListener("click", function () {
-      decline();
-      bar.remove();
+    sections.forEach(function (el) {
+      state.set(el, { ms: 0, since: 0, onScreen: false, seen: false });
     });
 
-    document.body.appendChild(bar);
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          var el = entry.target;
+          var s = state.get(el);
+          if (!s) return;
+
+          s.onScreen = entry.isIntersecting;
+          if (entry.isIntersecting) {
+            if (!s.seen) {
+              s.seen = true;
+              gtag("event", "section_view", { section: el.getAttribute("data-track") });
+            }
+            resume(el);
+          } else {
+            bank(el);
+          }
+        });
+      },
+      // Half the section on screen, so a heading clipping into view does not count as read.
+      { threshold: 0.5 },
+    );
+
+    sections.forEach(function (el) {
+      io.observe(el);
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      sections.forEach(function (el) {
+        if (document.visibilityState === "visible") resume(el);
+        else bank(el);
+      });
+    });
+
+    // One event per section on the way out, rather than a stream of updates while reading.
+    window.addEventListener("pagehide", function () {
+      sections.forEach(function (el) {
+        bank(el);
+        var s = state.get(el);
+        var seconds = Math.round(s.ms / 1000);
+        if (seconds > 0) {
+          gtag("event", "section_time", {
+            section: el.getAttribute("data-track"),
+            seconds: seconds,
+          });
+        }
+      });
+    });
   }
 
-  var choice = stored();
-  if (choice === "granted") {
-    gtag("consent", "update", { analytics_storage: "granted" });
-    load();
-  } else if (choice !== "denied") {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", banner);
-    } else {
-      banner();
-    }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
   }
 })();

@@ -23,7 +23,7 @@
 <main class="doc">
   <div class="wrap doc-inner">
 
-    <p class="doc-meta">Last updated <span class="fill">REPLACE_DATE</span></p>
+    <p class="doc-meta">Last updated 10 September 2026</p>
     <h1>Privacy Policy</h1>
 
     <div class="doc-note">
@@ -52,8 +52,8 @@
 
     <h2 id="who">1. Who we are</h2>
     <p>
-      Roster is operated by <span class="fill">REPLACE_LEGAL_ENTITY</span>, at
-      <span class="fill">REPLACE_REGISTERED_ADDRESS</span> (&ldquo;we&rdquo;, &ldquo;us&rdquo;).
+      Roster is operated by Roster Pvt Ltd, at
+      H.No 1905, Sector 4, Rewari, Haryana, India (&ldquo;we&rdquo;, &ldquo;us&rdquo;).
       We are the data controller for the account information described below. For the Google Ads
       performance data you bring into Roster, you are the controller and we act as a processor on
       your instructions.
@@ -146,13 +146,13 @@
       <dd>The source of the advertising data, and the identity provider for connecting it.</dd>
 
       <dt>Google Cloud (Cloud Run)</dt>
-      <dd>Hosts the application. Region: <span class="fill">REPLACE_REGION</span>.</dd>
+      <dd>Hosts the application. Region: <code>asia-southeast1</code> (Singapore).</dd>
 
       <dt>Neon</dt>
       <dd>Hosts the Postgres database holding everything in section 2.</dd>
 
       <dt>Google Analytics</dt>
-      <dd>Aggregate usage measurement. See section 7.</dd>
+      <dd>Aggregate, cookieless usage measurement. See section 7.</dd>
 
       <dt>Anthropic</dt>
       <dd>
@@ -176,20 +176,43 @@
     </p>
 
     <h2 id="analytics">7. Analytics and cookies</h2>
-    <p>Roster sets cookies in three categories, and only the first is unavoidable:</p>
+    <p>
+      We measure how the product is used, and we do it without identifying anyone. Google
+      Analytics runs here in a <strong>cookieless configuration</strong>: storage consent is
+      permanently denied, so it sets no <code>_ga</code> cookie, keeps no persistent identifier,
+      and cannot recognise you across visits or across devices.
+    </p>
+    <p>
+      That is why you are not asked to accept cookies for analytics — there is no analytics cookie
+      to accept. It is also a deliberate trade: we can see that a page was opened and roughly how
+      long it held attention, and we cannot see that it was you, or connect today's visit to last
+      week's.
+    </p>
+    <p>What is recorded:</p>
     <ul>
-      <li><strong>Strictly necessary</strong> — your session cookie and the sign-in state cookie. Without these you cannot stay logged in.</li>
-      <li><strong>Preference</strong> — small values stored in your browser to remember interface choices. These never leave your device.</li>
-      <li><strong>Analytics</strong> — Google Analytics 4, which measures page views and product events such as a workspace being created or a report being refreshed.</li>
+      <li>which page or screen was opened;</li>
+      <li>approximately how many seconds a page or a section of a page was visible;</li>
+      <li>product events such as a workspace being created or accounts being discovered, and a
+          count where a count is meaningful;</li>
+      <li>coarse technical context supplied by any browser request — device type, browser,
+          language, and an approximate location derived from the IP address, which Google
+          discards rather than storing.</li>
+    </ul>
+    <p>What is never sent:</p>
+    <ul>
+      <li>your name or email address;</li>
+      <li>your clients' names, or any workspace name you have typed;</li>
+      <li>Google Ads account IDs, campaign names, or any advertising figure;</li>
+      <li>anything that could be used to single out one person.</li>
     </ul>
     <p>
-      We do not send names, email addresses, client names, account IDs or advertising figures to
-      Google Analytics. Events record that something happened, not whose it was. Analytics is not
-      loaded until you have accepted it where consent is required, and you can withdraw consent at
-      any time. You may also use Google's
-      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">opt-out browser add-on</a>.
+      We do not use advertising cookies, we do not run cross-site tracking, and we do not sell
+      anything to anyone. The cookies Roster does set are the two described in section 2 — your
+      sign-in session and the short-lived one used during Google sign-in. Both are strictly
+      necessary to log in at all, and neither is used for measurement. If you would still rather
+      opt out of Google Analytics everywhere, Google publishes a
+      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">browser add-on</a> for it.
     </p>
-    <p>We do not use advertising cookies and we do not run cross-site tracking.</p>
 
     <h2 id="retention">8. How long we keep it</h2>
     <ul>
@@ -197,7 +220,7 @@
       <li><strong>Google refresh tokens</strong> — until you disconnect the workspace or revoke access at Google, whichever comes first.</li>
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the workspace.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
-      <li><strong>Analytics</strong> — per the retention period configured in Google Analytics, currently <span class="fill">REPLACE_GA_RETENTION</span>.</li>
+      <li><strong>Analytics</strong> — per the retention period configured in Google Analytics. Because the data holds no identifier, it cannot be traced back to you in any case.</li>
     </ul>
     <p>Deleting a workspace deletes its connection, its attached accounts, its reports and their snapshots.</p>
 
@@ -221,7 +244,7 @@
       delete your personal data, to object to processing, and to complain to a supervisory
       authority. To exercise any of these, email
       <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>. We will respond
-      within <span class="fill">REPLACE_RESPONSE_WINDOW</span>.
+      within 60 days.
     </p>
     <p>
       One practical note: a single Roster login may be shared by several people at your agency, so
@@ -244,8 +267,8 @@
 
     <h2 id="contact">13. Contact</h2>
     <p>
-      <span class="fill">REPLACE_LEGAL_ENTITY</span><br />
-      <span class="fill">REPLACE_REGISTERED_ADDRESS</span><br />
+      Roster Pvt Ltd<br />
+      H.No 1905, Sector 4, Rewari, Haryana, India<br />
       <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>
     </p>
 
