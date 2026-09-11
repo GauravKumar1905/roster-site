@@ -56,26 +56,25 @@
 
       <li class="gstep">
         <h2>Connect Claude</h2>
-        <p>In Claude Code, paste these three:</p>
-        <div class="copyblock" data-copy="/plugin marketplace add GauravKumar1905/roster-plugin
-/plugin install roster@roster
-/roster:setup">
-          <pre><code>/plugin marketplace add GauravKumar1905/roster-plugin
-/plugin install roster@roster
-/roster:setup</code></pre>
+        <p>In Claude &rarr; <strong>Settings</strong> &rarr; <strong>Connectors</strong> &rarr; <strong>Add custom connector</strong>, paste this:</p>
+        <div class="copyblock" data-copy="https://roster-1035727789436.asia-southeast1.run.app/api/mcp">
+          <pre><code>https://roster-1035727789436.asia-southeast1.run.app/api/mcp</code></pre>
           <button class="copybtn" type="button">Copy</button>
         </div>
+        <p class="gnote">Works in Claude Desktop and on claude.ai. First use opens a browser to approve. Once only.</p>
 
         <details class="gdetails">
-          <summary>Or just the connector, without the plugin</summary>
-          <p>Claude &rarr; Settings &rarr; Connectors &rarr; Add custom connector:</p>
-          <div class="copyblock" data-copy="https://roster-1035727789436.asia-southeast1.run.app/api/mcp">
-            <pre><code>https://roster-1035727789436.asia-southeast1.run.app/api/mcp</code></pre>
+          <summary>Using Claude Code? Install the plugin instead</summary>
+          <p>Adds commands and report-building agents on top of the connector. Claude Code terminal only &mdash; <code>/plugin</code> does not exist elsewhere.</p>
+          <div class="copyblock" data-copy="/plugin marketplace add GauravKumar1905/roster-plugin
+/plugin install roster@roster
+/roster:setup">
+            <pre><code>/plugin marketplace add GauravKumar1905/roster-plugin
+/plugin install roster@roster
+/roster:setup</code></pre>
             <button class="copybtn" type="button">Copy</button>
           </div>
         </details>
-
-        <p class="gnote">First use opens a browser to approve the connection. Once only.</p>
       </li>
 
       <li class="gstep">
@@ -111,7 +110,7 @@
       <dd>The 7-day expiry. Reconnect in that workspace&rsquo;s settings.</dd>
 
       <dt>Claude can&rsquo;t see your clients</dt>
-      <dd>Run <code>/roster:setup</code>.</dd>
+      <dd>It&rsquo;s signed into a different Roster account, or the connector was never approved. Remove and re-add it. On Claude Code, run <code>/roster:setup</code>.</dd>
     </dl>
 
     <p class="gcontact">
