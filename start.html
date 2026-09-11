@@ -66,14 +66,22 @@
         <details class="gdetails">
           <summary>Using Claude Code? Install the plugin instead</summary>
           <p>Adds commands and report-building agents on top of the connector. Claude Code terminal only &mdash; <code>/plugin</code> does not exist elsewhere.</p>
-          <div class="copyblock" data-copy="/plugin marketplace add GauravKumar1905/roster-plugin
-/plugin install roster@roster
-/roster:setup">
-            <pre><code>/plugin marketplace add GauravKumar1905/roster-plugin
-/plugin install roster@roster
-/roster:setup</code></pre>
+          <p class="gnote">Run these one at a time. The first opens a prompt asking for the source &mdash; paste only what you copy here, nothing more.</p>
+
+          <div class="copyblock" data-copy="/plugin marketplace add GauravKumar1905/roster-plugin">
+            <pre><code>/plugin marketplace add GauravKumar1905/roster-plugin</code></pre>
             <button class="copybtn" type="button">Copy</button>
           </div>
+          <div class="copyblock" data-copy="/plugin install roster@roster">
+            <pre><code>/plugin install roster@roster</code></pre>
+            <button class="copybtn" type="button">Copy</button>
+          </div>
+          <div class="copyblock" data-copy="/roster:setup">
+            <pre><code>/roster:setup</code></pre>
+            <button class="copybtn" type="button">Copy</button>
+          </div>
+
+          <p class="gnote">If a prompt asks for a marketplace source on its own, it wants just <code>GauravKumar1905/roster-plugin</code>.</p>
         </details>
       </li>
 
