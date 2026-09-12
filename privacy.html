@@ -23,7 +23,7 @@
 <main class="doc">
   <div class="wrap doc-inner">
 
-    <p class="doc-meta">Last updated 10 September 2026</p>
+    <p class="doc-meta">Last updated 12 September 2026</p>
     <h1>Privacy Policy</h1>
 
     <div class="doc-note">
@@ -75,7 +75,15 @@
       <dd>
         One cookie that identifies your signed-in session, and a short-lived cookie used during
         Google sign-in to prevent request forgery. Both are <code>httpOnly</code>, so page scripts
-        cannot read them. See section 7.
+        cannot read them. Neither is used for measurement. See section 7.
+      </dd>
+
+      <dt>Analytics cookies</dt>
+      <dd>
+        Google Analytics sets a cookie that gives your browser a random identifier, so that the
+        pages you open in one visit are recognisable as one visit rather than as several unrelated
+        strangers. It holds a random number and nothing else — not your name, not your email, and
+        nothing typed into Roster. Section 7 says what it is for, and how to refuse it.
       </dd>
 
       <dt>Workspace details</dt>
@@ -134,7 +142,7 @@
     <ul>
       <li><strong>To provide the service</strong> — signing you in, fetching your Google Ads figures and rendering reports. This is necessary to perform our contract with you.</li>
       <li><strong>To keep the service secure</strong> — session handling, abuse prevention and audit. This is our legitimate interest.</li>
-      <li><strong>To understand how the product is used</strong> — aggregate analytics, as described in section 7.</li>
+      <li><strong>To understand how the product is used</strong> — usage analytics, as described in section 7. Where consent is required, that is our basis for it, and you can withdraw it at any time.</li>
       <li><strong>To meet legal obligations</strong> — where we are required to retain or disclose information.</li>
     </ul>
     <p>We do not use your data to train machine learning models, and we do not sell it.</p>
@@ -152,7 +160,11 @@
       <dd>Hosts the Postgres database holding everything in section 2.</dd>
 
       <dt>Google Analytics</dt>
-      <dd>Aggregate, cookieless usage measurement. See section 7.</dd>
+      <dd>
+        Usage measurement — which screens are opened, which features are used, and what fails.
+        Sent under an internal account identifier that means nothing outside our database. See
+        section 7.
+      </dd>
 
       <dt>Anthropic</dt>
       <dd>
@@ -177,41 +189,84 @@
 
     <h2 id="analytics">7. Analytics and cookies</h2>
     <p>
-      We measure how the product is used, and we do it without identifying anyone. Google
-      Analytics runs here in a <strong>cookieless configuration</strong>: storage consent is
-      permanently denied, so it sets no <code>_ga</code> cookie, keeps no persistent identifier,
-      and cannot recognise you across visits or across devices.
+      We measure how Roster is used, on this site and inside the product, with Google Analytics.
+      We are telling you plainly what changed here: this used to run in a cookieless
+      configuration, and it no longer does.
     </p>
     <p>
-      That is why you are not asked to accept cookies for analytics — there is no analytics cookie
-      to accept. It is also a deliberate trade: we can see that a page was opened and roughly how
-      long it held attention, and we cannot see that it was you, or connect today's visit to last
-      week's.
+      The old setup set no cookie and kept no identifier at all. It was also close to useless.
+      With nothing linking one page to the next, every page you opened looked like a different
+      person arriving, so we could count that reports get shared and count that people sign up,
+      and never learn whether anyone who signed up ever got as far as sharing one. The questions
+      that decide what we build next — where setup goes wrong, which step people give up on, what
+      fails and how often — all need one visit to be recognisable as one visit.
     </p>
-    <p>What is recorded:</p>
+    <p>
+      So Google Analytics now sets a cookie holding a random identifier. What that buys is
+      continuity: your page views in one visit join up, and if you sign in they join up with your
+      next visit too. Alongside it we send an internal account identifier — an opaque string from
+      our database, never your email or your agency's name — so that we can tell that the same
+      account used the dashboard and the Claude connector, rather than counting you twice.
+    </p>
+
+    <h3>What we do not do</h3>
     <ul>
-      <li>which page or screen was opened;</li>
-      <li>approximately how many seconds a page or a section of a page was visible;</li>
-      <li>product events such as a workspace being created or accounts being discovered, and a
-          count where a count is meaningful;</li>
+      <li>
+        <strong>No advertising cookies, ever.</strong> Advertising storage, advertising user data
+        and ad personalisation are switched off permanently in our configuration, and nothing on
+        the consent banner can turn them on. Roster does not advertise and builds no audiences.
+      </li>
+      <li><strong>No cross-site tracking</strong>, and no sharing of anything with data brokers.</li>
+      <li><strong>We do not sell anything to anyone.</strong></li>
+    </ul>
+
+    <h3>Your choice</h3>
+    <p>
+      If you are in the EEA, the UK or Switzerland, analytics storage starts <strong>switched
+      off</strong> and stays off unless you choose &ldquo;Allow&rdquo; on the banner. Nothing is
+      stored on your device for measurement before you answer. Everywhere else it starts on, and
+      the same banner turns it off — choose &ldquo;No thanks&rdquo; and no analytics cookie is
+      kept. Your answer is remembered in your browser&rsquo;s local storage, so we only ask once.
+      Clearing your browser data asks again.
+    </p>
+    <p>
+      Google also publishes a
+      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">browser add-on</a> that
+      opts you out of Google Analytics on every site, ours included.
+    </p>
+
+    <h3>What is recorded</h3>
+    <ul>
+      <li>which page or screen was opened, and in what order;</li>
+      <li>approximately how many seconds a page, or a section of a page, was visible and in front
+          of you;</li>
+      <li>product events — a workspace created, a Google Ads account connected, a report shared, a
+          report link opened by a client, a request to Claude succeeding or failing — with a count
+          or a short label where one is meaningful;</li>
+      <li>a random identifier for your browser, and our internal account identifier if you are
+          signed in;</li>
+      <li>rough shape-of-account facts in bands rather than exact figures: whether you have
+          connected Google Ads at all, and whether you have one client or several;</li>
       <li>coarse technical context supplied by any browser request — device type, browser,
           language, and an approximate location derived from the IP address, which Google
           discards rather than storing.</li>
     </ul>
-    <p>What is never sent:</p>
+
+    <h3>What is never sent</h3>
     <ul>
       <li>your name or email address;</li>
-      <li>your clients' names, or any workspace name you have typed;</li>
+      <li>your clients&rsquo; names, or any workspace, report or task name you have typed;</li>
       <li>Google Ads account IDs, campaign names, or any advertising figure;</li>
-      <li>anything that could be used to single out one person.</li>
+      <li>
+        error messages. When something fails we send a category — &ldquo;permission&rdquo;,
+        &ldquo;quota&rdquo;, &ldquo;not found&rdquo; — and never the message itself, because those
+        messages quote what was being asked for. The full text stays in our own database.
+      </li>
     </ul>
     <p>
-      We do not use advertising cookies, we do not run cross-site tracking, and we do not sell
-      anything to anyone. The cookies Roster does set are the two described in section 2 — your
-      sign-in session and the short-lived one used during Google sign-in. Both are strictly
-      necessary to log in at all, and neither is used for measurement. If you would still rather
-      opt out of Google Analytics everywhere, Google publishes a
-      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">browser add-on</a> for it.
+      The cookies Roster sets itself are the two described in section 2 — your sign-in session and
+      the short-lived one used during Google sign-in. Both are strictly necessary to log in at
+      all, and neither is used for measurement.
     </p>
 
     <h2 id="retention">8. How long we keep it</h2>
@@ -220,7 +275,10 @@
       <li><strong>Google refresh tokens</strong> — until you disconnect the workspace or revoke access at Google, whichever comes first.</li>
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the workspace.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
-      <li><strong>Analytics</strong> — per the retention period configured in Google Analytics. Because the data holds no identifier, it cannot be traced back to you in any case.</li>
+      <li><strong>Analytics</strong> — 14 months, the retention period configured in Google
+          Analytics, after which the event-level records are deleted and only aggregate totals
+          remain. Analytics records carry a random browser identifier and, when you are signed in,
+          our internal account identifier; ask us and we will delete yours.</li>
     </ul>
     <p>Deleting a workspace deletes its connection, its attached accounts, its reports and their snapshots.</p>
 

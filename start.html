@@ -17,7 +17,7 @@
   <div class="wrap masthead-inner">
     <a class="brand" href="index.html">Roster<span>.</span></a>
     <a class="nav-link" href="index.html">Home</a>
-    <a class="nav-link" href="https://roster-1035727789436.asia-southeast1.run.app/login">Sign in</a>
+    <a class="nav-link" href="https://roster-1035727789436.asia-southeast1.run.app/login" data-cta="guide_nav_signin">Sign in</a>
   </div>
 </header>
 
@@ -31,33 +31,33 @@
 
     <ol class="steps-list">
 
-      <li class="gstep">
+      <li class="gstep" data-track="step-account">
         <h2>Create your account</h2>
         <p>One login for your agency. Share it with whoever does the reporting.</p>
-        <a class="btn btn-primary" href="https://roster-1035727789436.asia-southeast1.run.app/signup">Sign up</a>
+        <a class="btn btn-primary" href="https://roster-1035727789436.asia-southeast1.run.app/signup" data-cta="guide_signup">Sign up</a>
       </li>
 
-      <li class="gstep">
+      <li class="gstep" data-track="step-add-client">
         <h2>Add a client</h2>
         <p>One <strong>workspace</strong> per client. Name it after them.</p>
       </li>
 
-      <li class="gstep">
+      <li class="gstep" data-track="step-connect-google">
         <h2>Connect Google Ads</h2>
         <p>Sign in with the Google account that reaches that client&rsquo;s ads. Roster only ever reads.</p>
         <p class="gwarn">Google expires this every 7 days during early access — you&rsquo;ll reconnect weekly until we&rsquo;re verified.</p>
       </li>
 
-      <li class="gstep">
+      <li class="gstep" data-track="step-pick-accounts">
         <h2>Pick the accounts</h2>
         <p>Search the accounts that login can reach and add this client&rsquo;s.</p>
         <p class="gnote">Manager accounts (MCC) can&rsquo;t be added — Google won&rsquo;t report metrics on them. Add the account underneath.</p>
       </li>
 
-      <li class="gstep">
+      <li class="gstep" data-track="step-connect-claude">
         <h2>Connect Claude</h2>
         <p>In Claude &rarr; <strong>Settings</strong> &rarr; <strong>Connectors</strong> &rarr; <strong>Add custom connector</strong>, paste this:</p>
-        <div class="copyblock" data-copy="https://roster-1035727789436.asia-southeast1.run.app/api/mcp">
+        <div class="copyblock" data-snippet="connector_url" data-copy="https://roster-1035727789436.asia-southeast1.run.app/api/mcp">
           <pre><code>https://roster-1035727789436.asia-southeast1.run.app/api/mcp</code></pre>
           <button class="copybtn" type="button">Copy</button>
         </div>
@@ -68,15 +68,15 @@
           <p>Adds commands and report-building agents on top of the connector. Claude Code terminal only &mdash; <code>/plugin</code> does not exist elsewhere.</p>
           <p class="gnote">Run these one at a time. The first opens a prompt asking for the source &mdash; paste only what you copy here, nothing more.</p>
 
-          <div class="copyblock" data-copy="/plugin marketplace add GauravKumar1905/roster-plugin">
+          <div class="copyblock" data-snippet="plugin_marketplace" data-copy="/plugin marketplace add GauravKumar1905/roster-plugin">
             <pre><code>/plugin marketplace add GauravKumar1905/roster-plugin</code></pre>
             <button class="copybtn" type="button">Copy</button>
           </div>
-          <div class="copyblock" data-copy="/plugin install roster@roster">
+          <div class="copyblock" data-snippet="plugin_install" data-copy="/plugin install roster@roster">
             <pre><code>/plugin install roster@roster</code></pre>
             <button class="copybtn" type="button">Copy</button>
           </div>
-          <div class="copyblock" data-copy="/roster:setup">
+          <div class="copyblock" data-snippet="setup_command" data-copy="/roster:setup">
             <pre><code>/roster:setup</code></pre>
             <button class="copybtn" type="button">Copy</button>
           </div>
@@ -85,9 +85,9 @@
         </details>
       </li>
 
-      <li class="gstep">
+      <li class="gstep" data-track="step-ask-report">
         <h2>Ask for a report</h2>
-        <div class="copyblock plain" data-copy="Build a monthly performance report for Northside Coffee.">
+        <div class="copyblock plain" data-snippet="example_prompt" data-copy="Build a monthly performance report for Northside Coffee.">
           <pre><code>Build a monthly performance report for Northside Coffee.</code></pre>
           <button class="copybtn" type="button">Copy</button>
         </div>
@@ -101,7 +101,7 @@
       Share the spreadsheet or PDF you send today and ask Claude to match it. It becomes a
       template, and every client after that is one step.
     </p>
-    <div class="copyblock plain" data-copy="Here's our standard monthly report. Build a Roster template that matches it.">
+    <div class="copyblock plain" data-snippet="template_prompt" data-copy="Here's our standard monthly report. Build a Roster template that matches it.">
       <pre><code>Here's our standard monthly report. Build a Roster template that matches it.</code></pre>
       <button class="copybtn" type="button">Copy</button>
     </div>

@@ -11,6 +11,14 @@
       var text = block.getAttribute("data-copy") || block.querySelector("code").innerText;
       navigator.clipboard.writeText(text).then(
         function () {
+          // Announced rather than tracked here: analytics.js listens for this, so the clipboard
+          // and the measurement of it stay in separate files, and a copy that failed — the
+          // fallback branch below — is not counted as one that worked.
+          document.dispatchEvent(
+            new CustomEvent("roster:copy", {
+              detail: { snippet: block.getAttribute("data-snippet") || "other" },
+            }),
+          );
           button.textContent = "Copied";
           button.classList.add("copied");
           setTimeout(function () {
