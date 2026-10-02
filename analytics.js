@@ -87,8 +87,38 @@
 
   gtag("js", new Date());
 
+  // ---- what GA calls this page ---------------------------------------------------------------
+  //
+  // A readable page group, sent as GA's built-in `content_group`, and a canonical URL so that
+  // `/roster-site/` and `/roster-site/index.html` are one row rather than two. The names match
+  // the app's (src/lib/analytics/pages.ts) and the glossary in docs/analytics.md.
+  //
+  // Only the campaign tags survive in the query: GA reads traffic source from page_location, so
+  // dropping them would file every tagged link under "direct".
+
+  var PAGE_GROUPS = {
+    "": "Site · Home",
+    "index.html": "Site · Home",
+    "start.html": "Site · Getting started",
+    "privacy.html": "Site · Privacy policy",
+    "terms.html": "Site · Terms of service",
+  };
+  var KEPT_QUERY = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+
+  var file = location.pathname.split("/").pop();
+  var dir = location.pathname.slice(0, location.pathname.length - file.length);
+  var canonicalPath = file === "index.html" ? dir : location.pathname;
+  var params = new URLSearchParams(location.search);
+  var kept = new URLSearchParams();
+  KEPT_QUERY.forEach(function (key) {
+    if (params.get(key)) kept.set(key, params.get(key));
+  });
+  var query = kept.toString();
+
   gtag("config", MEASUREMENT_ID, {
     surface: SURFACE,
+    content_group: PAGE_GROUPS[file] || "Site · Other",
+    page_location: location.origin + canonicalPath + (query ? "?" + query : ""),
     // `auto` walks up looking for the broadest domain that will accept a cookie. Both origins sit
     // under a public suffix — github.io here, run.app there — so it settles on the full hostname.
     // That works, and it is worth knowing before a custom domain lands: moving either side resets
@@ -299,7 +329,7 @@
       marks.forEach(function (mark) {
         if (!hit[mark] && percent >= mark - 1) {
           hit[mark] = true;
-          event("scroll_depth", { percent: mark });
+          event("scroll_milestone", { percent: mark });
         }
       });
     }
