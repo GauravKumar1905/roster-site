@@ -209,3 +209,38 @@
   font-size: 15px;
   color: var(--ink-faint);
 }
+
+/* ---------- the plugin install path ---------- */
+
+/* Step 5 is a sequence of clicks rather than one instruction, so it carries its own numbering.
+   The numbering runs straight through both halves — installing and connecting are one path the
+   reader walks once, not two things to choose between. */
+.gsub {
+  font-size: 14px !important;
+  font-weight: 500;
+  color: var(--ink) !important;
+  margin: 0 0 8px !important;
+}
+
+.gpath {
+  margin: 0 0 20px;
+  padding-left: 20px;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.gpath li {
+  margin-bottom: 8px;
+  line-height: 1.55;
+}
+
+/* The menu labels are what the reader hunts for on screen, so they are set in the body ink while
+   the instruction around them stays soft. */
+.gpath strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.gpath .copyblock {
+  margin: 10px 0 4px;
+}
