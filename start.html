@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Getting started — Roster</title>
-<meta name="description" content="Six steps from signing up to a report you can send a client." />
+<meta name="description" content="Three steps from signing up to a report you can send a client." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -26,104 +26,34 @@
 
     <h1>Getting started</h1>
     <p class="guide-lede">
-      Six steps, about ten minutes.
+      Three steps. Once you sign in, the dashboard walks you through each one.
     </p>
 
     <ol class="steps-list">
 
       <li class="gstep" data-track="step-account">
-        <h2>Create your account</h2>
-        <p>One login for your agency. Share it with whoever does the reporting.</p>
+        <h2>Sign in</h2>
+        <p>Create one login for your agency, or sign in to the one you have.</p>
         <a class="btn btn-primary" href="https://roster-1035727789436.asia-southeast1.run.app/signup" data-cta="guide_signup">Sign up</a>
       </li>
 
-      <li class="gstep" data-track="step-add-client">
-        <h2>Add a client</h2>
-        <p>One <strong>workspace</strong> per client. Name it after them.</p>
-      </li>
-
-      <li class="gstep" data-track="step-connect-google">
-        <h2>Connect Google Ads</h2>
-        <p>Sign in with the Google account that reaches that client&rsquo;s ads. Roster only ever reads.</p>
-      </li>
-
-      <li class="gstep" data-track="step-pick-accounts">
-        <h2>Pick the accounts</h2>
-        <p>Search the accounts that login can reach and add this client&rsquo;s.</p>
-        <p class="gnote">Manager accounts (MCC) can&rsquo;t be added — Google won&rsquo;t report metrics on them. Add the account underneath.</p>
-      </li>
-
       <li class="gstep" data-track="step-install-plugin">
-        <h2>Connect Claude</h2>
-        <p>In the Claude desktop app, install the Roster plugin. Using Claude in a browser instead? See below.</p>
-
-        <p class="gsub">Install it</p>
-        <ol class="gpath">
-          <li><strong>Settings</strong> &rarr; <strong>Plugins</strong> &rarr; <strong>Add</strong> &rarr; <strong>Add marketplace</strong>.</li>
-          <li>
-            Paste this as the marketplace, then <strong>Sync</strong>:
-            <div class="copyblock" data-snippet="plugin_marketplace" data-copy="https://github.com/GauravKumar1905/roster-plugin">
-              <pre><code>https://github.com/GauravKumar1905/roster-plugin</code></pre>
-              <button class="copybtn" type="button">Copy</button>
-            </div>
-          </li>
-          <li><strong>Roster &mdash; Google Ads reporting</strong> appears in the list. Press <strong>Add</strong>.</li>
-        </ol>
-
-        <p class="gsub">Connect it to your account</p>
-        <ol class="gpath" start="4">
-          <li><strong>Your plugins</strong> &rarr; <strong>Roster</strong> &rarr; <strong>Connectors</strong> &rarr; <strong>roster</strong>.</li>
-          <li>Press <strong>Connect</strong>, then sign in and approve in the browser tab that opens.</li>
-        </ol>
-
-        <p class="gnote">Once only. The plugin brings the report commands and the report-building agents with it.</p>
-
-        <details class="gdetails">
-          <summary>Using Claude in your browser (claude.ai)? Add the connector instead</summary>
-          <p>In Claude &rarr; <strong>Settings</strong> &rarr; <strong>Connectors</strong> &rarr; <strong>Add custom connector</strong>, paste this:</p>
-          <div class="copyblock" data-snippet="connector_url" data-copy="https://roster-1035727789436.asia-southeast1.run.app/api/mcp">
-            <pre><code>https://roster-1035727789436.asia-southeast1.run.app/api/mcp</code></pre>
-            <button class="copybtn" type="button">Copy</button>
-          </div>
-          <p class="gnote">The first time you use it, a browser tab opens to sign in and approve. Once only.</p>
-        </details>
+        <h2>Connect the Claude plugin</h2>
+        <p>
+          Install the Roster plugin in the Claude desktop app, connect it to your account, and run
+          <code>/roster:setup</code>. The dashboard shows you how, step by step.
+        </p>
       </li>
 
       <li class="gstep" data-track="step-ask-report">
-        <h2>Ask for a report</h2>
-        <div class="copyblock plain" data-snippet="example_prompt" data-copy="Build a monthly performance report for Northside Coffee.">
-          <pre><code>Build a monthly performance report for Northside Coffee.</code></pre>
-          <button class="copybtn" type="button">Copy</button>
-        </div>
-        <p>Claude shows you the figures before saving. You get a link to send your client — it refreshes itself from then on.</p>
+        <h2>Start creating reports</h2>
+        <p>
+          Add a client, connect its Google Ads, then ask Claude for a report. You see the figures
+          before anything is saved, and the link you send your client refreshes itself.
+        </p>
       </li>
 
     </ol>
-
-    <h2 class="gsection">Already have a report format?</h2>
-    <p>
-      Share the spreadsheet or PDF you send today and ask Claude to match it. It becomes a
-      template, and every client after that is one step.
-    </p>
-    <div class="copyblock plain" data-snippet="template_prompt" data-copy="Here's our standard monthly report. Build a Roster template that matches it.">
-      <pre><code>Here's our standard monthly report. Build a Roster template that matches it.</code></pre>
-      <button class="copybtn" type="button">Copy</button>
-    </div>
-
-    <h2 class="gsection">If something goes wrong</h2>
-    <dl class="gfaq">
-      <dt>&ldquo;This is a manager account&rdquo;</dt>
-      <dd>Add a client account underneath the MCC instead.</dd>
-
-      <dt>Fewer widgets than expected</dt>
-      <dd>Ones needing data the account lacks are skipped, not shown empty. The report lists which.</dd>
-
-      <dt>&ldquo;No Google connection&rdquo;</dt>
-      <dd>That workspace hasn&rsquo;t connected Google yet, or access was removed. Connect it in that workspace&rsquo;s settings.</dd>
-
-      <dt>Claude can&rsquo;t see your clients</dt>
-      <dd>It&rsquo;s signed into a different Roster account, or the connector was never approved. Remove the plugin (or the connector) and add it again.</dd>
-    </dl>
 
     <p class="gcontact">
       Stuck? <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>
