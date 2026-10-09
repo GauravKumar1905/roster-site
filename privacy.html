@@ -23,7 +23,7 @@
 <main class="doc">
   <div class="wrap doc-inner">
 
-    <p class="doc-meta">Last updated 12 September 2026</p>
+    <p class="doc-meta">Last updated 10 October 2026</p>
     <h1>Privacy Policy</h1>
 
     <div class="doc-note">
@@ -92,6 +92,14 @@
         typed by you and may identify your clients.
       </dd>
 
+      <dt>Branding</dt>
+      <dd>
+        If you set them: your agency&rsquo;s name, logo, browser-tab icon, accent colour, website and
+        contact line, and for each client a display name, a logo and a colour. Logos are stored in
+        our database. All of it appears on the share links you send, so treat it as public once a
+        link is out.
+      </dd>
+
       <dt>Google Ads data</dt>
       <dd>
         Account names and IDs, campaign names and IDs, and performance figures such as spend,
@@ -142,7 +150,8 @@
     <ul>
       <li><strong>To provide the service</strong> — signing you in, fetching your Google Ads figures and rendering reports. This is necessary to perform our contract with you.</li>
       <li><strong>To keep the service secure</strong> — session handling, abuse prevention and audit. This is our legitimate interest.</li>
-      <li><strong>To understand how the product is used</strong> — usage analytics, as described in section 7. Where consent is required, that is our basis for it, and you can withdraw it at any time.</li>
+      <li><strong>To run and improve the product</strong> — a record, made by our own servers, of what is done inside Roster: the actions taken in the signed-in dashboard and every request Claude makes through the Roster connector, as described in section 7. This is necessary to provide the service and is our legitimate interest; it does not depend on consent.</li>
+      <li><strong>To understand how the product is used</strong> — usage analytics with Google Analytics, as described in section 7. Where the law requires consent for the analytics cookie, that is our basis for it, and you can withdraw it at any time.</li>
       <li><strong>To meet legal obligations</strong> — where we are required to retain or disclose information.</li>
     </ul>
     <p>We do not use your data to train machine learning models, and we do not sell it.</p>
@@ -180,11 +189,18 @@
 
     <h2 id="links">6. Shared report links</h2>
     <p>
-      Report links of the form <code>/r/&lt;report-id&gt;</code> are deliberately viewable
-      <strong>without signing in</strong>, so you can send them to a client. The identifier is long
-      and random, and we do not list or index these pages — but anyone who has the link can see
-      that report. Treat a report link as you would treat the report itself, and disconnect or
-      delete a report if a link should stop working.
+      A report's own page, <code>/r/&lt;report-id&gt;</code>, needs you to be signed in. What you
+      send a client is a share link, <code>/s/&lt;token&gt;</code>: viewable <strong>without
+      signing in</strong>, read-only, and pinned to the figures as they were when you made it. The
+      token is long and random, and we do not list or index these pages — but anyone who has the
+      link can see that report. Treat a share link as you would treat the report itself, and revoke
+      it from the report page if it should stop working.
+    </p>
+    <p>
+      Share links carry your branding, not ours. They are measured like every other Roster page:
+      when someone opens one, we record that it was opened, which of the report&rsquo;s pages they
+      moved to, and how long it was read, under the rules in section 7, and the same banner offers
+      them the same choice about the analytics cookie.
     </p>
 
     <h2 id="analytics">7. Analytics and cookies</h2>
@@ -240,9 +256,10 @@
       <li>which page or screen was opened, and in what order;</li>
       <li>approximately how many seconds a page, or a section of a page, was visible and in front
           of you;</li>
-      <li>product events — a workspace created, a Google Ads account connected, a report shared, a
-          report link opened by a client, a request to Claude succeeding or failing — with a count
-          or a short label where one is meaningful;</li>
+      <li>product events — a workspace created, a Google Ads account connected, branding saved, a
+          report shared, a report link opened by a client and which of its pages were opened, a
+          request to Claude succeeding or failing — with a count or a short label (such as
+          &ldquo;demographics&rdquo; for a page) where one is meaningful;</li>
       <li>a random identifier for your browser, and our internal account identifier if you are
           signed in;</li>
       <li>rough shape-of-account facts in bands rather than exact figures: whether you have
@@ -269,18 +286,50 @@
       all, and neither is used for measurement.
     </p>
 
+    <h3>Activity inside Roster</h3>
+    <p>
+      Separately from what your browser sends, Roster's servers record what is done inside the
+      product:
+    </p>
+    <ul>
+      <li>
+        <strong>Actions in the signed-in dashboard</strong> — creating a workspace, connecting
+        Google Ads, saving, arranging or sharing a report, a share link being opened — are sent from
+        our servers to Google Analytics under our internal account identifier, with the same
+        exclusions as the list above: no names, no emails, no figures.
+      </li>
+      <li>
+        <strong>Every request Claude makes through the Roster connector</strong> is recorded in our
+        own database: which tool was called, what it was asked (its arguments, which can include
+        the workspace, campaign or report it was about, and the report design itself), how long it
+        took, whether it succeeded, the error if it failed, and a short summary of the result —
+        counts, and the IDs and names of anything it created. It never includes the figures a
+        request returned. Google Analytics receives only the tool&rsquo;s name, whether it
+        succeeded, roughly how long it took, and on failure a category such as
+        &ldquo;quota&rdquo;.
+      </li>
+    </ul>
+    <p>
+      We use these records to keep Roster working — to see what fails and why, and to fix it —
+      and to decide what to build next. Neither sets anything on your device, so neither depends
+      on the banner above: they are part of running the service you signed up for. The connector
+      record is visible only to us and deleted after 90 days (section 8).
+    </p>
+
     <h2 id="retention">8. How long we keep it</h2>
     <ul>
       <li><strong>Account and workspace records</strong> — until you ask us to delete them.</li>
       <li><strong>Google refresh tokens</strong> — until you disconnect the workspace or revoke access at Google, whichever comes first.</li>
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the workspace.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
+      <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 7) — 90 days, after which each record is deleted automatically.</li>
+      <li><strong>Branding</strong> — until you change or remove it. A logo you replace or remove is deleted when you save; a client&rsquo;s logo is deleted with that client&rsquo;s workspace.</li>
       <li><strong>Analytics</strong> — 14 months, the retention period configured in Google
           Analytics, after which the event-level records are deleted and only aggregate totals
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a workspace deletes its connection, its attached accounts, its reports and their snapshots.</p>
+    <p>Deleting a workspace deletes its connection, its attached accounts, its branding and logo, its reports and their snapshots.</p>
 
     <h2 id="security">9. Security</h2>
     <ul>
