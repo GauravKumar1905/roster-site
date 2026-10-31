@@ -1,0 +1,6 @@
+# Every crawler is welcome, AI answer engines included (GPTBot, OAI-SearchBot, ClaudeBot,
+# PerplexityBot, Google-Extended): being quoted by them is the point of the public pages.
+User-agent: *
+Allow: /
+
+Sitemap: https://useroster.xyz/sitemap.xml

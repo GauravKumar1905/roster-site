@@ -100,6 +100,8 @@
     "": "Site · Home",
     "index.html": "Site · Home",
     "start.html": "Site · Getting started",
+    "google-ads-monthly-report.html": "Site · Guide",
+    "roster-vs-looker-studio.html": "Site · Guide",
     "privacy.html": "Site · Privacy policy",
     "terms.html": "Site · Terms of service",
   };
@@ -119,10 +121,10 @@
     surface: SURFACE,
     content_group: PAGE_GROUPS[file] || "Site · Other",
     page_location: location.origin + canonicalPath + (query ? "?" + query : ""),
-    // `auto` walks up looking for the broadest domain that will accept a cookie. Both origins sit
-    // under a public suffix — github.io here, run.app there — so it settles on the full hostname.
-    // That works, and it is worth knowing before a custom domain lands: moving either side resets
-    // every client id, and the historic users go with them.
+    // `auto` walks up looking for the broadest domain that will accept a cookie: useroster.xyz
+    // here, and the full hostname on run.app, which is a public suffix. Moving either side resets
+    // every client id, and the historic users go with them; the site's move off github.io on
+    // 31 October 2026 did exactly that.
     cookie_domain: "auto",
     cookie_flags: "SameSite=Lax;Secure",
     linker: { domains: LINKER_DOMAINS, accept_incoming: true },
