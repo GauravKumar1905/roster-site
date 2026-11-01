@@ -15,7 +15,7 @@
 
 (function () {
   var MEASUREMENT_ID = "G-JW8Y77HM3M";
-  var APP_ORIGIN = "https://roster-1035727789436.asia-southeast1.run.app";
+  var APP_ORIGIN = "https://app.useroster.xyz";
   var SURFACE = "site";
   var CONSENT_KEY = "roster.consent.analytics";
 
@@ -121,10 +121,10 @@
     surface: SURFACE,
     content_group: PAGE_GROUPS[file] || "Site · Other",
     page_location: location.origin + canonicalPath + (query ? "?" + query : ""),
-    // `auto` walks up looking for the broadest domain that will accept a cookie: useroster.xyz
-    // here, and the full hostname on run.app, which is a public suffix. Moving either side resets
-    // every client id, and the historic users go with them; the site's move off github.io on
-    // 31 October 2026 did exactly that.
+    // `auto` walks up looking for the broadest domain that will accept a cookie: useroster.xyz,
+    // here and on app.useroster.xyz, so the site and the app share one client id. Moving either
+    // side off it resets every client id, and the historic users go with them; the site's move off
+    // github.io on 31 October 2026 and the app's off run.app on 1 November 2026 both did.
     cookie_domain: "auto",
     cookie_flags: "SameSite=Lax;Secure",
     linker: { domains: LINKER_DOMAINS, accept_incoming: true },
