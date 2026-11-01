@@ -30,8 +30,10 @@
     <div class="doc-note">
       <p>
         Roster is a reporting tool for advertising agencies. It reads Google Ads and Meta ads data
-        on your behalf, and never writes to your advertising accounts. This policy explains what it
-        stores, why, and how to get rid of it.
+        on your behalf to build reports. It changes a Google Ads account only when you ask it to set
+        up a campaign or a conversion action, and only after you have approved that exact change; it
+        never changes a Meta ad account. This policy explains what it stores, why, and how to get rid
+        of it.
       </p>
     </div>
 
@@ -116,6 +118,15 @@
         login a workspace is using.
       </dd>
 
+      <dt>Campaigns and conversion actions you set up</dt>
+      <dd>
+        If you ask Roster to set up a Google Ads campaign or conversion action: what you approved
+        (its name, budget, dates, bidding, targeting, ad text, the web addresses of its images) and a
+        record of the change Roster made in your account — when, and what Google answered. Images
+        are fetched from the addresses you give and passed to Google; Roster keeps only a fingerprint
+        of each, not the image. See section 3.
+      </dd>
+
       <dt>Meta ads data</dt>
       <dd>
         The ad accounts the connecting login can reach — their names and IDs, currency, time zone
@@ -142,13 +153,21 @@
     <p>
       When you connect a workspace, Google asks you to authorise Roster and then issues us a
       refresh token. We store that token <strong>encrypted at rest</strong> using AES-256-GCM and
-      use it for one purpose: reading the Google Ads data needed to render your reports.
+      use it for two purposes: reading the Google Ads data needed to render your reports, and
+      making the changes you approve, described next.
     </p>
     <p>
       Roster requests the <code>https://www.googleapis.com/auth/adwords</code> scope, which Google
       classes as sensitive, plus your Google account email address. The <code>adwords</code> scope
-      permits writes; Roster performs read operations only and never creates, edits, pauses or
-      deletes anything in your advertising accounts.
+      permits changes. Roster makes one kind: when you ask it to set up a campaign or a conversion
+      action, it shows you exactly what it will create, has Google check it without creating
+      anything, and creates it only after you approve it in that form. Campaigns are created paused,
+      so nothing runs or spends until you switch it on in Google Ads. Roster never edits, pauses,
+      removes or switches on anything in your account.
+    </p>
+    <p>
+      To tell you whether your Google login can make changes in an account at all, Roster sends
+      Google a request that Google checks and then discards, changing nothing.
     </p>
     <p>
       Roster's use of information received from Google APIs adheres to the
@@ -202,7 +221,7 @@
 
     <h2 id="why">5. Why we process it</h2>
     <ul>
-      <li><strong>To provide the service</strong> — signing you in, fetching your Google Ads and Meta figures and rendering reports. This is necessary to perform our contract with you.</li>
+      <li><strong>To provide the service</strong> — signing you in, fetching your Google Ads and Meta figures and rendering reports, and setting up the campaigns and conversion actions you approve. This is necessary to perform our contract with you.</li>
       <li><strong>To keep the service secure</strong> — session handling, abuse prevention and audit. This is our legitimate interest.</li>
       <li><strong>To run and improve the product</strong> — a record, made by our own servers, of what is done inside Roster: the actions taken in the signed-in dashboard and every request Claude makes through the Roster connector, as described in section 8. This is necessary to provide the service and is our legitimate interest; it does not depend on consent.</li>
       <li><strong>To understand how the product is used</strong> — usage analytics with Google Analytics, as described in section 8. Where the law requires consent for the analytics cookie, that is our basis for it, and you can withdraw it at any time.</li>
@@ -382,13 +401,14 @@
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the workspace.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
       <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 8) — 90 days, after which each record is deleted automatically.</li>
+      <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and what each one was, until you delete the client&rsquo;s workspace or your account. It stays if you only disconnect Google, so you keep a record of what was done in your accounts.</li>
       <li><strong>Branding</strong> — until you change or remove it. A logo you replace or remove is deleted when you save; a client&rsquo;s logo is deleted with that client&rsquo;s workspace.</li>
       <li><strong>Analytics</strong> — 14 months, the retention period configured in Google
           Analytics, after which the event-level records are deleted and only aggregate totals
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a workspace deletes its Google and Meta connections, its attached accounts, its branding and logo, its reports and their snapshots.</p>
+    <p>Deleting a workspace deletes its Google and Meta connections, its attached accounts, its branding and logo, its reports and their snapshots, and its record of changes. Campaigns already created in Google Ads stay there; delete them in Google Ads.</p>
 
     <h2 id="security">10. Security</h2>
     <ul>
