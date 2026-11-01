@@ -30,10 +30,10 @@
     <div class="doc-note">
       <p>
         Roster is a reporting tool for advertising agencies. It reads Google Ads and Meta ads data
-        on your behalf to build reports. It changes a Google Ads account only when you ask it to set
-        up a campaign or a conversion action, and only after you have approved that exact change; it
-        never changes a Meta ad account. This policy explains what it stores, why, and how to get rid
-        of it.
+        on your behalf to build reports. It changes a Google Ads account or a Meta ad account only
+        when you ask it to set up a campaign (or, in Google Ads, a conversion action), and only after
+        you have approved that exact change. This policy explains what it stores, why, and how to get
+        rid of it.
       </p>
     </div>
 
@@ -120,11 +120,12 @@
 
       <dt>Campaigns and conversion actions you set up</dt>
       <dd>
-        If you ask Roster to set up a Google Ads campaign or conversion action: what you approved
-        (its name, budget, dates, bidding, targeting, ad text, the web addresses of its images) and a
-        record of the change Roster made in your account — when, and what Google answered. Images
-        are fetched from the addresses you give and passed to Google; Roster keeps only a fingerprint
-        of each, not the image. See section 3.
+        If you ask Roster to set up a Google Ads campaign or conversion action, or a Meta campaign:
+        what you approved (its name, budget, dates, bidding, targeting, ad text, the web addresses of
+        its images and videos) and a record of the change Roster made in your account — when, and
+        what Google or Meta answered. Images are fetched from the addresses you give and passed to
+        Google or Meta; Roster keeps only a fingerprint of each, not the image. Meta fetches videos
+        from their addresses itself; Roster never holds them. See sections 3 and 4.
       </dd>
 
       <dt>Meta ads data</dt>
@@ -136,6 +137,16 @@
         for a report, with breakdowns by age, gender, country, region, platform, placement, device
         and hour of day. These are totals Meta reports for an ad account; none of them identifies a
         person who saw an ad. Reports keep them as dated snapshots, as they do Google Ads figures.
+      </dd>
+
+      <dt>Facebook Pages, Instagram accounts and pixels</dt>
+      <dd>
+        For the Meta ad accounts you choose: the names and IDs of the Facebook Pages each can
+        advertise as and of the Instagram accounts its ads can run as, the account&rsquo;s pixels
+        (their names, IDs and when each last received an event), whether it has a payment method (not
+        the method itself) and Meta&rsquo;s minimum budgets for it — so Roster can tell you what a
+        campaign there needs, and run its ads as the Page you choose. Roster does not read the
+        Pages&rsquo; or Instagram accounts&rsquo; posts, messages, followers or insights.
       </dd>
 
       <dt>Meta account identity</dt>
@@ -189,21 +200,38 @@
     <p>
       When you connect Meta for a client, you sign in with Facebook Login for Business and Meta
       issues Roster a user access token that lasts 60 days. We store that token <strong>encrypted
-      at rest</strong> using AES-256-GCM and use it for one purpose: reading the Meta ads data
-      needed to render your reports. When it expires, Roster asks you to connect again.
+      at rest</strong> using AES-256-GCM and use it for two purposes: reading the Meta ads data
+      needed to render your reports, and making the changes you approve, described below. When it
+      expires, Roster asks you to connect again.
     </p>
     <p>
-      Roster requests two permissions: <code>ads_read</code>, to read the performance of the ad
-      accounts you choose, and <code>business_management</code>, to find the ad accounts held in
-      your business portfolios so that you can choose among them. <code>business_management</code>
-      permits changes to a portfolio; Roster only reads it. Roster never requests
-      <code>ads_management</code>, and never creates, edits, pauses or deletes anything in your
-      ad accounts or your business portfolios.
+      Roster requests these permissions: <code>ads_read</code>, to read the performance of the ad
+      accounts you choose; <code>business_management</code>, to find the ad accounts held in your
+      business portfolios so that you can choose among them (it permits changes to a portfolio;
+      Roster only reads it); <code>ads_management</code>, to set up the campaigns you approve, and
+      to see which Instagram accounts an ad account&rsquo;s ads can run as; and
+      <code>pages_show_list</code> and <code>pages_read_engagement</code>, to see which Facebook
+      Pages an ad account can advertise as, so that its ads run as the right one.
+    </p>
+    <p>
+      Roster makes one kind of change: when you ask it to set up a campaign, it shows you exactly
+      what it will create — every ad set and every ad — has Meta check the campaign without creating
+      it, and creates it only after you approve it in that form. The campaign, its ad sets and ads
+      are created paused, so nothing runs or spends until you switch it on in Meta Ads Manager. Its
+      images and videos are added to the ad account&rsquo;s media library, where Meta keeps them.
+      If Meta refuses part of a campaign while Roster is creating it, Roster removes the paused
+      campaign it had just started, and nothing else. Roster never edits, pauses, removes or
+      switches on anything else in your ad accounts, Pages, Instagram accounts or business
+      portfolios.
+    </p>
+    <p>
+      To tell you whether your Meta login can make changes in an ad account at all, Roster sends
+      Meta a request that Meta checks and then discards, changing nothing.
     </p>
     <p>
       Roster's use of data received from Meta complies with the
       <a href="https://developers.facebook.com/terms/" rel="noopener">Meta Platform Terms</a>.
-      We use it only to produce your reports. We do not sell or license it, use it for
+      We use it only to produce your reports and to set up the campaigns you approve. We do not sell or license it, use it for
       advertising, use it to build profiles of people, or transfer it except as described in
       section 6, and we do not allow humans to read it except where you have asked us to for
       support, where it is necessary for security or to comply with law, or where the data is
@@ -401,14 +429,14 @@
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the workspace.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
       <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 8) — 90 days, after which each record is deleted automatically.</li>
-      <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and what each one was, until you delete the client&rsquo;s workspace or your account. It stays if you only disconnect Google, so you keep a record of what was done in your accounts.</li>
+      <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and what each one was, until you delete the client&rsquo;s workspace or your account. It stays if you only disconnect Google or Meta, so you keep a record of what was done in your accounts.</li>
       <li><strong>Branding</strong> — until you change or remove it. A logo you replace or remove is deleted when you save; a client&rsquo;s logo is deleted with that client&rsquo;s workspace.</li>
       <li><strong>Analytics</strong> — 14 months, the retention period configured in Google
           Analytics, after which the event-level records are deleted and only aggregate totals
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a workspace deletes its Google and Meta connections, its attached accounts, its branding and logo, its reports and their snapshots, and its record of changes. Campaigns already created in Google Ads stay there; delete them in Google Ads.</p>
+    <p>Deleting a workspace deletes its Google and Meta connections, its attached accounts, its branding and logo, its reports and their snapshots, and its record of changes. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
 
     <h2 id="security">10. Security</h2>
     <ul>
