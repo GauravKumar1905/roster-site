@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Roster — Google Ads client reporting for freelancers and small agencies</title>
-<meta name="description" content="Set up each client's Google Ads report once. Refresh it from live data whenever you're ready, and send your client a link to the figures you've checked. Free during early access." />
+<title>Roster — Google Ads and Meta Ads reporting and campaign setup for freelancers and small agencies</title>
+<meta name="description" content="Client reports from live Google Ads and Meta Ads data, sent as one link, and new campaigns in either platform, drafted with Claude and created paused after your yes. Free during early access." />
 <link rel="canonical" href="https://useroster.xyz/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Roster" />
-<meta property="og:title" content="Client reporting for Google Ads, without the month-end scramble" />
-<meta property="og:description" content="Set up each client's report once. Refresh it from live Google Ads data whenever you're ready, and send your client a link to the figures you've checked." />
+<meta property="og:title" content="Report on and launch Google Ads and Meta campaigns, by describing them to Claude" />
+<meta property="og:description" content="Client reports from live Google Ads and Meta Ads data, sent as one link, and new campaigns in either platform, created paused after your yes." />
 <meta property="og:url" content="https://useroster.xyz/" />
 <meta property="og:image" content="https://useroster.xyz/img/og.png" />
 <meta property="og:image:width" content="1200" />
@@ -42,7 +42,7 @@
       "url": "https://useroster.xyz/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "description": "Google Ads client reporting for freelancers and small agencies. Set up each client's report once by describing it to Claude, refresh it from live Google Ads data, and send the client one link. Read-only: Roster never changes a bid, budget or campaign.",
+      "description": "Google Ads and Meta Ads reporting and campaign setup for freelancers and small agencies. Set up each client's report once by describing it to Claude, refresh it from live Google Ads and Meta Ads data, and send the client one link. Set up new Google Ads and Meta campaigns the same way: Roster shows every ad first and creates the campaign paused, only after your yes. It never edits, pauses or removes anything already in an account.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -54,12 +54,12 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "Does Roster change anything in my Google Ads accounts?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Roster only reads. It cannot change a bid, a budget, an ad or a campaign." } },
+        { "@type": "Question", "name": "Does Roster change anything in my ad accounts?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Only when you ask it to set up a campaign. It shows you the campaign and every ad first, creates it only after you say yes, and creates it paused, so nothing runs or spends until you switch it on. It never edits, pauses or removes anything already in the account." } },
         { "@type": "Question", "name": "Which ad platforms does it cover?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Google Ads only, for now. We would rather do one platform properly than several partly." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "Google Ads and Meta Ads (Facebook and Instagram). Roster builds client reports for both and sets up new campaigns in both." } },
         { "@type": "Question", "name": "What do I need to get started?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A Roster account, the Google login you already use for your clients' Google Ads, and the Claude desktop app with the Roster plugin. The setup guide walks through it in three steps." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "A Roster account, the Google or Facebook login you already use for your clients' ads, and the Claude desktop app with the Roster plugin. The setup guide walks through it in three steps." } },
         { "@type": "Question", "name": "Do my clients need an account?",
           "acceptedAnswer": { "@type": "Answer", "text": "No. They open the link you send in any browser, on any device." } },
         { "@type": "Question", "name": "Can one client see another client's data?",
@@ -77,6 +77,7 @@
 <header class="masthead">
   <div class="wrap masthead-inner">
     <a class="brand" href="#top">Roster<span>.</span></a>
+    <a class="nav-link nav-hide-sm" href="#what">What it does</a>
     <a class="nav-link nav-hide-sm" href="#how">How it works</a>
     <a class="nav-link nav-hide-sm" href="#report">The report</a>
     <a class="nav-link nav-hide-sm" href="#faq">FAQ</a>
@@ -89,12 +90,12 @@
   <section class="hero" data-track="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">For Google Ads freelancers and small agencies</p>
-        <h1>Client reporting for Google Ads, <em>without the month-end scramble.</em></h1>
+        <p class="eyebrow">For freelancers and small agencies running Google Ads and Meta Ads</p>
+        <h1>Report on and launch Google Ads and Meta campaigns, <em>by describing them to Claude.</em></h1>
         <p class="lede">
-          Set up each client's report once by describing it to Claude. Refresh it from live
-          Google Ads data whenever you're ready, and send your client a link to the figures you've
-          checked.
+          Set up each client's report once, refresh it from live data whenever you're ready, and
+          send your client a link to the figures you've checked. When a client needs a new
+          campaign, Roster drafts it with you and creates it paused, only after your yes.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="hero_signup">Get started free</a>
@@ -116,9 +117,39 @@
   <section class="assurances" aria-label="What to know up front">
     <div class="wrap">
       <ul class="assure-list">
-        <li><b>Read-only access</b> Roster never changes a bid, budget or campaign.</li>
-        <li><b>Live Google Ads data</b> Figures come straight from the client's account.</li>
+        <li><b>Nothing changes without your yes</b> Every campaign is shown to you in full first, and created paused.</li>
+        <li><b>Live Google Ads and Meta data</b> Figures come straight from the client's accounts.</li>
         <li><b>Free during early access</b> Every client and every report, no card needed.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" id="what" data-track="what-it-does">
+    <div class="wrap">
+      <div class="band-head">
+        <h2>What Roster does</h2>
+        <p>
+          Reports and campaign setup for the two platforms most clients spend on, from one
+          workspace per client.
+        </p>
+      </div>
+      <ul class="feature-list">
+        <li>
+          <b>Google Ads reporting</b>
+          <span>Client reports built from live Google Ads data, under your agency's name, sent as one link.</span>
+        </li>
+        <li>
+          <b>Meta Ads reporting</b>
+          <span>The same for Facebook and Instagram ads, with the conversion that matters to the client.</span>
+        </li>
+        <li>
+          <b>Google Ads campaign creation</b>
+          <span>Search, Display, Performance Max and Demand Gen campaigns, drafted with you and created paused.</span>
+        </li>
+        <li>
+          <b>Meta Ads campaign creation</b>
+          <span>Traffic, sales and leads campaigns for Facebook and Instagram, drafted with you and created paused.</span>
+        </li>
       </ul>
     </div>
   </section>
@@ -137,8 +168,8 @@
           <span class="step-n">Step 1</span>
           <h3>Add a client</h3>
           <p>
-            Create a workspace for the client and sign in with the Google account that manages
-            their Google Ads. Pick the ad accounts that belong to them.
+            Create a workspace for the client and sign in with the Google or Facebook login that
+            manages their ads. Pick the ad accounts that belong to them.
           </p>
         </li>
         <li class="step">
@@ -236,18 +267,18 @@
       </div>
       <div class="faq">
         <details>
-          <summary>Does Roster change anything in my Google Ads accounts?</summary>
-          <p>No. Roster only reads. It cannot change a bid, a budget, an ad or a campaign.</p>
+          <summary>Does Roster change anything in my ad accounts?</summary>
+          <p>Only when you ask it to set up a campaign. It shows you the campaign and every ad first, creates it only after you say yes, and creates it paused, so nothing runs or spends until you switch it on. It never edits, pauses or removes anything already in the account.</p>
         </details>
         <details>
           <summary>Which ad platforms does it cover?</summary>
-          <p>Google Ads only, for now. We would rather do one platform properly than several partly.</p>
+          <p>Google Ads and Meta Ads (Facebook and Instagram). Roster builds client reports for both and sets up new campaigns in both.</p>
         </details>
         <details>
           <summary>What do I need to get started?</summary>
           <p>
-            A Roster account, the Google login you already use for your clients' Google Ads, and
-            the Claude desktop app with the Roster plugin. The <a href="start.html">setup guide</a>
+            A Roster account, the Google or Facebook login you already use for your clients' ads,
+            and the Claude desktop app with the Roster plugin. The <a href="start.html">setup guide</a>
             walks through it in three steps.
           </p>
         </details>
@@ -272,7 +303,7 @@
 
   <section class="close" id="access" data-track="get-access">
     <div class="wrap close-inner">
-      <h2>Make month-end reporting the easy part</h2>
+      <h2>Make reporting and campaign setup the easy part</h2>
       <p>
         Create an account, connect your first client and send them a report this month. Free while
         Roster is in early access.
@@ -288,7 +319,7 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <p>Roster — Google Ads reporting for freelancers and small agencies.</p>
+    <p>Roster — Google Ads and Meta Ads reporting and campaign setup, for freelancers and small agencies.</p>
     <a class="nav-link" href="start.html">Get started</a>
     <a class="nav-link" href="google-ads-monthly-report.html">What a monthly report needs</a>
     <a class="nav-link" href="roster-vs-looker-studio.html">Roster vs Looker Studio</a>
