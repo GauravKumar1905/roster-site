@@ -1,0 +1,496 @@
+/* The sheet of paper a picture is pressed out of, and the first screen built around it: the words
+ * on a pane of glass on one side, the work rising out of the paper on the other. The homepage's
+ * first page mirrors it, so the thing to try sits on the left and its button lands mid-screen.
+ *
+ * Also the rest of the three job pages, below their first screen. */
+
+.sheet {
+  position: relative;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+canvas.gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* A still picture fades in on its first lit frame: opened on purpose, it shows the finished
+   result, not paper being inked. */
+[data-paper] canvas.gl,
+[data-paper] .out {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+[data-paper].inked canvas.gl,
+[data-paper].inked .out {
+  opacity: 1;
+}
+
+.glass {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 41%;
+  overflow: hidden;
+  z-index: 1;
+  background: linear-gradient(118deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62) 58%, rgba(255, 255, 255, 0.45));
+  -webkit-mask-image: linear-gradient(90deg, #000 80%, transparent);
+  mask-image: linear-gradient(90deg, #000 80%, transparent);
+}
+
+.copy {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  padding: calc(var(--nav-h) + 32px) 2vw 64px calc(var(--gut) + 4vw);
+}
+
+.copy .eyebrow {
+  margin: 0;
+}
+
+.copy h1 {
+  margin: 0;
+  font-size: clamp(34px, 3.9vw, 60px);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+}
+
+.copy h1 .easy {
+  display: block;
+  color: var(--accent);
+}
+
+.copy .lede {
+  max-width: 40ch;
+  font-size: clamp(15px, 1.15vw, 17px);
+}
+
+.back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px 8px 10px;
+  border-radius: 99px;
+  background: rgba(27, 34, 45, 0.06);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-soft);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--fg);
+}
+
+/* What was asked for, and where it stands now. */
+.brief {
+  max-width: 44ch;
+  padding: 16px 18px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(27, 34, 45, 0.06), 0 18px 40px -24px rgba(27, 34, 45, 0.35);
+}
+
+.brief .lbl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.brief .lbl::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--good);
+}
+
+.brief .txt {
+  margin: 8px 0 0;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.5;
+}
+
+/* the area of paper the work is pressed out of: everything right of the glass */
+.press {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  left: 40vw;
+  right: calc(var(--gut-r) + 30px);
+  top: calc(var(--nav-h) + 20px);
+  bottom: 44px;
+  container-type: inline-size;
+}
+
+.out {
+  position: absolute;
+  inset: 0;
+}
+
+.lab {
+  position: absolute;
+  min-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3cqw;
+  padding: 0 1.6cqw;
+  font-size: max(9px, 1.6cqw);
+  line-height: 1.25;
+  color: var(--fg);
+}
+
+.lab.title { font-size: max(11px, 2.2cqw); }
+.lab.title b { font-family: var(--display); font-weight: 650; letter-spacing: -0.01em; }
+.lab.meta { font-family: var(--mono); font-size: max(8px, 1.35cqw); color: var(--fg-soft); }
+.lab.meta b { color: var(--fg); font-weight: 500; }
+.lab.right { align-items: flex-end; text-align: right; }
+.lab.kpi .k { font-family: var(--mono); font-size: max(7px, 1.15cqw); letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-soft); }
+.lab.kpi .v { font-family: var(--display); font-weight: 650; font-size: max(13px, 3.6cqw); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.lab.kpi.sm .v { font-family: var(--body); font-weight: 600; font-size: max(10px, 2cqw); letter-spacing: 0; }
+.lab.kpi .dl { font-family: var(--mono); font-size: max(7px, 1.1cqw); color: var(--fg-soft); margin-top: 0.2cqw; }
+.lab.kpi .dl.up { color: var(--good); }
+.lab.cap { justify-content: flex-start; padding-top: 1.5cqw; font-family: var(--mono); font-size: max(7px, 1.15cqw); letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-soft); }
+.lab.pill { align-items: center; font-family: var(--mono); font-size: max(7px, 1.25cqw); color: var(--fg-soft); }
+.lab.pill.good { color: var(--good); }
+.lab.val, .lab.axis { padding: 0; align-items: center; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.lab.val { font-size: max(8px, 1.2cqw); color: var(--fg-soft); }
+.lab.val.strong { color: var(--accent); font-weight: 500; }
+.lab.axis { font-size: max(7px, 1.05cqw); color: var(--fg-faint); }
+.lab.axis:not(.center):not(.right) { align-items: flex-start; }
+.lab.axis.right { align-items: flex-end; }
+.lab.ad { padding-left: 3cqw; }
+.lab.ad .h { font-weight: 600; font-size: max(10px, 2cqw); color: var(--accent); }
+.lab.ad .s { color: var(--fg-soft); }
+.lab.ad .n { font-family: var(--mono); font-size: max(7px, 1.1cqw); color: var(--fg-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+.lab.row { flex-direction: row; align-items: center; gap: 1.6cqw; padding-left: 2.4cqw; }
+.lab.row .h { flex: 1; min-width: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lab.row .s { font-family: var(--mono); font-size: max(8px, 1.35cqw); color: var(--fg-soft); font-variant-numeric: tabular-nums; }
+.lab.row .st { font-family: var(--mono); font-size: max(7px, 1.2cqw); padding: 0.5cqw 1.1cqw; border-radius: 99px; background: rgba(24, 128, 56, 0.1); color: var(--good); white-space: nowrap; }
+.lab.row .st.bad { background: rgba(217, 48, 37, 0.1); color: var(--bad); }
+
+/* Without WebGL the shapes aren't drawn, so the words sit on plain cards instead. */
+.nogl .lab {
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 1cqw;
+}
+
+/* ---------- the three job pages, below the first screen ---------- */
+
+/* padding-top alone: the sides belong to .wrap, which this sits on */
+.job-body {
+  padding-top: 96px;
+}
+
+.job-section + .job-section {
+  margin-top: 96px;
+}
+
+.job-section > h2 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 3vw, 40px);
+  max-width: 22ch;
+}
+
+.job-section > .lede {
+  margin-bottom: 36px;
+}
+
+.points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.point {
+  min-width: 0;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--raised);
+}
+
+.point h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.point p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--fg-soft);
+}
+
+.platforms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.platform {
+  min-width: 0;
+  padding: 26px 28px;
+  border-radius: 16px;
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.platform h3 {
+  margin: 0 0 14px;
+  font-size: 22px;
+}
+
+.platform ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.platform li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--fg-soft);
+}
+
+.platform li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.45em;
+  width: 12px;
+  height: 7px;
+  border-left: 2px solid var(--good);
+  border-bottom: 2px solid var(--good);
+  transform: rotate(-45deg);
+}
+
+.platform li b {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.steps3 {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.steps3 li {
+  counter-increment: step;
+  min-width: 0;
+  padding: 22px 24px 24px;
+  border-top: 2px solid var(--fg);
+}
+
+.steps3 li::before {
+  content: "0" counter(step);
+  display: block;
+  margin-bottom: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.steps3 h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.steps3 p {
+  margin: 0;
+  font-size: 15.5px;
+  color: var(--fg-soft);
+}
+
+.qa {
+  max-width: 760px;
+}
+
+.qa details {
+  border-top: 1px solid var(--rule);
+}
+
+.qa details:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.qa summary {
+  position: relative;
+  padding: 18px 40px 18px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.qa summary::-webkit-details-marker {
+  display: none;
+}
+
+.qa summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--fg-faint);
+}
+
+.qa details[open] summary::after {
+  content: "−";
+}
+
+.qa details p {
+  margin: -4px 0 20px;
+  max-width: 64ch;
+  color: var(--fg-soft);
+}
+
+.job-end {
+  padding: 24px 0 96px;
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 760px), (max-aspect-ratio: 4/5) {
+  .sheet {
+    min-height: 600px;
+  }
+
+  .glass {
+    inset: 0 0 auto 0;
+    width: auto;
+    height: 58%;
+    -webkit-mask-image: linear-gradient(180deg, #000 74%, transparent);
+    mask-image: linear-gradient(180deg, #000 74%, transparent);
+  }
+
+  .copy {
+    width: auto;
+    right: 0;
+    bottom: auto;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: calc(var(--nav-h) + 20px + env(safe-area-inset-top, 0px)) var(--gut-r) 0 var(--gut);
+  }
+
+  .copy h1 {
+    font-size: 34px;
+  }
+
+  .copy .lede {
+    font-size: 14.5px;
+  }
+
+  .brief {
+    padding: 12px 14px 14px;
+  }
+
+  .brief .txt {
+    font-size: 14px;
+  }
+
+  .press {
+    left: calc(var(--gut) - 8px);
+    right: calc(var(--gut-r) - 8px);
+    top: auto;
+    height: 42%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 760px) {
+  .job-body {
+    padding-top: 64px;
+  }
+
+  .job-section + .job-section {
+    margin-top: 64px;
+  }
+
+  .points,
+  .platforms,
+  .steps3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .point,
+  .platform {
+    padding: 20px;
+  }
+
+  .steps3 li {
+    padding: 18px 4px 6px;
+  }
+}
+
+@media (min-width: 600px) and (max-aspect-ratio: 4/5) {
+  .copy h1 { font-size: 48px; }
+  .copy .lede { font-size: 16px; max-width: 48ch; }
+}
+
+/* On a phone a job page's first screen runs as a column instead: the words first, then the
+   picture beneath them at its own proportions, so neither ever covers the other. */
+@media (max-width: 760px) {
+  .job-first {
+    height: auto;
+    min-height: 0;
+    padding-bottom: 28px;
+  }
+
+  .job-first .glass {
+    display: none;
+  }
+
+  .job-first .copy {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: calc(var(--nav-h) + 20px + env(safe-area-inset-top, 0px)) var(--gut-r) 26px var(--gut);
+  }
+
+  .job-first .press {
+    position: relative;
+    inset: auto;
+    height: auto;
+    aspect-ratio: 1 / 0.95;
+    margin: 0 calc(var(--gut-r) - 6px) 0 calc(var(--gut) - 6px);
+  }
+}

@@ -1,0 +1,777 @@
+/* Roster marketing site: the layer every page shares.
+ *
+ * Colours, type, the menu bar, the buttons, the cards that ask a reader to sign up, and the
+ * footer. The homepage and the three job pages add paper.css for the sheet they press their
+ * pictures out of; the guides, the setup page and the legal pages add article.css or guide.css,
+ * which were written against the older token names kept at the bottom of :root.
+ *
+ * One light theme, on purpose: the site is printed on paper. Text colours are solid rather than
+ * translucent so their contrast is the same on paper, on a card and on a table row. */
+
+:root {
+  color-scheme: light;
+
+  --paper: #eef0f3;
+  --paper-2: #f6f7f9;
+  --card: #ffffff;
+  --fg: #1b222d;
+  --fg-soft: #4b5462;
+  --fg-faint: #6a7280;
+  --line: rgba(27, 34, 45, 0.12);
+  --rule-solid: #dfe3e8;
+  --on-ink: #ffffff;
+  --accent: #1a73e8;
+  --accent-dark: #1765cc;
+  --accent-soft: #e8f0fe;
+  --benefit: #0b7a53;
+  --good: #188038;
+  --bad: #d93025;
+
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono-face: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --gut: max(16px, env(safe-area-inset-left, 0px));
+  --gut-r: max(16px, env(safe-area-inset-right, 0px));
+  --nav-h: 64px;
+  --raised: 0 1px 2px rgba(27, 34, 45, 0.06), 0 24px 50px -34px rgba(27, 34, 45, 0.4);
+
+  /* The names article.css, guide.css and the legal pages use. */
+  --bg: var(--card);
+  --bg-alt: #f3f5f8;
+  --bg-sunken: #eceff3;
+  --ink: var(--fg);
+  --ink-soft: var(--fg-soft);
+  --ink-faint: var(--fg-faint);
+  --rule: var(--rule-solid);
+  --blue: var(--accent);
+  --blue-dark: var(--accent-dark);
+  --blue-soft: var(--accent-soft);
+  --red: var(--bad);
+  --green: var(--good);
+  --amber-bg: #fef7e0;
+  --amber-line: #f9ab00;
+  --radius: 10px;
+  --radius-pill: 999px;
+  --sans: var(--body);
+  --mono: var(--mono-face);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--paper);
+}
+
+/* The faint tooth of fine paper, so a page without a pressed picture is still the same stock. */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .13 0 0 0 0 .18 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body > main {
+  flex: 1 0 auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 650;
+  letter-spacing: -0.024em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.num,
+code {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: var(--gut);
+  padding-right: var(--gut-r);
+}
+
+@media (min-width: 761px) {
+  .wrap {
+    padding-left: max(32px, env(safe-area-inset-left, 0px));
+    padding-right: max(32px, env(safe-area-inset-right, 0px));
+  }
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.lede {
+  margin: 0;
+  max-width: 54ch;
+  text-wrap: pretty;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--fg-soft);
+}
+
+/* Read by screen readers, not shown. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- the menu bar ---------- */
+
+/* A solid tint rather than frosted glass: a blur over the moving paper underneath costs more
+   than the whole picture does. */
+.nav {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(238, 240, 243, 0.9);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.nav.scrolled {
+  background: rgba(244, 245, 247, 0.96);
+  border-bottom-color: var(--line);
+}
+
+.nav-in {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  height: var(--nav-h);
+  padding-left: calc(var(--gut) + 2vw);
+  padding-right: calc(var(--gut-r) + 2vw);
+}
+
+.brand {
+  margin-right: auto;
+  font-family: var(--display);
+  font-weight: 750;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.brand i {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a,
+.nav-signin {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--fg-soft);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-signin:hover {
+  color: var(--fg);
+}
+
+.nav-links a[aria-current="page"] {
+  color: var(--fg);
+}
+
+/* Pages without a pressed first screen start below the bar. */
+.below-nav {
+  padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--fg);
+  color: var(--on-ink);
+  box-shadow: 0 10px 22px -12px rgba(27, 34, 45, 0.7);
+}
+
+.btn-primary:hover {
+  background: #0f151e;
+}
+
+.btn-quiet {
+  background: rgba(27, 34, 45, 0.07);
+  color: var(--fg);
+}
+
+.btn-quiet:hover {
+  background: rgba(27, 34, 45, 0.11);
+}
+
+.btn-sm {
+  padding: 9px 16px;
+  font-size: 14px;
+}
+
+.btn-lg {
+  padding: 16px 30px;
+  font-size: 17px;
+}
+
+.btn svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+
+/* The reassurance under a sign-up button: what it costs and what it asks for. */
+.cta-note {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-faint);
+}
+
+.text-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.text-link:hover {
+  color: var(--accent);
+}
+
+/* ---------- asking for the sign-up ---------- */
+
+/* The closing card at the end of a page or a guide: one line on what Roster does for this
+   reader, then one button. */
+.cta-card {
+  margin: 56px 0 0;
+  padding: 30px 32px;
+  border-radius: 18px;
+  background: var(--fg);
+  color: var(--on-ink);
+  box-shadow: var(--raised);
+}
+
+.cta-card .cta-k {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cta-card h2 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 2.4vw, 28px);
+  color: var(--on-ink);
+}
+
+.cta-card p {
+  margin: 0 0 22px;
+  max-width: 56ch;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.cta-card .btn-primary {
+  background: var(--on-ink);
+  color: var(--fg);
+  box-shadow: none;
+}
+
+.cta-card .btn-primary:hover {
+  background: #e9edf2;
+}
+
+.cta-card .text-link {
+  color: var(--on-ink);
+}
+
+.cta-card .text-link:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cta-card .cta-note {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* The card inside a guide, after its first section: tied to what the reader just read. */
+.cta-inline {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 32px 0;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.cta-inline p {
+  flex: 1;
+  margin: 0;
+  font-size: 15.5px !important;
+  line-height: 1.5;
+  color: var(--fg);
+}
+
+.cta-inline p b {
+  font-weight: 600;
+}
+
+.cta-inline .btn {
+  flex: none;
+}
+
+@media (max-width: 600px) {
+  .cta-inline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* On a wide screen, a small card waits in the margin once the reader is a third of the way in. */
+.cta-rail {
+  position: fixed;
+  z-index: 20;
+  right: max(28px, env(safe-area-inset-right, 0px));
+  top: 50%;
+  width: 220px;
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--raised), inset 0 0 0 1px var(--line);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(8px, -50%);
+  transition: opacity 0.35s, transform 0.35s, visibility 0s 0.35s;
+}
+
+.cta-rail.on {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -50%);
+  transition: opacity 0.35s, transform 0.35s;
+}
+
+.cta-rail p {
+  margin: 0 0 14px;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.cta-rail p b {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.cta-rail .btn {
+  width: 100%;
+}
+
+.cta-rail .cta-note {
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 1239px) {
+  .cta-rail {
+    display: none;
+  }
+}
+
+/* On a phone, one slim bar at the bottom of the screen, shown only when the page asks for it. */
+.mbar {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .mbar {
+    position: fixed;
+    z-index: 40;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px var(--gut-r) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gut);
+    background: rgba(244, 245, 247, 0.97);
+    border-top: 1px solid var(--line);
+    transform: translateY(110%);
+    transition: transform 0.3s ease;
+  }
+
+  .mbar.on {
+    transform: none;
+  }
+
+  .mbar .btn {
+    flex: 1;
+  }
+
+  .mbar .cta-note {
+    flex: none;
+    max-width: 9em;
+    line-height: 1.35;
+  }
+}
+
+/* ---------- footer ---------- */
+
+.foot {
+  margin-top: auto;
+  padding: 56px 0 calc(32px + env(safe-area-inset-bottom, 0px));
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  font-size: 14.5px;
+}
+
+.foot-in {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 2.4fr);
+  gap: 40px;
+}
+
+.foot-brand p {
+  margin: 10px 0 18px;
+  max-width: 30ch;
+  color: var(--fg-soft);
+}
+
+.foot-cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.foot-cols h2 {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.foot-cols a {
+  display: block;
+  padding: 4px 0;
+  color: var(--fg-soft);
+  text-decoration: none;
+}
+
+.foot-cols a:hover {
+  color: var(--fg);
+}
+
+.foot-base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-faint);
+}
+
+@media (max-width: 900px) {
+  .foot-in {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .foot-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* A heading jumped to from a table of contents lands below the menu bar, not under it. */
+.doc [id],
+.article [id],
+.guide [id] {
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+}
+
+/* ---------- legal pages ---------- */
+
+.doc {
+  padding: calc(var(--nav-h) + 56px) 0 88px;
+}
+
+.doc-inner {
+  max-width: calc(68ch + 112px);
+  padding-top: 48px;
+  padding-bottom: 56px;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--raised);
+}
+
+@media (min-width: 761px) {
+  .doc-inner {
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+}
+
+@media (max-width: 760px) {
+  .doc {
+    padding-top: calc(var(--nav-h) + 16px);
+  }
+
+  .doc-inner {
+    width: auto;
+    margin: 0 var(--gut-r) 0 var(--gut);
+    padding: 28px 20px 36px;
+    border-radius: 14px;
+  }
+}
+
+.doc h1 {
+  font-size: clamp(32px, 4vw, 44px);
+  margin: 0 0 12px;
+}
+
+.doc-meta {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--fg-faint);
+  margin: 0 0 8px;
+}
+
+.doc-note {
+  background: var(--bg-alt);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px;
+  margin: 28px 0 40px;
+  font-size: 16px;
+  color: var(--fg-soft);
+}
+
+.doc-note p {
+  margin: 0;
+}
+
+.doc h2 {
+  font-size: 23px;
+  margin: 44px 0 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+
+.doc h3 {
+  font-size: 18px;
+  margin: 26px 0 8px;
+}
+
+.doc p {
+  margin: 0 0 14px;
+}
+
+.doc ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.doc li {
+  margin-bottom: 8px;
+}
+
+.doc dl {
+  margin: 0 0 18px;
+}
+
+.doc dt {
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 18px;
+}
+
+.doc dd {
+  margin: 4px 0 0;
+  color: var(--fg-soft);
+}
+
+/* long addresses, such as an OAuth scope, break rather than push a phone's page sideways */
+.doc code {
+  overflow-wrap: anywhere;
+  font-size: 0.88em;
+  background: var(--bg-sunken);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.doc pre {
+  margin: 0 0 16px;
+  padding: 16px 18px;
+  background: var(--fg);
+  color: #e8eaed;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.doc pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.doc-warn {
+  padding: 14px 18px;
+  background: var(--amber-bg);
+  border-left: 3px solid var(--amber-line);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 15.5px;
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 760px) {
+  :root {
+    --nav-h: 58px;
+  }
+
+  .nav-in {
+    gap: 14px;
+    padding-left: var(--gut);
+    padding-right: var(--gut-r);
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .nav-in > .btn {
+    transition: opacity 0.2s, visibility 0s;
+  }
+
+  .prompt-on .nav-in > .btn {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0s 0.2s;
+  }
+
+  .lede {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .nav,
+  .cta-rail,
+  .mbar {
+    transition: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+}

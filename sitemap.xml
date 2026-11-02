@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://useroster.xyz/</loc></url>
-  <url><loc>https://useroster.xyz/start.html</loc></url>
+  <url><loc>https://useroster.xyz/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/campaign-creation.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/campaign-tracking.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/campaign-reporting.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/security.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/start.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/guides.html</loc><lastmod>2026-11-02</lastmod></url>
   <url><loc>https://useroster.xyz/google-ads-monthly-report.html</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://useroster.xyz/google-ads-report-doesnt-match.html</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://useroster.xyz/explain-bad-month-google-ads-client.html</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://useroster.xyz/looker-studio-google-ads-report-broken.html</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://useroster.xyz/white-label-google-ads-reports.html</loc><lastmod>2026-11-01</lastmod></url>
   <url><loc>https://useroster.xyz/roster-vs-looker-studio.html</loc><lastmod>2026-11-01</lastmod></url>
-  <url><loc>https://useroster.xyz/privacy.html</loc></url>
-  <url><loc>https://useroster.xyz/terms.html</loc></url>
+  <url><loc>https://useroster.xyz/roster-vs-whatagraph.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/changelog.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/privacy.html</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://useroster.xyz/terms.html</loc><lastmod>2026-11-02</lastmod></url>
 </urlset>

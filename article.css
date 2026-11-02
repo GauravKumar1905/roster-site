@@ -2,73 +2,106 @@
  *
  * Written to be quoted. Search and AI answer engines lift the short answer and the tables, so
  * those come first and stand on their own; the reasoning follows for the people who keep
- * reading. Same type and colours as the rest of the site. */
+ * reading. Each page is a white sheet laid on the site's paper, set for long reading. The
+ * comparison, security and "What's new" pages use the same sheet. */
 
 .article {
-  padding: 48px 0 88px;
+  padding: calc(var(--nav-h) + 48px) 0 96px;
 }
 
 .article-inner {
-  max-width: 68ch;
+  max-width: calc(68ch + 112px);
+  padding-top: 52px;
+  padding-bottom: 56px;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--raised);
+}
+
+@media (min-width: 761px) {
+  .article-inner {
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+}
+
+@media (max-width: 760px) {
+  .article {
+    padding: calc(var(--nav-h) + 16px) 0 64px;
+  }
+
+  .article-inner {
+    width: auto;
+    margin: 0 var(--gut-r) 0 var(--gut);
+    padding: 28px 20px 32px;
+    border-radius: 14px;
+  }
 }
 
 .article .eyebrow {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 
 .article h1 {
-  font-size: clamp(30px, 4vw, 40px);
-  line-height: 1.2;
-  margin: 0 0 10px;
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.06;
+  margin: 0 0 14px;
 }
 
 .article .updated {
-  margin: 0 0 28px;
-  font-size: 14px;
-  color: var(--ink-faint);
+  margin: 0 0 30px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--fg-faint);
 }
 
 .article h2 {
-  font-size: 24px;
-  margin: 44px 0 12px;
+  font-size: 26px;
+  line-height: 1.15;
+  margin: 48px 0 12px;
 }
 
 .article h3 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 24px 0 6px;
+  font-size: 19px;
+  margin: 28px 0 6px;
 }
 
 .article p,
 .article li {
-  font-size: 16.5px;
+  font-size: 17px;
+  line-height: 1.65;
 }
 
 .article li {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
+}
+
+.article li b,
+.article p b {
+  font-weight: 600;
 }
 
 /* The short answer: the two lines an answer engine should quote. */
 .answer {
   margin: 0 0 8px;
-  padding: 18px 22px;
-  background: var(--blue-soft);
-  border-radius: var(--radius);
+  padding: 20px 24px;
+  background: var(--accent-soft);
+  border-radius: 14px;
 }
 
 .answer p {
   margin: 0;
-  font-size: 17px;
+  font-size: 17.5px;
 }
 
 .answer p + p {
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 /* Tables scroll inside their own box on a phone rather than widening the page. */
 .table-scroll {
   overflow-x: auto;
-  margin: 16px 0 8px;
+  margin: 18px 0 8px;
 }
 
 .article table {
@@ -83,20 +116,38 @@
 .article td {
   text-align: left;
   vertical-align: top;
-  padding: 10px 12px;
+  padding: 11px 12px;
   border-bottom: 1px solid var(--rule);
 }
 
 .article th {
+  font-family: var(--mono);
+  font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
   background: var(--bg-alt);
 }
 
+.article td:first-child {
+  width: 22%;
+  font-weight: 600;
+}
+
+.article code {
+  overflow-wrap: anywhere;
+  font-size: 0.86em;
+  background: var(--bg-sunken);
+  border-radius: 4px;
+  padding: 2px 5px;
+}
+
 .article .worked {
-  margin: 12px 0;
-  padding: 14px 18px;
+  margin: 14px 0;
+  padding: 16px 20px;
   background: var(--bg-alt);
-  border-radius: var(--radius);
+  border-radius: 12px;
   font-family: var(--mono);
   font-size: 14px;
   line-height: 1.8;
@@ -104,27 +155,109 @@
 }
 
 .article .faq-list dt {
-  font-weight: 500;
-  margin: 18px 0 4px;
+  font-weight: 600;
+  font-size: 17px;
+  margin: 22px 0 4px;
 }
 
 .article .faq-list dd {
   margin: 0;
-  color: var(--ink-soft);
+  font-size: 16.5px;
+  color: var(--fg-soft);
 }
 
-.article-cta {
-  margin: 48px 0 0;
-  padding: 24px;
+/* The guides index: one line per guide, the title as the link. */
+.article .lede {
+  margin: 0 0 28px;
+  font-size: 18px;
+  color: var(--fg-soft);
+}
+
+.guide-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.guide-list li {
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.guide-list li:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.guide-list a {
+  font-family: var(--display);
+  font-size: 21px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.guide-list a:hover {
+  color: var(--accent);
+}
+
+.guide-list p {
+  margin: 6px 0 0;
+  font-size: 16px;
+  color: var(--fg-soft);
+}
+
+/* A worked example written as prose, such as a note to a client. */
+.article .note {
+  margin: 14px 0;
+  padding: 16px 20px;
   background: var(--bg-alt);
-  border-radius: var(--radius);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
 }
 
-.article-cta h2 {
-  margin-top: 0;
-  font-size: 20px;
+.article .note p {
+  margin: 0;
+  font-size: 16.5px;
 }
 
-.article-cta .cta-row {
-  margin-top: 14px;
+.article .note p + p {
+  margin-top: 10px;
+}
+
+/* "What's new": one release per block, the date under its name. */
+.change + .change {
+  margin-top: 8px;
+  border-top: 1px solid var(--rule);
+}
+
+.change h2 {
+  margin-top: 36px;
+  margin-bottom: 4px;
+}
+
+.change .when {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--fg-faint);
+}
+
+/* The small print under a comparison: whose trademark, and the date it was checked. */
+.aside-note {
+  margin: 36px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-size: 14px !important;
+  color: var(--fg-faint);
+}
+
+.article .cta-card {
+  margin-top: 52px;
+}
+
+.article .cta-card p {
+  font-size: 16px;
 }

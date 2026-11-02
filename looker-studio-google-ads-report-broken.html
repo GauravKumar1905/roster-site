@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Why does my Looker Studio Google Ads report keep breaking? — Roster</title>
+<meta name="description" content="The usual causes of broken Looker Studio Google Ads reports, from lost credentials to renamed campaigns and quota errors, and how to fix each." />
+<link rel="canonical" href="https://useroster.xyz/looker-studio-google-ads-report-broken.html" />
+<link rel="icon" type="image/png" href="img/logo-square-400.png" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Roster" />
+<meta property="og:title" content="Why does my Looker Studio Google Ads report keep breaking?" />
+<meta property="og:description" content="The usual causes of broken Looker Studio Google Ads reports, from lost credentials to renamed campaigns and quota errors, and how to fix each." />
+<meta property="og:url" content="https://useroster.xyz/looker-studio-google-ads-report-broken.html" />
+<meta property="og:image" content="https://useroster.xyz/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="site.css" />
+<link rel="stylesheet" href="article.css" />
+<!-- The FAQ answers below must match the visible FAQ section word for word. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Why does my Looker Studio Google Ads report keep breaking?",
+      "description": "The usual causes of broken Looker Studio Google Ads reports, from lost credentials to renamed campaigns and quota errors, and how to fix each.",
+      "url": "https://useroster.xyz/looker-studio-google-ads-report-broken.html",
+      "datePublished": "2026-11-01",
+      "dateModified": "2026-11-01",
+      "author": {
+        "@type": "Organization",
+        "name": "Roster",
+        "url": "https://useroster.xyz/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Roster",
+        "url": "https://useroster.xyz/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://useroster.xyz/img/logo-square-400.png"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does my Looker Studio report say it can't connect to the data set?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usually because the data source uses the owner's credentials and that person has lost access to the Google Ads account. Reconnect the data source with an account that has access, ideally one the agency controls rather than one person's login."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to rebuild my report after renaming a campaign?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only the charts that filter on the campaign's exact name. Change those filters to the campaign ID, or to a stable part of the name with \"contains\", and they will survive the next rename."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my Looker Studio report so slow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Each chart is a separate request to Google Ads. Many charts, long date ranges and fine breakdowns on one page add up. Use fewer charts per page, a shorter default date range, or the Extract Data connector for large accounts."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body data-prompt-after="0.3">
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="./" aria-label="Roster, home">Roster<i>.</i></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="./#what">What it does</a>
+      <a href="./#how">How it works</a>
+      <a href="./#pricing">Pricing</a>
+      <a href="guides.html">Guides</a>
+    </nav>
+    <a class="nav-signin" href="https://app.useroster.xyz/login" data-cta="article_nav_sign_in">Sign in</a>
+    <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="article_nav_get_started">Get started free</a>
+  </div>
+</header>
+
+<main class="article">
+  <article class="wrap article-inner">
+
+    <p class="eyebrow">Looker Studio</p>
+    <h1>Why does my Looker Studio Google Ads report keep breaking?</h1>
+    <p class="updated">Updated 1 November 2026</p>
+
+    <div class="answer">
+      <p>
+        Most breaks come from five things: the person whose credentials the data source uses lost
+        access to the Google Ads account, a filter on campaign names stopped matching after a
+        rename, a chart combines fields Google won't return together, a page asks for too much
+        data at once, or a field the connector used has changed.
+      </p>
+      <p>
+        Fix the first two once and most reports stop breaking: connect data sources with an account
+        that won't leave, and filter on campaign IDs or a stable naming pattern instead of exact
+        names.
+      </p>
+    </div>
+
+    <aside class="cta-inline">
+      <p><b>No connectors or filters to keep in step.</b> Roster reads Google Ads directly, and a whole-account report picks up new campaigns on its own.</p>
+      <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="article_inline_get_started">Get started free</a>
+    </aside>
+
+    <h2>Symptom, cause, fix</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>What you see</th><th>Likely cause</th><th>Fix</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Every chart errors, saying it can't connect to the data set</td>
+            <td>The data source uses someone's credentials, and they lost access to the Google Ads account or left</td>
+            <td>Reconnect with an account that keeps access, and make it the data source owner</td>
+          </tr>
+          <tr>
+            <td>A chart shows "No data" or a campaign has vanished</td>
+            <td>A filter on campaign name no longer matches after a rename</td>
+            <td>Filter on campaign ID, or on a stable part of the name with "contains"</td>
+          </tr>
+          <tr>
+            <td>One chart errors, the rest work</td>
+            <td>It combines fields Google Ads can't return together, or uses a field that changed</td>
+            <td>Remove fields one at a time until it works; rebuild with the current field</td>
+          </tr>
+          <tr>
+            <td>Slow pages, timeouts, charts loading at random</td>
+            <td>Too many charts, too long a date range, or too fine a breakdown on one page</td>
+            <td>Fewer charts per page, shorter default range, or an extract</td>
+          </tr>
+          <tr>
+            <td>Figures don't match Google Ads</td>
+            <td>Averaged rates, time zone, conversion column, cached data</td>
+            <td>See <a href="google-ads-report-doesnt-match.html">why reports don't match</a>, then refresh the data</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Credentials: whose access the report runs on</h2>
+    <p>
+      A Looker Studio data source fetches data with one of two kinds of credentials. With the
+      owner's credentials, every viewer sees data fetched as the person who connected it. With
+      viewer's credentials, each viewer needs their own access to the Google Ads account, which
+      clients often don't have.
+    </p>
+    <p>
+      Most agency reports use the owner's credentials, so the report depends on one person. When
+      that person loses access to the client's account (a freelancer moves on, an employee leaves,
+      the client removes a user during a clean-up) every chart stops at once.
+    </p>
+    <p>
+      The fix: connect data sources from an account the agency controls and doesn't share with a
+      single person, give that account access to every client account, and make it the owner of
+      the data sources.
+    </p>
+
+    <h2>Renamed campaigns</h2>
+    <p>
+      A filter such as "Campaign equals Brand — Search" stops matching the moment someone renames
+      the campaign to "Brand — Search — 2026". The chart doesn't error; it just shows less, or
+      nothing, which is worse, because nobody notices until the client does.
+    </p>
+    <ul>
+      <li><b>Filter on campaign ID</b> where you mean one specific campaign. IDs never change.</li>
+      <li><b>Use a naming pattern</b> and filter with "contains" on the part that won't change, such as a "BRAND" prefix.</li>
+      <li><b>Check totals.</b> A scorecard of total account spend beside a filtered chart shows at once when the filter has started dropping spend.</li>
+    </ul>
+
+    <h2>Fields that can't be combined</h2>
+    <p>
+      The Google Ads connector passes requests through to Google, and Google only returns certain
+      combinations together. Some metrics aren't available with some breakdowns, and some
+      breakdowns can't be crossed with each other. A chart that asks for one of those combinations
+      fails or comes back empty, sometimes only for some accounts or date ranges.
+    </p>
+    <p>
+      If one chart breaks while the others work, remove fields one at a time until it loads. That
+      finds the combination; then split it into two charts. The same applies after Google changes
+      the connector: a field that was renamed or retired leaves the charts using it broken until
+      you swap in the current one.
+    </p>
+
+    <h2>Quotas, timeouts and slow pages</h2>
+    <p>
+      Every chart on a page is its own request. A page with twenty charts over twelve months of
+      daily data, segmented by device and network, asks for a lot at once, and some of those
+      requests time out. Keep pages to a handful of charts, default to a shorter date range, and
+      move detail onto separate pages. For large accounts, the Extract Data connector takes a
+      snapshot of the fields you choose and serves charts from that, which is much faster.
+    </p>
+    <p>
+      Looker Studio also caches data, so a report can show figures a few hours old. Use
+      "Refresh data" from the report's menu before you send it.
+    </p>
+
+    <h2>When to stop patching</h2>
+    <p>
+      Looker Studio is free and flexible, and for a handful of clients the fixes above are enough.
+      The cost shows up as client numbers grow: every report is built and maintained by hand, and
+      each break is found by someone looking at it. If you're spending part of every month repairing
+      reports instead of writing the commentary, compare the alternatives. Our
+      <a href="roster-vs-looker-studio.html">Roster vs Looker Studio</a> page sets out where each
+      is the better choice.
+    </p>
+
+    <h2>Questions</h2>
+    <dl class="faq-list">
+      <dt>Why does my Looker Studio report say it can&#x27;t connect to the data set?</dt>
+      <dd>Usually because the data source uses the owner&#x27;s credentials and that person has lost access to the Google Ads account. Reconnect the data source with an account that has access, ideally one the agency controls rather than one person&#x27;s login.</dd>
+      <dt>Do I have to rebuild my report after renaming a campaign?</dt>
+      <dd>Only the charts that filter on the campaign&#x27;s exact name. Change those filters to the campaign ID, or to a stable part of the name with &quot;contains&quot;, and they will survive the next rename.</dd>
+      <dt>Why is my Looker Studio report so slow?</dt>
+      <dd>Each chart is a separate request to Google Ads. Many charts, long date ranges and fine breakdowns on one page add up. Use fewer charts per page, a shorter default date range, or the Extract Data connector for large accounts.</dd>
+    </dl>
+
+    <aside class="cta-card" data-prompt-hide>
+      <p class="cta-k">Roster</p>
+      <h2>A report with nothing to maintain.</h2>
+      <p>Roster reads Google Ads directly, and a report that covers the whole account picks up new campaigns on its own: no filters to keep in step. Free during early access.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="article_end_get_started">Get started free</a>
+        <a class="text-link" href="https://app.useroster.xyz/s/0MCZfSW692qh3RDzP3k-OvG4_78guCCv" target="_blank" rel="noopener" data-cta="article_sample">See the sample report ↗</a>
+      </div>
+    </aside>
+
+  </article>
+</main>
+
+<aside class="cta-rail" aria-label="Try Roster">
+  <p><b>Client reports, done by Claude.</b> Google Ads and Meta Ads, sent to your client as one link.</p>
+  <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="article_rail_get_started">Get started free</a>
+  <p class="cta-note">Free during early access</p>
+</aside>
+
+<footer class="foot" data-prompt-hide>
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="foot-brand">
+        <a class="brand" href="./">Roster<i>.</i></a>
+        <p>Google Ads and Meta Ads campaigns and client reports, for freelancers and small agencies.</p>
+        <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="article_footer_get_started">Get started free</a>
+      </div>
+      <nav class="foot-cols" aria-label="Footer">
+        <div>
+          <h2>Product</h2>
+          <a href="campaign-creation.html">Campaign creation</a>
+          <a href="campaign-tracking.html">Campaign tracking</a>
+          <a href="campaign-reporting.html">Campaign reporting</a>
+          <a href="./#pricing">Pricing</a>
+          <a href="security.html">Security</a>
+          <a href="changelog.html">What's new</a>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <a href="start.html">Getting started</a>
+          <a href="guides.html">Guides</a>
+          <a href="roster-vs-whatagraph.html">Roster vs Whatagraph</a>
+          <a href="roster-vs-looker-studio.html">Roster vs Looker Studio</a>
+          <a href="https://app.useroster.xyz/s/0MCZfSW692qh3RDzP3k-OvG4_78guCCv" target="_blank" rel="noopener" data-cta="article_footer_sample">Sample report</a>
+        </div>
+        <div>
+          <h2>Company</h2>
+          <a href="mailto:gauravkr.contact@gmail.com">Contact</a>
+          <a href="https://www.linkedin.com/company/roster-reporting" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.instagram.com/rosteer.ai/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://app.useroster.xyz/login" data-cta="article_footer_sign_in">Sign in</a>
+        </div>
+        <div>
+          <h2>Legal</h2>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </nav>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Roster</span>
+      <span>Google Ads and Meta Ads, made easy.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="article_mbar_get_started">Get started free</a>
+  <span class="cta-note">Free during early access</span>
+</div>
+
+<script src="site.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

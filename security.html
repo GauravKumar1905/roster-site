@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Security and data — Roster</title>
+<meta name="description" content="What Roster can see in your Google Ads and Meta accounts, the one kind of change it makes, the permissions it asks for, where data is kept, and what it never does." />
+<link rel="canonical" href="https://useroster.xyz/security.html" />
+<link rel="icon" type="image/png" href="img/logo-square-400.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Roster" />
+<meta property="og:title" content="Security and data — Roster" />
+<meta property="og:description" content="What Roster can see in your Google Ads and Meta accounts, the one kind of change it makes, the permissions it asks for, where data is kept, and what it never does." />
+<meta property="og:url" content="https://useroster.xyz/security.html" />
+<meta property="og:image" content="https://useroster.xyz/img/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="site.css" />
+<link rel="stylesheet" href="article.css" />
+</head>
+<body data-prompt-after="0.3">
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="./" aria-label="Roster, home">Roster<i>.</i></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="./#what">What it does</a>
+      <a href="./#how">How it works</a>
+      <a href="./#pricing">Pricing</a>
+      <a href="guides.html">Guides</a>
+    </nav>
+    <a class="nav-signin" href="https://app.useroster.xyz/login" data-cta="security_nav_sign_in">Sign in</a>
+    <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="security_nav_get_started">Get started free</a>
+  </div>
+</header>
+
+<main class="article">
+  <article class="wrap article-inner">
+
+    <p class="eyebrow">Security</p>
+    <h1>How Roster handles your data</h1>
+    <p class="updated">Updated 2 November 2026</p>
+
+    <div class="answer">
+      <p>
+        Roster reads what it needs to build your reports, changes an account only to create a
+        campaign you approved, and never sells your data or uses it for advertising.
+      </p>
+      <p>
+        This page is the plain version. The <a href="privacy.html">privacy policy</a> has every
+        detail, and it is the one that counts.
+      </p>
+    </div>
+
+    <h2>What Roster can see</h2>
+    <ul>
+      <li><b>In Google Ads:</b> account and campaign names and IDs, and performance figures such as spend, impressions, clicks and conversions. Also the email address of the Google login you connect with, so you can tell which one a workspace uses.</li>
+      <li><b>In Meta:</b> the ad accounts your login can reach, and for the ones you choose, campaign names and performance figures. These are totals for an ad account; none of them identifies a person who saw an ad.</li>
+      <li><b>Pages and Instagram accounts:</b> only their names and IDs, so ads run as the right one. Roster does not read their posts, messages, followers or insights.</li>
+    </ul>
+
+    <h2>What Roster changes</h2>
+    <p>
+      One kind of change: a new campaign (or, in Google Ads, a conversion action) that you asked
+      for and approved in exactly that form. Google or Meta checks it first without creating
+      anything, and it is created paused, so nothing runs or spends until you switch it on.
+    </p>
+    <p>
+      Roster never edits, pauses, removes or switches on anything else in your accounts, Pages,
+      Instagram accounts or business portfolios.
+    </p>
+
+    <h2>The permissions it asks for</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Permission</th><th>What Roster uses it for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Google Ads (<code>adwords</code>)</td><td>Reading report figures, and creating the campaigns and conversion actions you approve. Google classes this scope as sensitive because it permits changes; Roster makes only the one kind above.</td></tr>
+          <tr><td>Meta <code>ads_read</code></td><td>Reading the performance of the ad accounts you choose.</td></tr>
+          <tr><td>Meta <code>business_management</code></td><td>Finding the ad accounts in your business portfolios so you can choose among them. Roster only reads it.</td></tr>
+          <tr><td>Meta <code>ads_management</code></td><td>Creating the campaigns you approve, and seeing which Instagram accounts an ad account's ads can run as.</td></tr>
+          <tr><td>Meta <code>pages_show_list</code>, <code>pages_read_engagement</code></td><td>Seeing which Facebook Pages an ad account can advertise as.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Where it's kept, and how</h2>
+    <ul>
+      <li>The application runs on Google Cloud in Singapore, and the database is hosted by Neon.</li>
+      <li>Google and Meta access tokens are encrypted at rest with AES-256-GCM.</li>
+      <li>Passwords are stored only as salted hashes; nobody, including us, can read them.</li>
+      <li>Session cookies can't be read by page scripts, are never used for measurement, and are cancelled on our side when you sign out.</li>
+      <li>Every agency's data is walled off in the database query itself, so a mistaken link or ID returns nothing rather than someone else's records.</li>
+      <li>Everything travels over HTTPS.</li>
+    </ul>
+
+    <h2>What Claude sees</h2>
+    <p>
+      When you design a report with Claude, the report definition and the account structure it is
+      based on are processed by Anthropic, under its own terms. No Google or Meta token is ever
+      sent to Anthropic.
+    </p>
+
+    <h2>What Roster never does</h2>
+    <ul>
+      <li>It never sells your data or your clients' data.</li>
+      <li>It never uses it for advertising, or to build profiles of people.</li>
+      <li>It never uses it to train machine learning models.</li>
+      <li>Nobody reads it, except when you ask us to for support, when security or the law requires it, or when it has been aggregated so it identifies no one.</li>
+    </ul>
+    <p>
+      Roster's use of information received from Google APIs adheres to the
+      <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>,
+      including its Limited Use requirements.
+    </p>
+
+    <h2>Links you send to clients</h2>
+    <p>
+      A share link is read-only and keeps the figures as they were when you made it. It needs no
+      login, so anyone who has it can see that report: treat it like the report itself. You can
+      revoke a link from the report page at any time.
+    </p>
+
+    <h2>Leaving, and taking your data with you</h2>
+    <ul>
+      <li>Disconnect Google or Meta inside Roster and the stored token is deleted.</li>
+      <li>You can also revoke Roster from your Google account's permissions page, or from Business integrations in your Facebook settings.</li>
+      <li>Delete a report or a client inside Roster, and its figures go with it.</li>
+      <li>To delete your whole account, <a href="mailto:gauravkr.contact@gmail.com">email us</a> from the address you sign in with. We delete it within 30 days and write back to confirm, keeping only what the law requires.</li>
+    </ul>
+
+    <h2>Found a problem?</h2>
+    <p>
+      If you think you have found a security problem, <a href="mailto:gauravkr.contact@gmail.com">write to us</a> before
+      telling anyone else, and we'll reply quickly.
+    </p>
+
+    <aside class="cta-card" data-prompt-hide>
+      <p class="cta-k">Roster</p>
+      <h2>Google Ads and Meta Ads, made easy.</h2>
+      <p>Campaigns set up, watched and reported on, by asking Claude. Free during early access.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="security_end_get_started">Get started free</a>
+        <a class="text-link" href="https://app.useroster.xyz/s/0MCZfSW692qh3RDzP3k-OvG4_78guCCv" target="_blank" rel="noopener" data-cta="security_end_sample">See a sample report ↗</a>
+      </div>
+    </aside>
+
+  </article>
+</main>
+
+<aside class="cta-rail" aria-label="Try Roster">
+  <p><b>Nothing without your yes.</b> Campaigns are created paused, and nothing else is ever changed.</p>
+  <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="security_rail_get_started">Get started free</a>
+  <p class="cta-note">Free during early access</p>
+</aside>
+
+<footer class="foot" data-prompt-hide>
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="foot-brand">
+        <a class="brand" href="./">Roster<i>.</i></a>
+        <p>Google Ads and Meta Ads campaigns and client reports, for freelancers and small agencies.</p>
+        <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="security_footer_get_started">Get started free</a>
+      </div>
+      <nav class="foot-cols" aria-label="Footer">
+        <div>
+          <h2>Product</h2>
+          <a href="campaign-creation.html">Campaign creation</a>
+          <a href="campaign-tracking.html">Campaign tracking</a>
+          <a href="campaign-reporting.html">Campaign reporting</a>
+          <a href="./#pricing">Pricing</a>
+          <a href="security.html">Security</a>
+          <a href="changelog.html">What's new</a>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <a href="start.html">Getting started</a>
+          <a href="guides.html">Guides</a>
+          <a href="roster-vs-whatagraph.html">Roster vs Whatagraph</a>
+          <a href="roster-vs-looker-studio.html">Roster vs Looker Studio</a>
+          <a href="https://app.useroster.xyz/s/0MCZfSW692qh3RDzP3k-OvG4_78guCCv" target="_blank" rel="noopener" data-cta="security_footer_sample">Sample report</a>
+        </div>
+        <div>
+          <h2>Company</h2>
+          <a href="mailto:gauravkr.contact@gmail.com">Contact</a>
+          <a href="https://www.linkedin.com/company/roster-reporting" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.instagram.com/rosteer.ai/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://app.useroster.xyz/login" data-cta="security_footer_sign_in">Sign in</a>
+        </div>
+        <div>
+          <h2>Legal</h2>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </nav>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Roster</span>
+      <span>Google Ads and Meta Ads, made easy.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="security_mbar_get_started">Get started free</a>
+  <span class="cta-note">Free during early access</span>
+</div>
+
+<script src="site.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

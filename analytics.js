@@ -102,6 +102,17 @@
     "start.html": "Site · Getting started",
     "google-ads-monthly-report.html": "Site · Guide",
     "roster-vs-looker-studio.html": "Site · Guide",
+    "google-ads-report-doesnt-match.html": "Site · Guide",
+    "explain-bad-month-google-ads-client.html": "Site · Guide",
+    "looker-studio-google-ads-report-broken.html": "Site · Guide",
+    "white-label-google-ads-reports.html": "Site · Guide",
+    "guides.html": "Site · Guides index",
+    "roster-vs-whatagraph.html": "Site · Guide",
+    "campaign-creation.html": "Site · Campaign creation",
+    "campaign-tracking.html": "Site · Campaign tracking",
+    "campaign-reporting.html": "Site · Campaign reporting",
+    "security.html": "Site · Security",
+    "changelog.html": "Site · Changelog",
     "privacy.html": "Site · Privacy policy",
     "terms.html": "Site · Terms of service",
   };
@@ -156,16 +167,16 @@
     style.textContent =
       ".ga-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:200;margin:0 auto;" +
       "max-width:620px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:14px 16px;" +
-      "background:#fff;border:1px solid #dadce0;border-radius:8px;" +
-      "box-shadow:0 1px 3px rgba(60,64,67,.12),0 4px 8px rgba(60,64,67,.06);" +
-      "font-size:13px;line-height:1.5;color:#5f6368}" +
+      "background:#fff;border:1px solid rgba(27,34,45,.12);border-radius:14px;" +
+      "box-shadow:0 1px 2px rgba(27,34,45,.06),0 24px 50px -30px rgba(27,34,45,.45);" +
+      "font-size:13px;line-height:1.5;color:#4b5462}" +
       ".ga-consent p{flex:1 1 240px;margin:0}" +
       ".ga-consent a{color:#1a73e8}" +
       ".ga-consent div{display:flex;gap:8px;flex-shrink:0}" +
-      ".ga-consent button{font:inherit;font-weight:500;border-radius:4px;padding:7px 14px;" +
+      ".ga-consent button{font:inherit;font-weight:600;border-radius:999px;padding:8px 16px;" +
       "cursor:pointer;white-space:nowrap}" +
-      ".ga-consent .ga-yes{color:#fff;background:#1a73e8;border:1px solid #1a73e8}" +
-      ".ga-consent .ga-no{color:#5f6368;background:transparent;border:1px solid #dadce0}";
+      ".ga-consent .ga-yes{color:#fff;background:#1b222d;border:1px solid #1b222d}" +
+      ".ga-consent .ga-no{color:#4b5462;background:transparent;border:1px solid rgba(27,34,45,.18)}";
     document.head.appendChild(style);
 
     var el = document.createElement("div");
@@ -395,11 +406,27 @@
     });
   }
 
+  // ---- the demo on the homepage ------------------------------------------------------------
+  //
+  // home.js says what happens in the demo — Send pressed, the report built, explored, a section
+  // opened — by event, the same way copy.js reports a copy, so the demo never needs to know GA
+  // exists. Whether people press Send at all is the first thing the new homepage has to prove.
+
+  function demo() {
+    document.addEventListener("roster:demo", function (e) {
+      var d = e.detail || {};
+      var params = { step: d.step || "other" };
+      if (d.section) params.section = d.section;
+      event("demo_step", params);
+    });
+  }
+
   function start() {
     banner();
     attention();
     scrollDepth();
     clicks();
+    demo();
   }
 
   if (document.readyState === "loading") {

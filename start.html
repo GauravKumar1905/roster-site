@@ -6,19 +6,26 @@
 <title>Getting started — Roster</title>
 <meta name="description" content="Three steps from signing up to a report you can send a client, or a campaign ready to switch on." />
 <link rel="canonical" href="https://useroster.xyz/start.html" />
+<link rel="icon" type="image/png" href="img/logo-square-400.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="site.css" />
 <link rel="stylesheet" href="guide.css" />
 </head>
 <body>
 
-<header class="masthead">
-  <div class="wrap masthead-inner">
-    <a class="brand" href="index.html">Roster<span>.</span></a>
-    <a class="nav-link" href="index.html">Home</a>
-    <a class="nav-link" href="https://app.useroster.xyz/login" data-cta="guide_nav_signin">Sign in</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="./" aria-label="Roster, home">Roster<i>.</i></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="./#what">What it does</a>
+      <a href="./#how">How it works</a>
+      <a href="./#pricing">Pricing</a>
+      <a href="guides.html">Guides</a>
+    </nav>
+    <a class="nav-signin" href="https://app.useroster.xyz/login" data-cta="guide_nav_sign_in">Sign in</a>
+    <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="guide_nav_get_started">Get started free</a>
   </div>
 </header>
 
@@ -52,27 +59,76 @@
           Add a client, connect its Google Ads or Meta, then ask Claude for a report or a new campaign.
           You see the figures, or every ad, before anything is saved, and campaigns are created paused.
         </p>
+        <p class="gnote">
+          Meta Ads, during early access: Meta asks us to invite you as a tester before your ad accounts
+          can connect. <a href="mailto:gauravkr.contact@gmail.com?subject=Meta%20invite%20for%20Roster">Ask for the invite</a>
+          and accept it once.
+        </p>
       </li>
 
     </ol>
 
     <p class="gcontact">
-      Stuck? <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>
+      Stuck? <a href="mailto:gauravkr.contact@gmail.com">Write to us</a> and you'll hear back from a person.
     </p>
 
   </div>
 </main>
 
-<footer>
-  <div class="wrap footer-inner">
-    <p>Roster — Google Ads and Meta Ads reporting and campaign setup, for freelancers and small agencies.</p>
-    <a class="nav-link" href="privacy.html">Privacy</a>
-    <a class="nav-link" href="terms.html">Terms</a>
-    <a class="nav-link" href="mailto:gauravkr.contact@gmail.com">Contact</a>
+<footer class="foot" data-prompt-hide>
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="foot-brand">
+        <a class="brand" href="./">Roster<i>.</i></a>
+        <p>Google Ads and Meta Ads campaigns and client reports, for freelancers and small agencies.</p>
+        <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="guide_footer_get_started">Get started free</a>
+      </div>
+      <nav class="foot-cols" aria-label="Footer">
+        <div>
+          <h2>Product</h2>
+          <a href="campaign-creation.html">Campaign creation</a>
+          <a href="campaign-tracking.html">Campaign tracking</a>
+          <a href="campaign-reporting.html">Campaign reporting</a>
+          <a href="./#pricing">Pricing</a>
+          <a href="security.html">Security</a>
+          <a href="changelog.html">What's new</a>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <a href="start.html">Getting started</a>
+          <a href="guides.html">Guides</a>
+          <a href="roster-vs-whatagraph.html">Roster vs Whatagraph</a>
+          <a href="roster-vs-looker-studio.html">Roster vs Looker Studio</a>
+          <a href="https://app.useroster.xyz/s/0MCZfSW692qh3RDzP3k-OvG4_78guCCv" target="_blank" rel="noopener" data-cta="guide_footer_sample">Sample report</a>
+        </div>
+        <div>
+          <h2>Company</h2>
+          <a href="mailto:gauravkr.contact@gmail.com">Contact</a>
+          <a href="https://www.linkedin.com/company/roster-reporting" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.instagram.com/rosteer.ai/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://app.useroster.xyz/login" data-cta="guide_footer_sign_in">Sign in</a>
+        </div>
+        <div>
+          <h2>Legal</h2>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </nav>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Roster</span>
+      <span>Google Ads and Meta Ads, made easy.</span>
+    </div>
   </div>
 </footer>
 
+<div class="mbar">
+  <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="guide_mbar_get_started">Get started free</a>
+  <span class="cta-note">Free during early access</span>
+</div>
+
 <script src="copy.js"></script>
+<script src="site.js"></script>
 <script src="analytics.js"></script>
 </body>
 </html>
