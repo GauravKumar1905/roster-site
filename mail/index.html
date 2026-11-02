@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<!-- useroster.xyz/mail: the address for an email signature. It forwards to the homepage with campaign tags,
+     so a visit from a link that arrives with no referrer (in-app browsers, messaging and email
+     apps) is still credited to where it was shared. Any tags on this address, such as
+     ?utm_content=..., are passed on and take precedence. It loads no analytics itself. -->
+<title>Roster</title>
+<meta name="robots" content="noindex" />
+<link rel="canonical" href="https://useroster.xyz/" />
+<meta http-equiv="refresh" content="0; url=/?utm_source=email_signature&amp;utm_medium=email&amp;utm_campaign=signature" />
+<script>
+  (function () {
+    var tags = new URLSearchParams("utm_source=email_signature&utm_medium=email&utm_campaign=signature");
+    new URLSearchParams(location.search).forEach(function (v, k) {
+      tags.set(k, v);
+    });
+    location.replace("/?" + tags.toString() + location.hash);
+  })();
+</script>
+</head>
+<body>
+<p><a href="/?utm_source=email_signature&amp;utm_medium=email&amp;utm_campaign=signature">Continue to Roster</a></p>
+</body>
+</html>

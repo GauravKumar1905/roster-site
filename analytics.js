@@ -7,23 +7,42 @@
 // for cross-domain measurement, every event carries a `surface` parameter saying which one it
 // came from, and the journey is one session from the homepage to the first report.
 //
-// This file used to run permanently cookieless, with analytics_storage denied and never granted.
-// That was honest and close to useless: with no persistent identifier every page load was a new
-// user and a new session, so nothing joined a visit to the sign-up it led to. Storage is now
-// granted, with two limits that are not negotiable — advertising storage stays denied everywhere,
-// and in the EEA, the UK and Switzerland analytics storage waits for consent.
+// Storage is granted, with two limits that are not negotiable — advertising storage stays denied
+// everywhere, and in the EEA, the UK and Switzerland analytics storage waits for consent.
+//
+// What the site measures, since the redesign of 2 November 2026 (every event also carries
+// `site_release`, so "the new site only" is one filter in any report):
+//
+//   where a visit came from   `came_from` on every event, `first_came_from` on the user
+//   what was read             section_view, section_time, scroll_milestone, article_read
+//   which buttons worked      cta_view and cta_click per placement, sample_open
+//   how people moved around   nav_click, faq_open, outbound_click, mailto_click
+//   the demo                  demo_step: send, report_built, report_explored, report_section
+//   what went wrong           site_error (a category, never a message), web_vital
+//
+// Only useroster.xyz sends anything. A local copy runs every measurement into `dataLayer` and stops
+// there, so testing never reaches the property; `?ga_debug=1` sends from anywhere, flagged as
+// debug traffic for DebugView. `?internal=1` marks the team's own browsers (`?internal=0` clears
+// it), and their visits are tagged so the Internal Traffic filter can leave them out.
 
 (function () {
   var MEASUREMENT_ID = "G-JW8Y77HM3M";
-  var APP_ORIGIN = "https://app.useroster.xyz";
+  var PRODUCTION_HOST = "useroster.xyz";
+  var APP_HOST = "app.useroster.xyz";
+  var APP_ORIGIN = "https://" + APP_HOST;
   var SURFACE = "site";
+  var SITE_RELEASE = "2026-11-02";
   var CONSENT_KEY = "roster.consent.analytics";
+  var DEBUG_KEY = "roster.ga_debug";
+  var CAME_FROM_KEY = "roster.came_from";
+  var FIRST_CAME_FROM_KEY = "roster.first_came_from";
+  var INTERNAL_COOKIE = "roster_internal";
 
   // Both hostnames, so gtag decorates links from here to the app with `_gl` and the arriving
   // page adopts the same client id instead of starting a second session. The GA4 property has to
   // list both domains too — the linker writes the parameter, the property decides whether to
   // honour it, and setting only one of the two looks like it works.
-  var LINKER_DOMAINS = [location.hostname, APP_ORIGIN.replace(/^https?:\/\//, "")];
+  var LINKER_DOMAINS = [location.hostname, APP_HOST];
 
   // Where the law requires asking before measuring. Applied by gtag against Google's own
   // region determination, which is the only place that call can honestly be made client-side.
@@ -53,14 +72,57 @@
     window.dataLayer.push(arguments);
   }
 
-  function stored() {
+  function read(store, key) {
     try {
-      var v = localStorage.getItem(CONSENT_KEY);
-      return v === "granted" || v === "denied" ? v : null;
+      return window[store].getItem(key);
     } catch (e) {
       return null;
     }
   }
+
+  function write(store, key, value) {
+    try {
+      if (value) window[store].setItem(key, value);
+      else window[store].removeItem(key);
+    } catch (e) {
+      // Storage blocked: the value holds for this page only.
+    }
+  }
+
+  function stored() {
+    var v = read("localStorage", CONSENT_KEY);
+    return v === "granted" || v === "denied" ? v : null;
+  }
+
+  function merge(a, b) {
+    var out = {};
+    [a, b].forEach(function (o) {
+      Object.keys(o || {}).forEach(function (k) {
+        out[k] = o[k];
+      });
+    });
+    return out;
+  }
+
+  // ---- which copy of the site this is --------------------------------------------------------
+
+  var params = new URLSearchParams(location.search);
+  var production = location.hostname === PRODUCTION_HOST;
+  if (params.has("ga_debug")) write("sessionStorage", DEBUG_KEY, params.get("ga_debug") === "1" ? "1" : "");
+  var debug = read("sessionStorage", DEBUG_KEY) === "1";
+  var sending = production || debug;
+
+  // The team's own browsers. A cookie on the parent domain rather than an IP rule, because a
+  // home connection's address changes and the app at app.useroster.xyz can read the same mark.
+  if (params.has("internal")) {
+    var on = params.get("internal") === "1";
+    document.cookie =
+      INTERNAL_COOKIE + "=" + (on ? "1" : "") + "; path=/" +
+      (production ? "; domain=" + PRODUCTION_HOST : "") +
+      "; max-age=" + (on ? 63072000 : 0) + "; SameSite=Lax" +
+      (location.protocol === "https:" ? "; Secure" : "");
+  }
+  var internal = new RegExp("(?:^|;\\s*)" + INTERNAL_COOKIE + "=1").test(document.cookie);
 
   // ---- consent, before anything is sent ----------------------------------------------------
   //
@@ -87,11 +149,151 @@
 
   gtag("js", new Date());
 
+  // ---- where the visit came from --------------------------------------------------------------
+  //
+  // GA reads the referrer and campaign tags itself, and a custom channel group in the property
+  // sorts them into channels. This adds what GA cannot see: a link opened inside the Instagram,
+  // LinkedIn or Facebook app usually arrives with no referrer at all and is filed as Direct, but
+  // the app's own browser names itself in the user agent; and an Android app can pass itself as
+  // an `android-app://` referrer. The answer is one value from a fixed list — never a URL.
+
+  var SOURCES = [
+    [/(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com)$/, "chatgpt"],
+    [/(^|\.)claude\.ai$/, "claude"],
+    [/(^|\.)perplexity\.ai$/, "perplexity"],
+    [/^(gemini|bard)\.google\.com$/, "gemini"],
+    [/(^|\.)copilot\.microsoft\.com$|^copilot\.cloud\.microsoft$/, "copilot"],
+    [/(^|\.)(you\.com|phind\.com|poe\.com|chat\.deepseek\.com|deepseek\.com|grok\.com|meta\.ai|chat\.mistral\.ai)$/, "other_ai"],
+    [/^(mail\.google\.com|outlook\.(live|office|office365)\.com|mail\.yahoo\.com|mail\.proton\.me)$/, "email"],
+    [/^(docs|drive|sites|groups|calendar)\.google\.com$/, "other_site"],
+    [/(^|\.)google\.[a-z.]+$/, "google"],
+    [/(^|\.)bing\.com$/, "bing"],
+    [/(^|\.)duckduckgo\.com$/, "duckduckgo"],
+    [/(^|\.)(yahoo\.com|yandex\.[a-z.]+|baidu\.com|ecosia\.org|search\.brave\.com|naver\.com|startpage\.com|kagi\.com)$/, "other_search"],
+    [/(^|\.)instagram\.com$/, "instagram"],
+    [/(^|\.)(linkedin\.com|lnkd\.in)$/, "linkedin"],
+    [/(^|\.)(facebook\.com|fb\.com|fb\.me|messenger\.com)$/, "facebook"],
+    [/^t\.co$|(^|\.)(twitter\.com|x\.com)$/, "x"],
+    [/(^|\.)reddit\.com$/, "reddit"],
+    [/(^|\.)(youtube\.com|youtu\.be)$/, "youtube"],
+    [/(^|\.)(whatsapp\.com|wa\.me)$/, "whatsapp"],
+    [/(^|\.)(tiktok\.com|threads\.net|pinterest\.[a-z.]+|quora\.com|medium\.com|news\.ycombinator\.com|producthunt\.com|t\.me|discord\.com)$/, "other_social"],
+  ];
+
+  // Android apps that hand over an android-app:// referrer, by package name.
+  var ANDROID_APPS = {
+    "com.google.android.gm": "email",
+    "com.microsoft.office.outlook": "email",
+    "com.google.android.googlequicksearchbox": "google",
+    "com.linkedin.android": "linkedin",
+    "com.instagram.android": "instagram",
+    "com.facebook.katana": "facebook",
+    "com.facebook.orca": "facebook",
+    "com.whatsapp": "whatsapp",
+    "com.twitter.android": "x",
+    "com.reddit.frontpage": "reddit",
+    "com.google.android.youtube": "youtube",
+    "com.openai.chatgpt": "chatgpt",
+    "com.anthropic.claude": "claude",
+    "ai.perplexity.app.android": "perplexity",
+    "com.google.android.apps.bard": "gemini",
+    "com.microsoft.copilot": "copilot",
+  };
+
+  // In-app browsers that say whose they are.
+  var IN_APP = [
+    [/Instagram/, "instagram"],
+    [/LinkedInApp/, "linkedin"],
+    [/FBAN|FBAV|FB_IAB|FBIOS/, "facebook"],
+    [/BytedanceWebview|musical_ly|TikTok/i, "other_social"],
+  ];
+
+  // What GA is told when it would otherwise see nothing: the campaign tags an app's link would
+  // have carried, added to the landing page's reported address only, never to the real one.
+  var TAGS = {
+    instagram: ["instagram.com", "social"],
+    linkedin: ["linkedin.com", "social"],
+    facebook: ["facebook.com", "social"],
+    x: ["x.com", "social"],
+    reddit: ["reddit.com", "social"],
+    youtube: ["youtube.com", "social"],
+    whatsapp: ["whatsapp", "social"],
+    chatgpt: ["chatgpt.com", "referral"],
+    claude: ["claude.ai", "referral"],
+    perplexity: ["perplexity.ai", "referral"],
+    gemini: ["gemini.google.com", "referral"],
+    copilot: ["copilot.microsoft.com", "referral"],
+    email: ["email_app", "email"],
+    google: ["google", "organic"],
+  };
+
+  function fromHost(host) {
+    for (var i = 0; i < SOURCES.length; i++) {
+      if (SOURCES[i][0].test(host)) return SOURCES[i][1];
+    }
+    return "other_site";
+  }
+
+  // A campaign tag on the link: one we wrote, or one an assistant added (ChatGPT tags its links
+  // utm_source=chatgpt.com).
+  function fromTag(source, medium) {
+    if (medium === "email" || /mail|newsletter/.test(source)) return "email";
+    if (medium === "dm" || source === "direct_message") return "direct_message";
+    var known = fromHost(source.indexOf(".") > -1 ? source : source + ".com");
+    return known === "other_site" ? "other_campaign" : known;
+  }
+
+  function arrival() {
+    var source = (params.get("utm_source") || "").toLowerCase();
+    var medium = (params.get("utm_medium") || "").toLowerCase();
+    if (source || medium) return { from: fromTag(source, medium), tag: null };
+
+    var ref = document.referrer || "";
+    if (/^android-app:\/\//i.test(ref)) {
+      var app = ANDROID_APPS[ref.slice(14).split("/")[0].toLowerCase()] || "other_app";
+      return { from: app, tag: TAGS[app] || null };
+    }
+
+    var host = "";
+    try {
+      host = ref ? new URL(ref).hostname.toLowerCase() : "";
+    } catch (e) {
+      host = "";
+    }
+    if (host === location.hostname || host === PRODUCTION_HOST || host === APP_HOST) {
+      return { from: "internal", tag: null };
+    }
+    if (host) return { from: fromHost(host), tag: null };
+
+    var ua = navigator.userAgent || "";
+    for (var i = 0; i < IN_APP.length; i++) {
+      if (IN_APP[i][0].test(ua)) return { from: IN_APP[i][1], tag: TAGS[IN_APP[i][1]] || null };
+    }
+    return { from: "direct", tag: null };
+  }
+
+  // A visit is labelled by where it landed from. Moving on to a second page keeps that label,
+  // carried in session storage — but only once GA's own cookie exists, which is to say only for
+  // a visitor whose consent allows measurement storage at all.
+  var landing = arrival();
+  var cameFrom = landing.from === "internal" ? read("sessionStorage", CAME_FROM_KEY) || "unknown" : landing.from;
+  var firstCameFrom = read("localStorage", FIRST_CAME_FROM_KEY) || "";
+
+  function remember() {
+    if (!/(?:^|;\s*)_ga=/.test(document.cookie)) return;
+    if (landing.from !== "internal") write("sessionStorage", CAME_FROM_KEY, landing.from);
+    if (!firstCameFrom && landing.from !== "internal") {
+      firstCameFrom = landing.from;
+      write("localStorage", FIRST_CAME_FROM_KEY, firstCameFrom);
+      gtag("set", "user_properties", { first_came_from: firstCameFrom });
+    }
+  }
+
   // ---- what GA calls this page ---------------------------------------------------------------
   //
   // A readable page group, sent as GA's built-in `content_group`, and a canonical URL so that
-  // `/roster-site/` and `/roster-site/index.html` are one row rather than two. The names match
-  // the app's (src/lib/analytics/pages.ts) and the glossary in docs/analytics.md.
+  // `/` and `/index.html` are one row rather than two. The names match the app's
+  // (src/lib/analytics/pages.ts) and the glossary in docs/analytics.md.
   //
   // Only the campaign tags survive in the query: GA reads traffic source from page_location, so
   // dropping them would file every tagged link under "direct".
@@ -99,20 +301,20 @@
   var PAGE_GROUPS = {
     "": "Site · Home",
     "index.html": "Site · Home",
-    "start.html": "Site · Getting started",
-    "google-ads-monthly-report.html": "Site · Guide",
-    "roster-vs-looker-studio.html": "Site · Guide",
-    "google-ads-report-doesnt-match.html": "Site · Guide",
-    "explain-bad-month-google-ads-client.html": "Site · Guide",
-    "looker-studio-google-ads-report-broken.html": "Site · Guide",
-    "white-label-google-ads-reports.html": "Site · Guide",
-    "guides.html": "Site · Guides index",
-    "roster-vs-whatagraph.html": "Site · Guide",
     "campaign-creation.html": "Site · Campaign creation",
     "campaign-tracking.html": "Site · Campaign tracking",
     "campaign-reporting.html": "Site · Campaign reporting",
     "security.html": "Site · Security",
     "changelog.html": "Site · Changelog",
+    "start.html": "Site · Getting started",
+    "guides.html": "Site · Guides index",
+    "google-ads-monthly-report.html": "Site · Guide",
+    "roster-vs-looker-studio.html": "Site · Guide",
+    "roster-vs-whatagraph.html": "Site · Guide",
+    "google-ads-report-doesnt-match.html": "Site · Guide",
+    "explain-bad-month-google-ads-client.html": "Site · Guide",
+    "looker-studio-google-ads-report-broken.html": "Site · Guide",
+    "white-label-google-ads-reports.html": "Site · Guide",
     "privacy.html": "Site · Privacy policy",
     "terms.html": "Site · Terms of service",
   };
@@ -121,16 +323,28 @@
   var file = location.pathname.split("/").pop();
   var dir = location.pathname.slice(0, location.pathname.length - file.length);
   var canonicalPath = file === "index.html" ? dir : location.pathname;
-  var params = new URLSearchParams(location.search);
+  // The not-found page is served at whatever address was asked for, so it names itself.
+  var group = document.body.getAttribute("data-page-group") || PAGE_GROUPS[file] || "Site · Other";
   var kept = new URLSearchParams();
   KEPT_QUERY.forEach(function (key) {
     if (params.get(key)) kept.set(key, params.get(key));
   });
+  if (landing.tag) {
+    kept.set("utm_source", landing.tag[0]);
+    kept.set("utm_medium", landing.tag[1]);
+    kept.set("utm_campaign", "(in-app)");
+  }
   var query = kept.toString();
 
-  gtag("config", MEASUREMENT_ID, {
-    surface: SURFACE,
-    content_group: PAGE_GROUPS[file] || "Site · Other",
+  // Sent with every hit: which surface, which release of the site, and where the visit came from.
+  var COMMON = { surface: SURFACE, site_release: SITE_RELEASE, came_from: cameFrom };
+  if (internal) COMMON.traffic_type = "internal";
+  if (debug) COMMON.debug_mode = true;
+
+  if (firstCameFrom) gtag("set", "user_properties", { first_came_from: firstCameFrom });
+
+  gtag("config", MEASUREMENT_ID, merge(COMMON, {
+    content_group: group,
     page_location: location.origin + canonicalPath + (query ? "?" + query : ""),
     // `auto` walks up looking for the broadest domain that will accept a cookie: useroster.xyz,
     // here and on app.useroster.xyz, so the site and the app share one client id. Moving either
@@ -139,23 +353,44 @@
     cookie_domain: "auto",
     cookie_flags: "SameSite=Lax;Secure",
     linker: { domains: LINKER_DOMAINS, accept_incoming: true },
-  });
+  }));
 
-  var s = document.createElement("script");
-  s.async = true;
-  s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
-  document.head.appendChild(s);
+  if (sending) {
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
+    // gtag sets its cookie a moment after it loads; the visit's origin is stored after that.
+    s.onload = function () {
+      setTimeout(remember, 1500);
+    };
+    document.head.appendChild(s);
+  }
 
-  /** Every custom event goes through here, so none of them can forget which surface it was. */
-  function event(name, params) {
-    var payload = params || {};
-    payload.surface = SURFACE;
-    gtag("event", name, payload);
+  /** Every custom event goes through here, so none of them can forget the common parameters. */
+  function event(name, detail) {
+    gtag("event", name, merge(detail, COMMON));
+  }
+
+  /** A path in the app with its ids and share tokens replaced, so none of them reaches GA. */
+  function template(path) {
+    return path
+      .replace(/^\/(s|r|reset)\/[^/]+/, "/$1/:id")
+      .replace(/^\/workspaces\/[^/]+/, "/workspaces/:id")
+      .replace(/\/[A-Za-z0-9_-]{16,}(?=\/|$)/g, "/:id");
+  }
+
+  /** Whether an element is actually showing, not merely inside the viewport. */
+  function shown(el) {
+    for (var n = el; n && n !== document.body; n = n.parentElement) {
+      var cs = getComputedStyle(n);
+      if (cs.display === "none" || cs.visibility === "hidden" || parseFloat(cs.opacity) < 0.2) return false;
+    }
+    return true;
   }
 
   // ---- the consent banner --------------------------------------------------------------------
   //
-  // Injected rather than written into four HTML files, so privacy.html and terms.html get it
+  // Injected rather than written into every HTML file, so privacy.html and terms.html get it
   // without anyone having to remember them. Shown to everyone: region is Google's determination
   // to make, not this script's, and outside the regions above consent is already granted — so
   // declining is the only action here that changes what is collected.
@@ -185,16 +420,12 @@
     el.setAttribute("aria-label", "Analytics consent");
     el.innerHTML =
       "<p>We use Google Analytics to see which parts of this site are read, and set a cookie to " +
-      'do it. No advertising and no third-party tracking. <a href="privacy.html">How we handle ' +
+      'do it. No advertising and no third-party tracking. <a href="/privacy.html">How we handle ' +
       'it</a>.</p><div><button type="button" class="ga-no">No thanks</button>' +
       '<button type="button" class="ga-yes">Allow</button></div>';
 
     function decide(value) {
-      try {
-        localStorage.setItem(CONSENT_KEY, value);
-      } catch (e) {
-        // Storage blocked. The choice holds for this page load and is asked again next time.
-      }
+      write("localStorage", CONSENT_KEY, value);
       gtag("consent", "update", consentState(value));
       el.remove();
     }
@@ -239,6 +470,18 @@
       state.set(el, { ms: 0, since: 0, onScreen: false, seen: false });
     });
 
+    // On screen means half of the section is showing, or, for a section taller than the screen,
+    // that it fills half the screen. `isIntersecting` alone stays true until the last pixel has
+    // gone, which would keep counting a section long after the reader had moved on.
+    function filling(entry) {
+      if (!entry.isIntersecting) return false;
+      var screen = entry.rootBounds ? entry.rootBounds.height : window.innerHeight;
+      return entry.intersectionRect.height >= Math.min(entry.boundingClientRect.height, screen) * 0.5;
+    }
+
+    var steps = [];
+    for (var i = 0; i <= 20; i++) steps.push(i / 20);
+
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
@@ -246,8 +489,8 @@
           var s = state.get(el);
           if (!s) return;
 
-          s.onScreen = entry.isIntersecting;
-          if (entry.isIntersecting) {
+          s.onScreen = filling(entry);
+          if (s.onScreen) {
             if (!s.seen) {
               s.seen = true;
               event("section_view", { section: el.getAttribute("data-track") });
@@ -258,8 +501,7 @@
           }
         });
       },
-      // Half the section on screen, so a heading clipping into view does not count as read.
-      { threshold: 0.5 },
+      { threshold: steps },
     );
 
     sections.forEach(function (el) {
@@ -285,11 +527,15 @@
 
     document.addEventListener("visibilitychange", function () {
       if (document.visibilityState === "visible") {
+        flushed = false;
         sections.forEach(resume);
       } else {
         // Reported when the tab is hidden, not only at pagehide. A phone that is locked and never
         // returned to fires no pagehide at all, and that reading would simply be lost.
         flush();
+        sections.forEach(function (el) {
+          state.get(el).ms = 0;
+        });
       }
     });
 
@@ -328,7 +574,7 @@
   // ---- scroll depth ------------------------------------------------------------------------------
   //
   // Coarser than section attention and worth having anyway: it is the one measure that works on
-  // pages with no sections marked up, which is every legal page.
+  // pages with no sections marked up, which is every guide and legal page.
 
   function scrollDepth() {
     var marks = [25, 50, 75, 100];
@@ -352,11 +598,84 @@
     check();
   }
 
+  // ---- buttons seen ------------------------------------------------------------------------------
+  //
+  // A click count alone cannot say whether a placement works: the button at the end of a guide
+  // is clicked less than the one in the menu partly because fewer people get there. So every
+  // button into the product reports once per page when it is actually on screen — at least 60%
+  // of it in view, and not hidden, faded out or waiting for the demo to finish — and its clicks
+  // read as a rate.
+
+  function ctaViews() {
+    var buttons = [].filter.call(document.querySelectorAll("a[data-cta]"), function (a) {
+      return a.href.indexOf(APP_ORIGIN) === 0;
+    });
+    if (!buttons.length || !("IntersectionObserver" in window)) return;
+
+    var pending = new Set();
+    var timer = 0;
+
+    function fire(a) {
+      pending.delete(a);
+      io.unobserve(a);
+      event("cta_view", { cta: a.getAttribute("data-cta"), destination: template(new URL(a.href).pathname) });
+    }
+
+    // In view but not yet showing — the bar along the bottom of a phone, the demo's buttons —
+    // is checked again until it shows or leaves.
+    function sweep() {
+      pending.forEach(function (a) {
+        if (shown(a)) fire(a);
+      });
+      if (!pending.size) {
+        clearInterval(timer);
+        timer = 0;
+      }
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.intersectionRatio < 0.6) return pending.delete(e.target);
+          if (shown(e.target)) return fire(e.target);
+          pending.add(e.target);
+          if (!timer) timer = setInterval(sweep, 600);
+        });
+      },
+      { threshold: 0.6 },
+    );
+
+    buttons.forEach(function (a) {
+      io.observe(a);
+    });
+  }
+
   // ---- clicks --------------------------------------------------------------------------------
   //
-  // One delegated listener rather than a handler per link. The links that matter are spread over
-  // four pages and a footer that is pasted into all of them; instrumenting each would guarantee
-  // the next one added was forgotten.
+  // One delegated listener rather than a handler per link, so the next link added cannot be
+  // forgotten. Into the product is `cta_click`, named by its `data-cta`; the sample report is
+  // `sample_open`; anywhere else on this site is `nav_click`, named by the part of the page the
+  // link sits in; anywhere else entirely is `outbound_click`, by domain.
+
+  var AREAS = [
+    [".nav", "menu"],
+    [".dots", "page_dots"],
+    [".foot", "footer"],
+    [".tile", "job_tile"],
+    [".back", "back_link"],
+    [".after", "hero"],
+    [".guide-list", "guide_list"],
+    [".cta-card, .cta-inline, .cta-rail, .mbar, .closing, .report-end", "cta_card"],
+    [".qa, .faq-list", "question"],
+    [".how-steps, .needs, .steps3", "how_it_works"],
+  ];
+
+  function area(a) {
+    for (var i = 0; i < AREAS.length; i++) {
+      if (a.closest(AREAS[i][0])) return AREAS[i][1];
+    }
+    return "in_text";
+  }
 
   function clicks() {
     document.addEventListener(
@@ -367,33 +686,36 @@
         var href = a.getAttribute("href") || "";
 
         if (href.indexOf("mailto:") === 0) {
-          event("mailto_click", { context: document.title.slice(0, 60) });
+          event("mailto_click", { context: group });
           return;
         }
-
-        if (!/^https?:/i.test(href)) return;
 
         var url;
         try {
-          url = new URL(href);
+          url = new URL(a.href, location.href);
         } catch (err) {
           return;
         }
+        if (!/^https?:$/.test(url.protocol)) return;
 
         // A click into the product is the site's whole job, so it is its own event rather than
-        // an outbound click to a domain that happens to be ours. `data-cta` names the button;
-        // links without one still count, labelled by where they land.
+        // an outbound click to a domain that happens to be ours.
         if (url.origin === APP_ORIGIN) {
-          event("cta_click", {
+          var path = template(url.pathname);
+          event(path.indexOf("/s/") === 0 ? "sample_open" : "cta_click", {
             cta: a.getAttribute("data-cta") || "app_link",
-            destination: url.pathname,
+            destination: path,
           });
           return;
         }
 
-        if (url.origin !== location.origin) {
-          event("outbound_click", { domain: url.hostname });
+        if (url.origin === location.origin) {
+          var to = url.pathname.replace(/\/index\.html$/, "/") + (url.hash || "");
+          event("nav_click", { nav: area(a), destination: to });
+          return;
         }
+
+        event("outbound_click", { domain: url.hostname });
       },
       true,
     );
@@ -406,27 +728,170 @@
     });
   }
 
+  // ---- questions ---------------------------------------------------------------------------------
+  //
+  // Which questions people open is the closest thing to hearing what worries them. `toggle` does
+  // not bubble, so it is caught on the way down instead.
+
+  function questions() {
+    document.addEventListener(
+      "toggle",
+      function (e) {
+        var d = e.target;
+        if (!d || d.tagName !== "DETAILS" || !d.open) return;
+        var summary = d.querySelector("summary");
+        var q = d.getAttribute("data-q") || (summary ? summary.textContent : "other");
+        event("faq_open", {
+          question: q.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "").slice(0, 60),
+        });
+      },
+      true,
+    );
+  }
+
+  // ---- guides read to the end --------------------------------------------------------------------
+  //
+  // Scrolling to the bottom is easy to do without reading anything. A guide counts as read when
+  // its closing card has come into view and the page has been in front of the reader for at
+  // least thirty seconds, whichever happens later.
+
+  function reading() {
+    var article = document.querySelector("main.article .article-inner");
+    if (!article || !("IntersectionObserver" in window)) return;
+    var end = article.querySelector(".cta-card") || article.lastElementChild;
+    var reached = false;
+    var done = false;
+    var ms = 0;
+    var since = document.visibilityState === "visible" ? Date.now() : 0;
+
+    function tick() {
+      if (since) {
+        ms += Date.now() - since;
+        since = Date.now();
+      }
+    }
+
+    function check() {
+      tick();
+      if (done || !reached || ms < 30000) return;
+      done = true;
+      clearInterval(timer);
+      event("article_read", { seconds: Math.round(ms / 1000) });
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible") since = Date.now();
+      else {
+        tick();
+        since = 0;
+      }
+    });
+
+    new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            reached = true;
+            check();
+          }
+        });
+      },
+      { threshold: 0.3 },
+    ).observe(end);
+    var timer = setInterval(check, 5000);
+  }
+
   // ---- the demo on the homepage ------------------------------------------------------------
   //
   // home.js says what happens in the demo — Send pressed, the report built, explored, a section
   // opened — by event, the same way copy.js reports a copy, so the demo never needs to know GA
-  // exists. Whether people press Send at all is the first thing the new homepage has to prove.
+  // exists. Whether people press Send at all is the first thing the homepage has to prove.
 
   function demo() {
     document.addEventListener("roster:demo", function (e) {
       var d = e.detail || {};
-      var params = { step: d.step || "other" };
-      if (d.section) params.section = d.section;
-      event("demo_step", params);
+      var p = { step: d.step || "other" };
+      if (d.section) p.section = d.section;
+      event("demo_step", p);
     });
+  }
+
+  // ---- what went wrong ---------------------------------------------------------------------------
+  //
+  // A category and the page group, never a message: an error message can quote anything, and
+  // nothing here accepts free text. At most one of each kind, and five in all, per page.
+
+  function errors() {
+    var sent = {};
+    var count = 0;
+
+    function report(kind) {
+      if (sent[kind] || count >= 5) return;
+      sent[kind] = true;
+      count++;
+      event("site_error", { kind: kind, route: group });
+    }
+
+    window.addEventListener(
+      "error",
+      function (e) {
+        var t = e.target;
+        if (t && t !== window && /^(IMG|SCRIPT|LINK)$/.test(t.tagName)) report("resource_" + t.tagName.toLowerCase());
+        else report("script");
+      },
+      true,
+    );
+    window.addEventListener("unhandledrejection", function () {
+      report("promise");
+    });
+    // paper.js marks a sheet it could not light, and every sheet is mounted before this runs.
+    if (document.querySelector(".nogl")) report("no_webgl");
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        if (!document.fonts.check('650 20px "Bricolage Grotesque"')) report("fonts");
+      });
+    }
+  }
+
+  // ---- speed -------------------------------------------------------------------------------------
+  //
+  // Google's web-vitals library, served from this site (vitals.js) rather than a third party.
+  // Each page reports how long its largest piece took to appear, how quickly it answered a tap
+  // or click, and how much its layout jumped — once each, as the page is left. Layout shift is
+  // reported in thousandths, so all three are whole numbers.
+
+  function speed() {
+    var s = document.createElement("script");
+    s.src = "/vitals.js";
+    s.async = true;
+    s.onload = function () {
+      var wv = window.webVitals;
+      if (!wv) return;
+      function report(m) {
+        event("web_vital", {
+          vital: m.name,
+          rating: m.rating,
+          metric_value: m.name === "CLS" ? Math.round(m.value * 1000) : Math.round(m.value),
+        });
+      }
+      wv.onLCP(report);
+      wv.onINP(report);
+      wv.onCLS(report);
+    };
+    document.head.appendChild(s);
   }
 
   function start() {
     banner();
     attention();
     scrollDepth();
+    ctaViews();
     clicks();
+    questions();
+    reading();
     demo();
+    errors();
+    speed();
   }
 
   if (document.readyState === "loading") {
