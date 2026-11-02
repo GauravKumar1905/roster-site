@@ -99,7 +99,7 @@
         nothing typed into Roster. Section 7 says what it is for, and how to refuse it.
       </dd>
 
-      <dt>Workspace details</dt>
+      <dt>Client details</dt>
       <dd>
         The client names you create, and which Google Ads accounts and Meta ad accounts you attach
         to each. These are typed or chosen by you and may identify your clients.
@@ -123,7 +123,7 @@
       <dt>Google account identity</dt>
       <dd>
         The email address of the Google account used to connect, shown so you can tell which
-        login a workspace is using.
+        login a client is using.
       </dd>
 
       <dt>Campaigns and conversion actions you set up</dt>
@@ -170,7 +170,7 @@
 
     <h2 id="google">3. Google user data</h2>
     <p>
-      When you connect a workspace, Google asks you to authorise Roster and then issues us a
+      When you connect Google Ads for a client, Google asks you to authorise Roster and then issues us a
       refresh token. We store that token <strong>encrypted at rest</strong> using AES-256-GCM and
       use it for two purposes: reading the Google Ads data needed to render your reports, and
       making the changes you approve, described next.
@@ -200,8 +200,8 @@
     <p>
       You can revoke Roster's access at any time from your
       <a href="https://myaccount.google.com/permissions" rel="noopener">Google account permissions</a>
-      page, or by disconnecting the workspace inside Roster. Disconnecting deletes the stored
-      token and the list of accounts attached to that workspace.
+      page, or by disconnecting Google Ads in the client&rsquo;s settings inside Roster.
+      Disconnecting deletes the stored token and the list of accounts attached to that client.
     </p>
 
     <h2 id="meta">4. Meta user data</h2>
@@ -351,11 +351,22 @@
     <h3>Your choice</h3>
     <p>
       If you are in the EEA, the UK or Switzerland, analytics storage starts <strong>switched
-      off</strong> and stays off unless you choose &ldquo;Allow&rdquo; on the banner. Nothing is
-      stored on your device for measurement before you answer. Everywhere else it starts on, and
-      the same banner turns it off — choose &ldquo;No thanks&rdquo; and no analytics cookie is
-      kept. Your answer is remembered in your browser&rsquo;s local storage, so we only ask once.
-      Clearing your browser data asks again.
+      off</strong> and stays off unless you choose &ldquo;Allow&rdquo;. Nothing is stored on your
+      device for measurement before you answer. Everywhere else it starts on, and choosing
+      &ldquo;No thanks&rdquo; or &ldquo;Don&rsquo;t allow&rdquo; turns it off, so no analytics
+      cookie is kept.
+    </p>
+    <p>
+      On this website, a banner asks. In Roster, Create account asks once; answering is optional,
+      and your account is created either way. Left unanswered, a banner in Roster asks instead,
+      though not while you are setting up Roster in Claude. You can change your
+      answer later in Settings, in Roster. Someone opening a share link is asked by the banner too
+      (section 7).
+    </p>
+    <p>
+      Your answer is remembered in your browser&rsquo;s local storage and applies only to that
+      browser. This website and Roster keep their answers separately, so each asks once. Clearing
+      your browser data asks again.
     </p>
     <p>
       Google also publishes a
@@ -374,7 +385,7 @@
           each page loaded and responded to you;</li>
       <li>approximately how many seconds a page, or a section of a page, was visible and in front
           of you;</li>
-      <li>product events — a workspace created, a Google Ads or Meta account connected, branding saved, a
+      <li>product events — a client added, a Google Ads or Meta account connected, branding saved, a
           report shared, a report link opened by a client and which of its pages were opened, a
           request to Claude succeeding or failing — with a count or a short label (such as
           &ldquo;demographics&rdquo; for a page) where one is meaningful;</li>
@@ -390,7 +401,7 @@
     <h3>What is never sent</h3>
     <ul>
       <li>your name or email address;</li>
-      <li>your clients&rsquo; names, or any workspace, report or task name you have typed;</li>
+      <li>your clients&rsquo; names, or any report or task name you have typed;</li>
       <li>Google Ads or Meta account IDs, campaign names, or any advertising figure;</li>
       <li>
         error messages. When something fails we send a category — &ldquo;permission&rdquo;,
@@ -417,7 +428,7 @@
     </p>
     <ul>
       <li>
-        <strong>Actions in the signed-in dashboard</strong> — creating a workspace, connecting
+        <strong>Actions in the signed-in dashboard</strong> — adding a client, connecting
         Google Ads or Meta, saving, arranging or sharing a report, a share link being opened — are sent from
         our servers to Google Analytics under our internal account identifier, with the same
         exclusions as the list above: no names, no emails, no figures.
@@ -425,7 +436,7 @@
       <li>
         <strong>Every request Claude makes through the Roster connector</strong> is recorded in our
         own database: which tool was called, what it was asked (its arguments, which can include
-        the workspace, campaign or report it was about, and the report design itself), how long it
+        the client, campaign or report it was about, and the report design itself), how long it
         took, whether it succeeded, the error if it failed, and a short summary of the result —
         counts, and the IDs and names of anything it created. It never includes the figures a
         request returned. Google Analytics receives only the tool&rsquo;s name, whether it
@@ -442,21 +453,21 @@
 
     <h2 id="retention">9. How long we keep it</h2>
     <ul>
-      <li><strong>Account and workspace records</strong> — until you ask us to delete them.</li>
-      <li><strong>Google refresh tokens</strong> — until you disconnect the workspace or revoke access at Google, whichever comes first.</li>
+      <li><strong>Account and client records</strong> — until you ask us to delete them.</li>
+      <li><strong>Google refresh tokens</strong> — until you disconnect Google Ads for the client or revoke access at Google, whichever comes first.</li>
       <li><strong>Meta access tokens</strong> — until you disconnect Meta or delete the client. Meta stops accepting a token after 60 days, or as soon as you remove Roster at Meta; connecting again replaces it.</li>
       <li><strong>Meta ad account lists</strong> — the accounts you chose and the list the login could reach, until you change them, disconnect Meta or delete the client.</li>
-      <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the workspace.</li>
+      <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the client.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
       <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 8) — 90 days, after which each record is deleted automatically.</li>
-      <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and what each one was, until you delete the client&rsquo;s workspace or your account. It stays if you only disconnect Google or Meta, so you keep a record of what was done in your accounts.</li>
-      <li><strong>Branding</strong> — until you change or remove it. A logo you replace or remove is deleted when you save; a client&rsquo;s logo is deleted with that client&rsquo;s workspace.</li>
+      <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and what each one was, until you delete the client or your account. It stays if you only disconnect Google or Meta, so you keep a record of what was done in your accounts.</li>
+      <li><strong>Branding</strong> — until you change or remove it. A logo you replace or remove is deleted when you save; a client&rsquo;s logo is deleted with that client.</li>
       <li><strong>Analytics</strong> — 14 months, the retention period configured in Google
           Analytics, after which the event-level records are deleted and only aggregate totals
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a workspace deletes its Google and Meta connections, its attached accounts, its branding and logo, its reports and their snapshots, and its record of changes. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
+    <p>Deleting a client deletes its Google and Meta connections, its attached accounts, its branding and logo, its reports and their snapshots, and its record of changes. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
 
     <h2 id="security">10. Security</h2>
     <ul>
@@ -464,7 +475,7 @@
       <li>Passwords are stored as salted <code>scrypt</code> hashes and are not recoverable.</li>
       <li>Traffic is served over HTTPS.</li>
       <li>Session cookies are <code>httpOnly</code> and <code>sameSite</code>, and sessions are revoked server-side on sign-out rather than left to expire.</li>
-      <li>Each workspace's data is scoped to its owning account in the database query itself, so a mistaken identifier returns nothing rather than another agency's records.</li>
+      <li>Each client's data is scoped to its owning account in the database query itself, so a mistaken identifier returns nothing rather than another agency's records.</li>
     </ul>
     <p>
       No system is perfectly secure. If you believe you have found a vulnerability, please write to
@@ -490,9 +501,9 @@
     <p>You can delete most of what Roster holds yourself, without asking us:</p>
     <ul>
       <li><strong>Meta</strong> — disconnect Meta in a client&rsquo;s settings. This deletes the token and the ad account lists, and withdraws Roster&rsquo;s permissions at Meta (section 4).</li>
-      <li><strong>Google Ads</strong> — disconnect the workspace, or revoke Roster at Google (section 3).</li>
+      <li><strong>Google Ads</strong> — disconnect Google Ads in a client&rsquo;s settings, or revoke Roster at Google (section 3).</li>
       <li><strong>A report</strong> — delete it, and its snapshots go with it, Google Ads and Meta figures alike. Disconnecting alone leaves reports you have already made, and their figures, in place.</li>
-      <li><strong>A client</strong> — delete the workspace, and everything listed at the end of section 9 goes with it.</li>
+      <li><strong>A client</strong> — delete it in its settings, and everything listed at the end of section 9 goes with it.</li>
     </ul>
     <p>
       To delete your whole account, or anything Roster holds about you or a Facebook or Google
