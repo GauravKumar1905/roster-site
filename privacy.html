@@ -115,15 +115,20 @@
 
       <dt>Google Ads data</dt>
       <dd>
-        Account names and IDs, campaign names and IDs, and performance figures such as spend,
-        impressions, clicks and conversions. Rendered reports are stored as dated snapshots so a
-        report keeps its history and a client link does not go blank mid-refresh.
+        The accounts each Google login you connect can reach — their names and IDs, the manager
+        accounts they sit under, currency, time zone and whether each is a test account — so you
+        can choose which belong to each client. For the accounts you choose: campaign names and
+        IDs, and performance figures such as spend, impressions, clicks and conversions. Rendered
+        reports are stored as dated snapshots so a report keeps its history and a client link does
+        not go blank mid-refresh.
       </dd>
 
       <dt>Google account identity</dt>
       <dd>
-        The email address of the Google account used to connect, shown so you can tell which
-        login a client is using.
+        The email address of each Google account used to connect, shown so you can tell your
+        logins apart and see which one reads each client&rsquo;s accounts, and Google&rsquo;s ID
+        for that account, so that connecting the same one again replaces its token rather than
+        adding a second.
       </dd>
 
       <dt>Campaigns and conversion actions you set up</dt>
@@ -138,8 +143,9 @@
 
       <dt>Meta ads data</dt>
       <dd>
-        The ad accounts the connecting login can reach — their names and IDs, currency, time zone
-        and the business portfolio that holds them — so you can choose which belong to each client.
+        The ad accounts each Facebook login you connect can reach — their names and IDs, currency,
+        time zone, status, and the business portfolio that owns them or that a client shared them
+        with — so you can choose which belong to each client.
         For the accounts you choose: campaign names and IDs, and performance figures such as spend,
         impressions, reach, clicks, video views, engagement and the one conversion action you pick
         for a report, with breakdowns by age, gender, country, region, platform, placement, device
@@ -159,8 +165,8 @@
 
       <dt>Meta account identity</dt>
       <dd>
-        The name and Meta user ID of the Facebook account used to connect, shown so you can tell
-        which login a client is using.
+        The name and Meta user ID of each Facebook account used to connect, shown so you can tell
+        your logins apart and see which one reads each client&rsquo;s ad accounts.
       </dd>
     </dl>
     <p>
@@ -170,9 +176,11 @@
 
     <h2 id="google">3. Google user data</h2>
     <p>
-      When you connect Google Ads for a client, Google asks you to authorise Roster and then issues us a
-      refresh token. We store that token <strong>encrypted at rest</strong> using AES-256-GCM and
-      use it for two purposes: reading the Google Ads data needed to render your reports, and
+      You connect Google Ads once, for your agency, in Settings, and the connection serves every
+      client whose accounts it reaches. Google asks you to authorise Roster and then issues us a
+      refresh token for that Google account; you can connect more than one, and each has its own.
+      We store each token <strong>encrypted at rest</strong> using AES-256-GCM and use it for two
+      purposes: reading the Google Ads data needed to render your reports, and
       making the changes you approve, described next.
     </p>
     <p>
@@ -200,15 +208,19 @@
     <p>
       You can revoke Roster's access at any time from your
       <a href="https://myaccount.google.com/permissions" rel="noopener">Google account permissions</a>
-      page, or by disconnecting Google Ads in the client&rsquo;s settings inside Roster.
-      Disconnecting deletes the stored token and the list of accounts attached to that client.
+      page, or by disconnecting that Google account in Settings inside Roster. Disconnecting
+      deletes its stored token and the list of accounts it could reach. The accounts you chose for
+      your clients stay with them, with their reports, and are read again once a login that reaches
+      them is connected. Disconnecting does not withdraw the permission at Google, since you may use
+      the same Google account elsewhere; do that on the permissions page.
     </p>
 
     <h2 id="meta">4. Meta user data</h2>
     <p>
-      When you connect Meta for a client, you sign in with Facebook Login for Business and Meta
-      issues Roster a user access token that lasts 60 days. We store that token <strong>encrypted
-      at rest</strong> using AES-256-GCM and use it for two purposes: reading the Meta ads data
+      You connect Meta Ads once, for your agency, in Settings, and the connection serves every
+      client whose ad accounts it reaches. You sign in with Facebook Login for Business and Meta
+      issues Roster a user access token for that Facebook account that lasts 60 days. We store that
+      token <strong>encrypted at rest</strong> using AES-256-GCM and use it for two purposes: reading the Meta ads data
       needed to render your reports, and making the changes you approve, described below. When it
       expires, Roster asks you to connect again.
     </p>
@@ -246,10 +258,11 @@
       aggregated and de-identified.
     </p>
     <p>
-      You can remove Roster's access at any time by disconnecting Meta in the client's settings
-      inside Roster. Disconnecting deletes the stored token, the ad accounts you chose for that
-      client and the list of accounts the login could reach, and withdraws Roster's permissions at
-      Meta, so Roster also disappears from your Facebook settings. You can also remove Roster from
+      You can remove Roster's access at any time by disconnecting that Facebook account in Settings
+      inside Roster. Disconnecting deletes its stored token and the list of ad accounts it could
+      reach, and withdraws Roster's permissions at Meta, so Roster also disappears from your
+      Facebook settings. The ad accounts you chose for your clients stay with them, and are read
+      again once a login that reaches them is connected. You can also remove Roster from
       Meta's side, under <em>Business integrations</em> in your Facebook settings; Roster can then
       read nothing more, and the token it holds is useless until you disconnect it in Roster or
       ask us to delete it (section 12).
@@ -454,9 +467,10 @@
     <h2 id="retention">9. How long we keep it</h2>
     <ul>
       <li><strong>Account and client records</strong> — until you ask us to delete them.</li>
-      <li><strong>Google refresh tokens</strong> — until you disconnect Google Ads for the client or revoke access at Google, whichever comes first.</li>
-      <li><strong>Meta access tokens</strong> — until you disconnect Meta or delete the client. Meta stops accepting a token after 60 days, or as soon as you remove Roster at Meta; connecting again replaces it.</li>
-      <li><strong>Meta ad account lists</strong> — the accounts you chose and the list the login could reach, until you change them, disconnect Meta or delete the client.</li>
+      <li><strong>Google refresh tokens</strong> — until you disconnect that Google account in Settings or your Roster account is deleted. A token you revoke at Google stops working at once; Roster keeps it only to tell you which login to reconnect.</li>
+      <li><strong>Meta access tokens</strong> — until you disconnect that Facebook account in Settings or your Roster account is deleted. Meta stops accepting a token after 60 days, or as soon as you remove Roster at Meta; connecting again replaces it.</li>
+      <li><strong>Account lists</strong> — what each Google or Facebook login can reach, until you disconnect it; each new read of the list replaces the last.</li>
+      <li><strong>Ad accounts chosen for a client</strong> — until you remove them from it, move them to another client, or delete the client.</li>
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the client.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
       <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 8) — 90 days, after which each record is deleted automatically.</li>
@@ -467,7 +481,7 @@
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a client deletes its Google and Meta connections, its attached accounts, its branding and logo, its reports and their snapshots, and its record of changes. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
+    <p>Deleting a client deletes the ad accounts chosen for it, its branding and logo, its reports and their snapshots, and its record of changes. Your Google and Meta connections stay in Settings, because they serve your other clients. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
 
     <h2 id="security">10. Security</h2>
     <ul>
@@ -500,10 +514,10 @@
     <h2 id="deletion">12. Deleting your data</h2>
     <p>You can delete most of what Roster holds yourself, without asking us:</p>
     <ul>
-      <li><strong>Meta</strong> — disconnect Meta in a client&rsquo;s settings. This deletes the token and the ad account lists, and withdraws Roster&rsquo;s permissions at Meta (section 4).</li>
-      <li><strong>Google Ads</strong> — disconnect Google Ads in a client&rsquo;s settings, or revoke Roster at Google (section 3).</li>
+      <li><strong>Meta</strong> — disconnect the Facebook account in Settings. This deletes its token and the list of ad accounts it could reach, and withdraws Roster&rsquo;s permissions at Meta (section 4).</li>
+      <li><strong>Google Ads</strong> — disconnect the Google account in Settings. This deletes its token and the list of accounts it could reach; revoke Roster at Google as well to withdraw the permission there (section 3).</li>
       <li><strong>A report</strong> — delete it, and its snapshots go with it, Google Ads and Meta figures alike. Disconnecting alone leaves reports you have already made, and their figures, in place.</li>
-      <li><strong>A client</strong> — delete it in its settings, and everything listed at the end of section 9 goes with it.</li>
+      <li><strong>A client</strong> — delete it on its page, and everything listed at the end of section 9 goes with it.</li>
     </ul>
     <p>
       To delete your whole account, or anything Roster holds about you or a Facebook or Google
