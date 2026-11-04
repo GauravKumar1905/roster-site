@@ -981,12 +981,23 @@ html {
 .nogl .chart .bar { fill: var(--accent); }
 .nogl .chart .ln { stroke: var(--accent); stroke-width: 2.5; }
 
-/* ---------- page 2: the three jobs ---------- */
+/* ---------- page 2: the two jobs ---------- */
 
 .tiles {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
+}
+
+.tiles .mini {
+  aspect-ratio: 2 / 1;
+}
+
+.jobs-next {
+  max-width: 860px;
+  margin: 22px 0 0;
+  font-size: 15px;
+  color: var(--fg-faint);
 }
 
 .tile {
