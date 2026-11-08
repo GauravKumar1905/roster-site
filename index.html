@@ -70,7 +70,7 @@
         { "@type": "Question", "name": "Do my clients need an account?",
           "acceptedAnswer": { "@type": "Answer", "text": "No. They open the link you send in any browser, on any device." } },
         { "@type": "Question", "name": "Can one client see another client's data?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Each client has its own workspace, and a link shows only the report it was made for." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Each client's accounts and reports are kept apart, and a link shows only the report it was made for." } },
         { "@type": "Question", "name": "Why does Meta need an invite?",
           "acceptedAnswer": { "@type": "Answer", "text": "While Roster is in early access, Meta asks us to add each agency as a tester before its ad accounts can connect. We send the invite; you accept it once." } },
         { "@type": "Question", "name": "How much does it cost?",
@@ -124,7 +124,7 @@
         <div class="live-bar">
           <span class="logo" data-print><i aria-hidden="true"></i>Your agency</span>
           <span class="crumb" data-print>Bloom &amp; Co. · October report</span>
-          <span class="share" data-z=".16">Copy client link</span>
+          <span class="share" data-z=".16">Share with client</span>
         </div>
         <div class="live-body">
           <nav class="live-side" aria-label="Report sections">
@@ -318,7 +318,7 @@
             <tr>
               <th scope="row" class="job">The monthly report</th>
               <td class="old" data-l="By hand">Export from Google Ads and Meta, paste into slides, fix the numbers that don't match, then write it up. Again for the next client.</td>
-              <td class="new" data-l="With Roster">Ask Claude for the report. Check the figures, add your note, and send the client one link.</td>
+              <td class="new" data-l="With Roster">Pick the report in Roster and build it with Claude. Check the figures, add your note, and send the client one link.</td>
             </tr>
             <tr>
               <th scope="row" class="job">Testing five audiences</th>
@@ -354,13 +354,13 @@
       <ol class="how-steps">
         <li>
           <span class="n" aria-hidden="true">01</span>
-          <h3>Connect a client</h3>
-          <p>Sign up, add the client, and sign in with the Google or Facebook login that manages their ads. Pick the accounts that are theirs.</p>
+          <h3>Pick a report</h3>
+          <p>Sign up and pick Google Ads report or Meta Ads report. Sign in once with the Google or Facebook login that manages your clients' ads, then choose the client's ad account.</p>
         </li>
         <li>
           <span class="n" aria-hidden="true">02</span>
-          <h3>Ask Claude</h3>
-          <p>In the Claude desktop app, ask for a report or describe a campaign (opening soon). Roster does the work and shows you everything before it's saved.</p>
+          <h3>Build it with Claude</h3>
+          <p>Press Copy for Claude and paste it into the Claude desktop app. Claude shows you each page of a report, or each ad of a campaign (opening soon), before anything is saved.</p>
         </li>
         <li>
           <span class="n" aria-hidden="true">03</span>
@@ -373,7 +373,7 @@
         <ul>
           <li><b>A Roster account.</b> Free during early access.</li>
           <li><b>The Claude desktop app,</b> with Cowork or Claude Code.</li>
-          <li><b>Your client's ad login,</b> for Google Ads or Meta.</li>
+          <li><b>Your Google or Facebook ad login,</b> the one that manages your clients' ads.</li>
           <li><b>For Meta, an invite from us.</b> Meta asks for it during early access.</li>
         </ul>
       </div>
@@ -409,7 +409,7 @@
         <div class="trust-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="7.5" height="14" rx="2"/><rect x="13.5" y="5" width="7.5" height="14" rx="2"/></svg>
           <h3>Each client kept apart</h3>
-          <p>Every client has its own workspace, and a link shows only the report it was made for.</p>
+          <p>Every client's accounts and reports are kept apart, and a link shows only the report it was made for.</p>
         </div>
         <div class="trust-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12V4.5a1 1 0 0 1 1-1H12l8.5 8.5-8 8z"/><circle cx="8" cy="8" r="1.4"/></svg>
@@ -488,7 +488,7 @@
       </details>
       <details data-q="client_separation">
         <summary>Can one client see another client's data?</summary>
-        <p>No. Each client has its own workspace, and a link shows only the report it was made for.</p>
+        <p>No. Each client's accounts and reports are kept apart, and a link shows only the report it was made for.</p>
       </details>
       <details data-q="meta_invite">
         <summary>Why does Meta need an invite?</summary>
@@ -507,7 +507,7 @@
 
     <div class="closing" data-prompt-hide>
       <h2>Your strategy. Our busywork.</h2>
-      <p class="lede">Create an account, connect your first client, and send them a report this month.</p>
+      <p class="lede">Create an account, pick your first report, and send it to your client this month.</p>
       <div class="cta-row">
         <a class="btn btn-primary btn-lg" href="https://app.useroster.xyz/signup" data-cta="closing_get_started">Get started free</a>
         <a class="btn btn-quiet btn-lg" href="start.html">Read the setup guide</a>

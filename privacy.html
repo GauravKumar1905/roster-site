@@ -31,7 +31,7 @@
 <main class="doc">
   <div class="wrap doc-inner">
 
-    <p class="doc-meta">Last updated 3 November 2026</p>
+    <p class="doc-meta">Last updated 8 November 2026</p>
     <h1>Privacy Policy</h1>
 
     <div class="doc-note">
@@ -102,15 +102,42 @@
       <dt>Client details</dt>
       <dd>
         The client names you create, and which Google Ads accounts and Meta ad accounts you attach
-        to each. These are typed or chosen by you and may identify your clients.
+        to each. When you ask for a report on an ad account that is in none of your clients, Roster
+        makes a client for it, named after the account unless you choose another, which you can
+        keep, rename or delete. These names are typed by you or taken from your ad accounts, and may
+        identify your clients.
+      </dd>
+
+      <dt>Reports you ask for</dt>
+      <dd>
+        A report exists from the moment you press Copy for Claude in Roster: the ad account and the
+        campaigns it covers, the note you write for Claude if you write one, and when it was asked
+        for, picked up by Claude, finished or cancelled. Roster shows where it stands on the
+        report&rsquo;s page and on Home. The note is part of the message you paste into Claude, so
+        Claude reads it (section 6). It shows on the report&rsquo;s page, for you, while Claude
+        builds it, and never on the links you send your clients.
+      </dd>
+
+      <dt>Files and client profiles</dt>
+      <dd>
+        Files you attach to a report (on its job or its page) or to a client (in Client details) —
+        PDF, PowerPoint, Word, Excel, CSV, text or images, up to 25 MB each — and what Roster reads
+        from them when you add them: their text, and pages and pictures as images. A client&rsquo;s
+        profile, also in Client details: what the business does and sells, its customers and
+        markets, what counts as success and its targets, who reads its reports, what to avoid, its
+        website and anything else you add. You fill it in there, or Claude asks and, on your yes,
+        saves your answers. Claude reads both when it builds that client&rsquo;s reports, which
+        passes them to Anthropic (section 6). Neither is shown on the links you send your clients. A
+        file is deleted when you remove it, with its report or client, or when you cancel the
+        request it is on.
       </dd>
 
       <dt>Branding</dt>
       <dd>
         If you set them: your agency&rsquo;s name, logo, browser-tab icon, accent colour, website and
-        contact line, and for each client a display name, a logo and a colour. Logos are stored in
-        our database. All of it appears on the share links you send, so treat it as public once a
-        link is out.
+        contact line, and for each client a logo, a colour and which logos its reports show. Logos
+        are stored in our database. A client&rsquo;s name is the title on its reports. All of it
+        appears on the share links you send, so treat it as public once a link is out.
       </dd>
 
       <dt>Google Ads data</dt>
@@ -167,6 +194,16 @@
       <dd>
         The name and Meta user ID of each Facebook account used to connect, shown so you can tell
         your logins apart and see which one reads each client&rsquo;s ad accounts.
+      </dd>
+
+      <dt>Meta invite requests</dt>
+      <dd>
+        If you ask us to invite you to connect Meta Ads: the Facebook profile link or name you give,
+        when you asked, and when we marked the invite sent. We see it, with the email address you
+        sign in with, and use it only to add that Facebook account as a tester on Roster&rsquo;s
+        Meta app, in Meta&rsquo;s developer dashboard; Meta then sends you the invite. You see your
+        latest request in Roster, in Settings and on the Meta Ads report. Each request is kept until
+        your Roster account is deleted; to have it deleted sooner, email us (section 12).
       </dd>
     </dl>
     <p>
@@ -287,11 +324,17 @@
       <dt>Meta (Marketing API, Facebook Login for Business)</dt>
       <dd>The source of the Meta advertising data, and the login used to connect it.</dd>
 
-      <dt>Google Cloud (Cloud Run)</dt>
-      <dd>Hosts the application. Region: <code>asia-southeast1</code> (Singapore).</dd>
+      <dt>Google Cloud (Cloud Run, Cloud Storage)</dt>
+      <dd>
+        Hosts the application, and stores the files you attach and the images read from them
+        (section 2). Region: <code>asia-southeast1</code> (Singapore).
+      </dd>
 
       <dt>Neon</dt>
-      <dd>Hosts the Postgres database holding everything in section 2.</dd>
+      <dd>
+        Hosts the Postgres database holding the rest of section 2, the text read from your files
+        included.
+      </dd>
 
       <dt>Google Analytics</dt>
       <dd>
@@ -302,9 +345,10 @@
 
       <dt>Anthropic</dt>
       <dd>
-        Only if you choose to design reports using Claude. In that case the report definition and
-        the account structure it is based on are processed by Anthropic under its own terms. No
-        Google or Meta token is ever sent to Anthropic.
+        Only if you choose to design reports using Claude. In that case the report definition, the
+        account structure it is based on, the note you wrote for Claude, and the files and client
+        profile Claude reads are processed by Anthropic under its own terms. No Google or Meta token
+        is ever sent to Anthropic.
       </dd>
     </dl>
     <p>
@@ -319,7 +363,7 @@
       signing in</strong>, read-only, and pinned to the figures as they were when you made it. The
       token is long and random, and we do not list or index these pages — but anyone who has the
       link can see that report. Treat a share link as you would treat the report itself, and revoke
-      it from the report page if it should stop working.
+      it from the report page, or delete the report, if it should stop working.
     </p>
     <p>
       Share links carry your branding, not ours. They are measured like every other Roster page:
@@ -398,10 +442,12 @@
           each page loaded and responded to you;</li>
       <li>approximately how many seconds a page, or a section of a page, was visible and in front
           of you;</li>
-      <li>product events — a client added, a Google Ads or Meta account connected, branding saved, a
-          report shared, a report link opened by a client and which of its pages were opened, a
-          request to Claude succeeding or failing — with a count or a short label (such as
-          &ldquo;demographics&rdquo; for a page) where one is meaningful;</li>
+      <li>product events — a client added or kept, a Google Ads or Meta account connected, a Meta
+          invite asked for, branding saved, a file attached or removed, a client profile saved, a
+          report asked for, picked up by Claude and finished, a report shared, a report link opened
+          by a client and which of its pages were opened, a request to Claude succeeding or failing
+          — with a count or a short label (such as &ldquo;demographics&rdquo; for a page) where one
+          is meaningful;</li>
       <li>a random identifier for your browser, and our internal account identifier if you are
           signed in;</li>
       <li>rough shape-of-account facts in bands rather than exact figures: whether you have
@@ -414,7 +460,8 @@
     <h3>What is never sent</h3>
     <ul>
       <li>your name or email address;</li>
-      <li>your clients&rsquo; names, or any report or task name you have typed;</li>
+      <li>your clients&rsquo; names, or any report name, note for Claude or Facebook profile you
+          have typed;</li>
       <li>Google Ads or Meta account IDs, campaign names, or any advertising figure;</li>
       <li>
         error messages. When something fails we send a category — &ldquo;permission&rdquo;,
@@ -442,7 +489,7 @@
     <ul>
       <li>
         <strong>Actions in the signed-in dashboard</strong> — adding a client, connecting
-        Google Ads or Meta, saving, arranging or sharing a report, a share link being opened — are sent from
+        Google Ads or Meta, asking for, saving, arranging or sharing a report, a share link being opened — are sent from
         our servers to Google Analytics under our internal account identifier, with the same
         exclusions as the list above: no names, no emails, no figures.
       </li>
@@ -470,7 +517,10 @@
       <li><strong>Google refresh tokens</strong> — until you disconnect that Google account in Settings or your Roster account is deleted. A token you revoke at Google stops working at once; Roster keeps it only to tell you which login to reconnect.</li>
       <li><strong>Meta access tokens</strong> — until you disconnect that Facebook account in Settings or your Roster account is deleted. Meta stops accepting a token after 60 days, or as soon as you remove Roster at Meta; connecting again replaces it.</li>
       <li><strong>Account lists</strong> — what each Google or Facebook login can reach, until you disconnect it; each new read of the list replaces the last.</li>
+      <li><strong>Meta invite requests</strong> — until your Roster account is deleted, or sooner if you ask us (section 12). Asking again adds a request, and the earlier ones are kept too.</li>
       <li><strong>Ad accounts chosen for a client</strong> — until you remove them from it, move them to another client, or delete the client.</li>
+      <li><strong>Reports you ask for</strong>, with the note for Claude — until you delete the report or its client. A request you cancel stays, marked cancelled, until you delete its client.</li>
+      <li><strong>Files and client profiles</strong> — a file, with what Roster read from it, until you remove it, its report or client is deleted, or the request it is on is cancelled; a client&rsquo;s profile until its client is deleted.</li>
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the client.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
       <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 8) — 90 days, after which each record is deleted automatically.</li>
@@ -481,7 +531,7 @@
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a client deletes the ad accounts chosen for it, its branding and logo, its reports and their snapshots, and its record of changes. Your Google and Meta connections stay in Settings, because they serve your other clients. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
+    <p>Deleting a client deletes the ad accounts chosen for it, its branding and logo, its profile and files, its reports (requests, their notes and files included) and their snapshots, and its record of changes. Your Google and Meta connections stay in Settings, because they serve your other clients. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
 
     <h2 id="security">10. Security</h2>
     <ul>
@@ -516,7 +566,7 @@
     <ul>
       <li><strong>Meta</strong> — disconnect the Facebook account in Settings. This deletes its token and the list of ad accounts it could reach, and withdraws Roster&rsquo;s permissions at Meta (section 4).</li>
       <li><strong>Google Ads</strong> — disconnect the Google account in Settings. This deletes its token and the list of accounts it could reach; revoke Roster at Google as well to withdraw the permission there (section 3).</li>
-      <li><strong>A report</strong> — delete it, and its snapshots go with it, Google Ads and Meta figures alike. Disconnecting alone leaves reports you have already made, and their figures, in place.</li>
+      <li><strong>A report</strong> — Delete report… on the report&rsquo;s page deletes it, with its snapshots, its note and its files, Google Ads and Meta figures alike, and ends every link to it. A request Claude hasn&rsquo;t built can be cancelled there instead; it goes when its client does. Disconnecting alone leaves reports you have already made, and their figures, in place.</li>
       <li><strong>A client</strong> — delete it on its page, and everything listed at the end of section 9 goes with it.</li>
     </ul>
     <p>
