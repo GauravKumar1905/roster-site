@@ -31,7 +31,7 @@
 <main class="doc">
   <div class="wrap doc-inner">
 
-    <p class="doc-meta">Last updated 8 November 2026</p>
+    <p class="doc-meta">Last updated 9 November 2026</p>
     <h1>Privacy Policy</h1>
 
     <div class="doc-note">
@@ -102,10 +102,10 @@
       <dt>Client details</dt>
       <dd>
         The client names you create, and which Google Ads accounts and Meta ad accounts you attach
-        to each. When you ask for a report on an ad account that is in none of your clients, Roster
-        puts it in the client you choose, or makes a new client for it, named after the account,
-        which you can keep, rename or delete. These names are typed by you or taken from your ad
-        accounts, and may identify your clients.
+        to each. When you ask for a report or a campaign on an ad account that is in none of your
+        clients, Roster puts it in the client you choose, or makes a new client for it, named after
+        the account, which you can keep, rename or delete. These names are typed by you or taken
+        from your ad accounts, and may identify your clients.
       </dd>
 
       <dt>Reports you ask for</dt>
@@ -148,6 +148,9 @@
         IDs, and performance figures such as spend, impressions, clicks and conversions. Rendered
         reports are stored as dated snapshots so a report keeps its history and a client link does
         not go blank mid-refresh.
+        For a campaign Roster set up, Roster reads its status and its last 30 days&rsquo; spend,
+        clicks and conversions only when you press Check status on its page, or ask Claude how it
+        is doing, and keeps the latest reading, with its time, on that page.
       </dd>
 
       <dt>Google account identity</dt>
@@ -158,14 +161,39 @@
         adding a second.
       </dd>
 
-      <dt>Campaigns and conversion actions you set up</dt>
+      <dt>Campaigns you set up</dt>
       <dd>
-        If you ask Roster to set up a Google Ads campaign or conversion action, or a Meta campaign:
-        what you approved (its name, budget, dates, bidding, targeting, ad text, the web addresses of
-        its images and videos) and a record of the change Roster made in your account — when, and
-        what Google or Meta answered. Images are fetched from the addresses you give and passed to
-        Google or Meta; Roster keeps only a fingerprint of each, not the image. Meta fetches videos
-        from their addresses itself; Roster never holds them. See sections 3 and 4.
+        Campaign setup is in early access, available to the agencies Roster has turned it on for;
+        for yours, Roster keeps the date it was turned on.
+        When you start a campaign in Roster with Copy for Claude, Roster keeps the request: the
+        client, the ad account, the note you wrote for Claude, when you asked, when Claude first
+        read it, and whether you cancelled it. Each draft that Roster and Google or Meta check is
+        kept on the campaign&rsquo;s page — its settings, targeting (with the names of its places
+        and languages, and on Meta its Page and pixel), budget and bidding, every ad&rsquo;s text,
+        the web addresses of its images and videos, Roster&rsquo;s suggestions (&ldquo;Things to
+        look at&rdquo;) and when it was checked; a newer draft replaces it. When you say yes in
+        Claude, Roster keeps the draft as it was at that moment, with the time (&ldquo;What you
+        approved&rdquo;), and a record of the change it made in your account — when, and what Google
+        or Meta answered. Images are fetched from the addresses you give and passed to Google or
+        Meta; Roster keeps only a fingerprint of each, not the image. Meta fetches videos from their
+        addresses itself; Roster never holds them. See sections 3 and 4.
+      </dd>
+
+      <dt>Conversion actions you set up</dt>
+      <dd>
+        If you ask Roster to set up a Google Ads conversion action: what you approved, the record
+        of the change, and the tag code Google returns for it, kept so that you can copy it again
+        from the campaign&rsquo;s page.
+      </dd>
+
+      <dt>Comments on campaigns</dt>
+      <dd>
+        What anyone signed in to your Roster login writes on a campaign&rsquo;s page, with a name
+        if they give one, and the comments Claude adds there, which are marked Claude. Claude reads
+        them whenever it works on that campaign, so they reach Anthropic like the rest of the
+        conversation (section 6). Please don&rsquo;t put personal data about your clients&rsquo;
+        customers in them. The name you give is remembered in that browser&rsquo;s local storage
+        and sent to Roster only with a comment; clearing the browser&rsquo;s data removes it.
       </dd>
 
       <dt>Meta ads data</dt>
@@ -178,6 +206,9 @@
         for a report, with breakdowns by age, gender, country, region, platform, placement, device
         and hour of day. These are totals Meta reports for an ad account; none of them identifies a
         person who saw an ad. Reports keep them as dated snapshots, as they do Google Ads figures.
+        For a campaign Roster set up, Roster reads its status and its last 30 days&rsquo; spend,
+        clicks and conversions only when you press Check status on its page, or ask Claude how it
+        is doing, and keeps the latest reading, with its time, on that page.
       </dd>
 
       <dt>Facebook Pages, Instagram accounts and pixels</dt>
@@ -188,6 +219,27 @@
         the method itself) and Meta&rsquo;s minimum budgets for it — so Roster can tell you what a
         campaign there needs, and run its ads as the Page you choose. Roster does not read the
         Pages&rsquo; or Instagram accounts&rsquo; posts, messages, followers or insights.
+      </dd>
+
+      <dt>Account checks for campaigns</dt>
+      <dd>
+        When you pick an ad account in a campaign job, or Claude checks one for you, Roster checks
+        what it can set up there: for a Google Ads account, whether your login can make changes in
+        it, its billing and advertiser verification status, its conversion actions and their counts
+        over the last 30 days, linked Merchant Center and Business Profile accounts, and its YouTube
+        videos; for a Meta ad account, whether your login can make changes in it, its payment
+        method, Pages, Instagram accounts and pixels. The result is kept with that client, and
+        replaced by the next check; for an account in no client, it isn&rsquo;t kept. To learn
+        whether your login can make changes, Roster sends a request that Google or Meta checks and
+        then discards, changing nothing.
+      </dd>
+
+      <dt>Your Claude connection</dt>
+      <dd>
+        For each Claude, or other assistant, you connect to Roster: a token, stored only as a hash,
+        and what you approved when you connected it — reports, or reports and campaign setup — so
+        it is offered only what you approved. It ends when you sign out of the connection in that
+        application, or after 30 days without use.
       </dd>
 
       <dt>Meta account identity</dt>
@@ -345,10 +397,11 @@
 
       <dt>Anthropic</dt>
       <dd>
-        Only if you choose to design reports using Claude. In that case the report definition, the
-        account structure it is based on, the note you wrote for Claude, and the files and client
-        profile Claude reads are processed by Anthropic under its own terms. No Google or Meta token
-        is ever sent to Anthropic.
+        Only if you choose to design reports or set up campaigns using Claude. In that case the
+        report definition or campaign draft, the account structure they are based on, the note you
+        wrote for Claude, and the files, client profile and campaign comments Claude reads are
+        processed by Anthropic under its own terms. No Google or Meta token is ever sent to
+        Anthropic.
       </dd>
     </dl>
     <p>
@@ -445,9 +498,13 @@
       <li>product events — a client added or kept, a Google Ads or Meta account connected, a Meta
           invite asked for, branding saved, a file attached or removed, a client profile saved, a
           report asked for, picked up by Claude and finished, a report shared, a report link opened
-          by a client and which of its pages were opened, a request to Claude succeeding or failing
-          — with a count or a short label (such as &ldquo;demographics&rdquo; for a page) where one
-          is meaningful;</li>
+          by a client and which of its pages were opened, a request to Claude succeeding or failing,
+          campaign setup turned on for your agency, a campaign asked for, picked up by Claude,
+          drafted, created or checked, a comment added — with a count or a short label (such as
+          &ldquo;demographics&rdquo; for a page) where one is meaningful;</li>
+      <li>for campaigns, the platform (Google Ads or Meta), an outcome and short labels such as how
+          long it took or whether a note was written — never a campaign&rsquo;s name, ID or figures,
+          or the text of a note or a comment;</li>
       <li>a random identifier for your browser, and our internal account identifier if you are
           signed in;</li>
       <li>rough shape-of-account facts in bands rather than exact figures: whether you have
@@ -460,8 +517,8 @@
     <h3>What is never sent</h3>
     <ul>
       <li>your name or email address;</li>
-      <li>your clients&rsquo; names, or any report name, note for Claude or Facebook profile you
-          have typed;</li>
+      <li>your clients&rsquo; names, or any report name, note for Claude, comment or Facebook
+          profile you have typed;</li>
       <li>Google Ads or Meta account IDs, campaign names, or any advertising figure;</li>
       <li>
         error messages. When something fails we send a category — &ldquo;permission&rdquo;,
@@ -489,15 +546,15 @@
     <ul>
       <li>
         <strong>Actions in the signed-in dashboard</strong> — adding a client, connecting
-        Google Ads or Meta, asking for, saving, arranging or sharing a report, a share link being opened — are sent from
+        Google Ads or Meta, asking for, saving, arranging or sharing a report, a share link being opened, asking for a campaign, checking its status or commenting on it — are sent from
         our servers to Google Analytics under our internal account identifier, with the same
         exclusions as the list above: no names, no emails, no figures.
       </li>
       <li>
         <strong>Every request Claude makes through the Roster connector</strong> is recorded in our
         own database: which tool was called, what it was asked (its arguments, which can include
-        the client, campaign or report it was about, and the report design itself), how long it
-        took, whether it succeeded, the error if it failed, and a short summary of the result —
+        the client, campaign or report it was about, the report design or campaign draft itself,
+        and a comment Claude adds to a campaign), how long it took, whether it succeeded, the error if it failed, and a short summary of the result —
         counts, and the IDs and names of anything it created. It never includes the figures a
         request returned. Google Analytics receives only the tool&rsquo;s name, whether it
         succeeded, roughly how long it took, and on failure a category such as
@@ -524,14 +581,15 @@
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the client.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
       <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 8) — 90 days, after which each record is deleted automatically.</li>
-      <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and what each one was, until you delete the client or your account. It stays if you only disconnect Google or Meta, so you keep a record of what was done in your accounts.</li>
+      <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and each campaign&rsquo;s page: the request, the latest draft, what you approved, the last status reading, Things to look at and comments, until you delete the client or your account; a comment until you delete it. It stays if you only disconnect Google or Meta, so you keep a record of what was done in your accounts.</li>
+      <li><strong>Claude connections</strong> — until you sign out of the connection in Claude, or 30 days after it was last used.</li>
       <li><strong>Branding</strong> — until you change or remove it. A logo you replace or remove is deleted when you save; a client&rsquo;s logo is deleted with that client.</li>
       <li><strong>Analytics</strong> — 14 months, the retention period configured in Google
           Analytics, after which the event-level records are deleted and only aggregate totals
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a client deletes the ad accounts chosen for it, its branding and logo, its profile and files, its reports (requests, their notes and files included) and their snapshots, and its record of changes. Your Google and Meta connections stay in Settings, because they serve your other clients. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
+    <p>Deleting a client deletes the ad accounts chosen for it, its branding and logo, its profile and files, its reports (requests, their notes and files included) and their snapshots, and its record of changes, including its campaigns&rsquo; pages and their comments. Your Google and Meta connections stay in Settings, because they serve your other clients. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
 
     <h2 id="security">10. Security</h2>
     <ul>
