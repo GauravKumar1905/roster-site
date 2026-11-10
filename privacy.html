@@ -37,7 +37,8 @@
     <div class="doc-note">
       <p>
         Roster is a reporting and campaign setup tool for advertising agencies, for Google Ads and
-        Meta Ads. It reads Google Ads and Meta ads data on your behalf to build reports, and sets up
+        Meta Ads. It reads Google Ads and Meta ads data on your behalf to build reports (and, if you
+        connect them, Search Console and Google Analytics data), and sets up
         new campaigns when you ask it to. It changes a Google Ads account or a Meta ad account only
         when you ask it to set up a campaign (or, in Google Ads, a conversion action), and only after
         you have approved that exact change. This policy explains what it stores, why, and how to get
@@ -161,6 +162,28 @@
         adding a second.
       </dd>
 
+      <dt>Search Console data</dt>
+      <dd>
+        If you connect Search Console: the sites each Google login you connect can view, so you can
+        choose which belong to each client. For the sites you choose: the organic search figures
+        Google reports for them — clicks, impressions, click-through rate and average position — by
+        date, search query, page, country, device and search appearance. Queries are what people
+        searched, as totals Google reports for the site; Google leaves out rare ones, and none of
+        them identifies a person. Reports keep them as dated snapshots, as they do Google Ads
+        figures.
+      </dd>
+
+      <dt>Google Analytics data</dt>
+      <dd>
+        If you connect Google Analytics: the GA4 accounts and properties each Google login you
+        connect can read — their names and IDs, time zone and currency — so you can choose which
+        belong to each client. For the properties you choose: totals such as sessions, users,
+        engagement, page views, events, key events and, where the property records them, revenue
+        and transactions, by date, channel, source and medium, campaign, landing page, page,
+        country, city, device, new or returning visitor, and event name. Roster reads no
+        user-level data. Reports keep these totals as dated snapshots.
+      </dd>
+
       <dt>Campaigns you set up</dt>
       <dd>
         Campaign setup is in early access, available to the agencies Roster has turned it on for;
@@ -271,6 +294,15 @@
       We store each token <strong>encrypted at rest</strong> using AES-256-GCM and use it for two
       purposes: reading the Google Ads data needed to render your reports, and
       making the changes you approve, described next.
+    </p>
+    <p>
+      Search Console and Google Analytics are connected the same way, in Settings, each with its
+      own Connect button and its own Google authorisation, which asks only to view that
+      product&rsquo;s data: <code>https://www.googleapis.com/auth/webmasters.readonly</code> for
+      Search Console, and <code>https://www.googleapis.com/auth/analytics.readonly</code> for
+      Google Analytics, which Google classes as sensitive. Both are read-only. Roster uses them only
+      to read the figures for the reports you build, and never changes anything in Search Console
+      or Google Analytics. Their tokens are stored encrypted in the same way.
     </p>
     <p>
       Roster requests the <code>https://www.googleapis.com/auth/adwords</code> scope, which Google
