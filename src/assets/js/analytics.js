@@ -862,7 +862,7 @@
 
   function speed() {
     var s = document.createElement("script");
-    s.src = "/vitals.js";
+    s.src = "/assets/js/vendor/web-vitals.js";
     s.async = true;
     s.onload = function () {
       var wv = window.webVitals;

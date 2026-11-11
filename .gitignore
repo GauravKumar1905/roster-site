@@ -1,1 +1,5 @@
+# Build output: CI builds it fresh for every deploy.
+_site/
+
+node_modules/
 .DS_Store

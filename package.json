@@ -1,0 +1,15 @@
+{
+  "name": "roster-site",
+  "private": true,
+  "description": "The Roster marketing site, useroster.xyz, published with GitHub Pages.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node scripts/build.mjs && node scripts/serve.mjs"
+  }
+}

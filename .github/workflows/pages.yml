@@ -1,5 +1,6 @@
-# Publishes this repo to GitHub Pages. Plain HTML with no build step, so the directory is
-# uploaded as-is.
+# Publishes the site to GitHub Pages. The pages are plain HTML; the build only arranges src/ into
+# the flat addresses the site has always had (see scripts/build.mjs), and the check stops the
+# deploy if any page links to something that isn't there.
 #
 # The site lives in its own public repo because Pages is not available on private repos on the
 # free plan, and the application code stays private.
@@ -28,9 +29,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run build
+      - run: npm run check
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
