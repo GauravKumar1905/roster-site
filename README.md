@@ -24,8 +24,7 @@ src/
     js/                 site.js and analytics.js on every page, plus page-specific scripts
     js/vendor/          third-party code, copied in unchanged
   public/             copied to the site exactly as it is: robots.txt, sitemap.xml, search-engine
-                      verification files, images whose address is used elsewhere, hosted social
-                      images
+                      verification files, and images whose address is used elsewhere
 scripts/
   build.mjs           arranges src/ into _site/, the folder that is published
   check.mjs           fails if any page links to something that doesn't exist

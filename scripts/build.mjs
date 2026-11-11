@@ -11,7 +11,7 @@
 //   src/assets/**  -> /assets/**            styles and scripts
 //   src/public/**  -> /**                   copied as-is: files whose address is fixed elsewhere
 //                                            (robots.txt, sitemap.xml, search-engine verification,
-//                                            the logo and share image, hosted social images)
+//                                            the logo and share image)
 //
 // No dependencies: plain Node, so the deploy needs nothing installed.
 
