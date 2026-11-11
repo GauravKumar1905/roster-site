@@ -17,6 +17,7 @@ src/
     guides/             the Google Ads articles
     compare/            Roster against other tools
     legal/              privacy policy and terms
+  partials/           the menu bar and footer every page shares, put into each page by the build
   links/              short addresses used when sharing (/dm, /ig, /li, /mail), which forward
                       to the homepage with campaign tags
   assets/
@@ -41,6 +42,21 @@ engines and linked from elsewhere (the Meta app's settings and the Roster plugin
 the privacy policy), so a page's file name is its address: don't rename one without a plan for the old link.
 Two pages can't share a file name, and the build stops if they do.
 
+### Shared header and footer
+
+The menu bar and the footer live once, in `src/partials/`. Each page has a comment where they go:
+
+```html
+<!-- include header cta="article_" home="/" -->
+...
+<!-- include footer cta="article_" home="/" -->
+```
+
+`cta` prefixes the analytics names of the buttons in them (`article_nav_sign_in`), so a page's
+clicks can be told apart in Google Analytics; keep a page's prefix as it is, or its history splits
+in two. `home` is `/` everywhere except the homepage, which passes `""` so its own section links
+scroll rather than reload. The comment at the top of each partial says the same.
+
 ## Working on it
 
 Needs Node 20 or later and nothing else: there are no dependencies to install.
@@ -61,7 +77,9 @@ sitemap entry for a page that doesn't exist.
 ### Adding a page
 
 1. Add the HTML file to the folder under `src/pages/` it belongs in. Copy the `<head>` from a
-   page of the same kind: it carries the canonical URL, the share card and the analytics.
+   page of the same kind: it carries the canonical URL, the share card and the analytics. Use the
+   `include header` and `include footer` comments for the menu bar and footer, with a `cta`
+   prefix of its own if its clicks should be counted apart.
 2. Link stylesheets, scripts and images from the site root (`/assets/css/site.css`,
    `/img/logo-square-400.png`), so a page works whichever folder its source sits in.
 3. Add it to `src/public/sitemap.xml` if search engines should find it.

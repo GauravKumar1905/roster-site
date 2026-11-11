@@ -1,0 +1,23 @@
+<!--
+  The menu bar on every page. A page includes it with an HTML comment
+  reading: include header cta="article_" home="/"
+
+  cta   prefixes the buttons' data-cta names, which Google Analytics reports by: "article_" gives
+        article_nav_sign_in. The homepage passes "" (nav_sign_in).
+  home  goes before the homepage's section links. "/" on every other page; "" on the homepage,
+        so What it does / How it works / Pricing glide down the page rather than reload it (a
+        visitor from a short link is on /?utm_source=..., and /#what would load the page again).
+-->
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="Roster, home">Roster<i>.</i></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="{{home}}#what">What it does</a>
+      <a href="{{home}}#how">How it works</a>
+      <a href="{{home}}#pricing">Pricing</a>
+      <a href="/guides.html">Guides</a>
+    </nav>
+    <a class="nav-signin" href="https://app.useroster.xyz/login" data-cta="{{cta}}nav_sign_in">Sign in</a>
+    <a class="btn btn-primary btn-sm" href="https://app.useroster.xyz/signup" data-cta="{{cta}}nav_get_started">Get started free</a>
+  </div>
+</header>
