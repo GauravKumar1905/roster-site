@@ -1,16 +1,16 @@
-/* The homepage: full-screen pages that snap into place as you scroll — try it, the three jobs,
- * before and after, how it works, why you can trust it, the price — then the questions and the
- * footer, which scroll freely. The browser does the scrolling; CSS only says where to settle. */
+/* The homepage: full-screen pages — try it, the three jobs, before and after, how it works, why
+ * you can trust it, the price — then the questions and the footer. The page scrolls freely: no
+ * snapping, because several pages are taller than a laptop screen, and a snap pulled the reader
+ * back to a page's edge mid-scroll, sometimes against the way they were going. The side menu's
+ * links still glide to a page. */
 
 html {
-  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
 
 .page {
   position: relative;
   min-height: 100svh;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1378,7 +1378,6 @@ html {
 /* ---------- questions, and the last word ---------- */
 
 .faq-page {
-  scroll-snap-align: start;
   padding: calc(var(--nav-h) + 56px) calc(var(--gut-r) + 5vw + 14px) 0 calc(var(--gut) + 4vw);
 }
 
@@ -1486,8 +1485,6 @@ html {
 }
 
 @media (max-width: 760px) {
-  html { scroll-snap-type: none; }
-
   .page {
     padding: calc(var(--nav-h) + 36px) var(--gut-r) 48px var(--gut);
   }
