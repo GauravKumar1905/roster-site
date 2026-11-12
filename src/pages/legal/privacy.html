@@ -19,7 +19,7 @@
 <main class="doc">
   <div class="wrap doc-inner">
 
-    <p class="doc-meta">Last updated 10 November 2026</p>
+    <p class="doc-meta">Last updated 12 November 2026</p>
     <h1>Privacy Policy</h1>
 
     <div class="doc-note">
@@ -174,8 +174,6 @@
 
       <dt>Campaigns you set up</dt>
       <dd>
-        Campaign setup is in early access, available to the agencies Roster has turned it on for;
-        for yours, Roster keeps the date it was turned on.
         When you start a campaign in Roster with Copy for Claude, Roster keeps the request: the
         client, the ad account, the note you wrote for Claude, when you asked, when Claude first
         read it, and whether you cancelled it. Each draft that Roster and Google or Meta check is
@@ -243,6 +241,19 @@
         replaced by the next check; for an account in no client, it isn&rsquo;t kept. To learn
         whether your login can make changes, Roster sends a request that Google or Meta checks and
         then discards, changing nothing.
+      </dd>
+
+      <dt>Campaign tracking</dt>
+      <dd>
+        When you track campaigns, Roster keeps which campaigns you picked, in which ad account and for
+        which client, and the budget, target and range you set. Once a day, and when you press Check
+        now, it reads those campaigns: their status, whether their ads were approved, the
+        account&rsquo;s billing state and spending limits, spend and results, and the account&rsquo;s
+        change history for them, including the name or email address Google or Meta records against
+        each change, so that changes made by your team aren&rsquo;t reported to you as news. Roster
+        keeps the latest reading, what it found and when each finding was resolved; resolved findings
+        are shown for 30 days. Stopping tracking ends the daily reads; deleting the client deletes
+        all of it.
       </dd>
 
       <dt>Your Claude connection</dt>
@@ -435,8 +446,9 @@
       send a client is a share link, <code>/s/&lt;token&gt;</code>: viewable <strong>without
       signing in</strong>, read-only, and pinned to the figures as they were when you made it. The
       token is long and random, and we do not list or index these pages — but anyone who has the
-      link can see that report. Treat a share link as you would treat the report itself, and revoke
-      it from the report page, or delete the report, if it should stop working.
+      link can see that report. Roster keeps each link encrypted, so you can copy it again from the
+      report or the client&rsquo;s page. Treat a share link as you would treat the report itself,
+      and revoke it from the report page, or delete the report, if it should stop working.
     </p>
     <p>
       Share links carry your branding, not ours. They are measured like every other Roster page:
@@ -519,7 +531,7 @@
           invite asked for, branding saved, a file attached or removed, a client profile saved, a
           report asked for, picked up by Claude and finished, a report shared, a report link opened
           by a client and which of its pages were opened, a request to Claude succeeding or failing,
-          campaign setup turned on for your agency, a campaign asked for, picked up by Claude,
+          a campaign asked for, picked up by Claude,
           drafted, created or checked, a comment added — with a count or a short label (such as
           &ldquo;demographics&rdquo; for a page) where one is meaningful;</li>
       <li>for campaigns, the platform (Google Ads or Meta), an outcome and short labels such as how
@@ -613,7 +625,7 @@
 
     <h2 id="security">10. Security</h2>
     <ul>
-      <li>Google refresh tokens and Meta access tokens are encrypted at rest with AES-256-GCM.</li>
+      <li>Google refresh tokens, Meta access tokens and share-link tokens are encrypted at rest with AES-256-GCM.</li>
       <li>Passwords are stored as salted <code>scrypt</code> hashes and are not recoverable.</li>
       <li>Traffic is served over HTTPS.</li>
       <li>Session cookies are <code>httpOnly</code> and <code>sameSite</code>, and sessions are revoked server-side on sign-out rather than left to expire.</li>
