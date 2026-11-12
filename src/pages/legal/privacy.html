@@ -179,13 +179,22 @@
         read it, and whether you cancelled it. Each draft that Roster and Google or Meta check is
         kept on the campaign&rsquo;s page — its settings, targeting (with the names of its places
         and languages, and on Meta its Page and pixel), budget and bidding, every ad&rsquo;s text,
-        the web addresses of its images and videos, Roster&rsquo;s suggestions (&ldquo;Things to
-        look at&rdquo;) and when it was checked; a newer draft replaces it. When you say yes in
-        Claude, Roster keeps the draft as it was at that moment, with the time (&ldquo;What you
-        approved&rdquo;), and a record of the change it made in your account — when, and what Google
-        or Meta answered. Images are fetched from the addresses you give and passed to Google or
-        Meta; Roster keeps only a fingerprint of each, not the image. Meta fetches videos from their
-        addresses itself; Roster never holds them. See sections 3 and 4.
+        which of the campaign&rsquo;s images and videos each ad uses, Roster&rsquo;s suggestions
+        (&ldquo;Things to look at&rdquo;) and when it was checked; a newer draft replaces it. When you
+        say yes in Claude, Roster keeps the draft as it was at that moment, with the time (&ldquo;What
+        you approved&rdquo;), and a record of the change it made in your account — when, and what
+        Google or Meta answered. See sections 3 and 4.
+      </dd>
+
+      <dt>Images and videos for campaigns</dt>
+      <dd>
+        The image and video files you give for a campaign&rsquo;s ads — dropped on its page or its job,
+        or sent by Claude from a file or folder on your computer that you name — are kept in Roster
+        with the campaign: each file, its name, size, shape, a fingerprint of its contents, who added
+        it and when, and why Roster refused it if it did. Roster checks each against Google&rsquo;s or
+        Meta&rsquo;s rules, and passes the ones the campaign uses to Google or Meta only when you say
+        yes. A file named by a web address instead is fetched from it and kept the same way. Google
+        Ads videos are YouTube videos you name; Roster doesn&rsquo;t hold them.
       </dd>
 
       <dt>Conversion actions you set up</dt>
@@ -414,8 +423,8 @@
 
       <dt>Google Cloud (Cloud Run, Cloud Storage)</dt>
       <dd>
-        Hosts the application, and stores the files you attach and the images read from them
-        (section 2). Region: <code>asia-southeast1</code> (Singapore).
+        Hosts the application, and stores the files you attach, the images read from them, and the
+        images and videos you give for campaigns (section 2). Region: <code>asia-southeast1</code> (Singapore).
       </dd>
 
       <dt>Neon</dt>
@@ -621,6 +630,7 @@
       <li><strong>Report snapshots</strong> — retained as history so past reports remain viewable. Deleted with the report or the client.</li>
       <li><strong>Sessions</strong> — expire automatically, and are destroyed when you sign out.</li>
       <li><strong>Connector requests</strong> (the record of Claude&rsquo;s requests in section 8) — 90 days, after which each record is deleted automatically.</li>
+      <li><strong>Images and videos for campaigns</strong> — until you remove them, or delete the client. A campaign never created keeps them for 30 days after it was last worked on (a draft checked, a file added), and they are then deleted automatically; a campaign that was created keeps them with its page.</li>
       <li><strong>Record of changes</strong> — the campaigns and conversion actions Roster set up for you, and each campaign&rsquo;s page: the request, the latest draft, what you approved, the last status reading, Things to look at and comments, until you delete the client or your account; a comment until you delete it. It stays if you only disconnect Google or Meta, so you keep a record of what was done in your accounts.</li>
       <li><strong>Claude connections</strong> — until you sign out of the connection in Claude, or 30 days after it was last used.</li>
       <li><strong>Branding</strong> — until you change or remove it. A logo you replace or remove is deleted when you save; a client&rsquo;s logo is deleted with that client.</li>
@@ -629,7 +639,7 @@
           remain. Analytics records carry a random browser identifier and, when you are signed in,
           our internal account identifier; ask us and we will delete yours.</li>
     </ul>
-    <p>Deleting a client deletes the ad accounts chosen for it, its branding and logo, its profile and files, its reports (requests, their notes and files included) and their snapshots, and its record of changes, including its campaigns&rsquo; pages and their comments. Your Google and Meta connections stay in Settings, because they serve your other clients. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
+    <p>Deleting a client deletes the ad accounts chosen for it, its branding and logo, its profile and files, its campaigns&rsquo; images and videos, its reports (requests, their notes and files included) and their snapshots, and its record of changes, including its campaigns&rsquo; pages and their comments. Your Google and Meta connections stay in Settings, because they serve your other clients. Campaigns already created in Google Ads or Meta stay there; delete them in Google Ads or Meta Ads Manager.</p>
 
     <h2 id="security">10. Security</h2>
     <ul>
