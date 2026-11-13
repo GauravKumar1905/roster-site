@@ -19,7 +19,7 @@
 <main class="doc">
   <div class="wrap doc-inner">
 
-    <p class="doc-meta">Last updated 12 November 2026</p>
+    <p class="doc-meta">Last updated 13 November 2026</p>
     <h1>Privacy Policy</h1>
 
     <div class="doc-note">
@@ -56,8 +56,8 @@
     <p>
       Roster is a product of Unboundads Private Limited (CIN U73100HR2024PTC124466), a company
       registered at H.No 1905, Sector 4, Rewari, Haryana 123401, India (&ldquo;we&rdquo;, &ldquo;us&rdquo;).
-      We are the data controller for the account information described below. For the Google Ads
-      and Meta performance data you bring into Roster, you are the controller and we act as a
+      We are the data controller for the account information described below. For the Google Ads,
+      Search Console, Google Analytics and Meta data you bring into Roster, you are the controller and we act as a
       processor on your instructions.
     </p>
     <p>
@@ -85,7 +85,7 @@
         Google Analytics sets a cookie that gives your browser a random identifier, so that the
         pages you open in one visit are recognisable as one visit rather than as several unrelated
         strangers. It holds a random number and nothing else — not your name, not your email, and
-        nothing typed into Roster. Section 7 says what it is for, and how to refuse it.
+        nothing typed into Roster. Section 8 says what it is for, and how to refuse it.
       </dd>
 
       <dt>Client details</dt>
@@ -299,7 +299,7 @@
       own Connect button and its own Google authorisation, which asks only to view that
       product&rsquo;s data: <code>https://www.googleapis.com/auth/webmasters.readonly</code> for
       Search Console, and <code>https://www.googleapis.com/auth/analytics.readonly</code> for
-      Google Analytics, which Google classes as sensitive. Both are read-only. Roster uses them only
+      Google Analytics, both of which Google classes as sensitive. Both are read-only. Roster uses them only
       to read the figures for the reports you build, and never changes anything in Search Console
       or Google Analytics. Their tokens are stored encrypted in the same way.
     </p>
@@ -323,7 +323,9 @@
       advertising, we do not sell it, we do not transfer it except as described in section 6, and
       we do not allow humans to read it except where you have asked us to for support, where it is
       necessary for security or to comply with law, or where the data is aggregated and
-      de-identified.
+      de-identified. We do not use Google user data, or anything derived from it, to develop,
+      improve or train generalised or non-personalised AI or machine-learning models, and we do not
+      allow Anthropic (section 6) to do so.
     </p>
     <p>
       You can revoke Roster's access at any time from your
@@ -401,8 +403,11 @@
     <h2 id="sharing">6. Who we share it with</h2>
     <p>We use a small number of processors, each only for the function named:</p>
     <dl>
-      <dt>Google (Google Ads API, Google OAuth)</dt>
-      <dd>The source of the advertising data, and the identity provider for connecting it.</dd>
+      <dt>Google (Google Ads API, Search Console API, Google Analytics Data and Admin APIs, Google OAuth)</dt>
+      <dd>
+        The source of the Google Ads, Search Console and Google Analytics data, and the identity
+        provider for connecting it.
+      </dd>
 
       <dt>Meta (Marketing API, Facebook Login for Business)</dt>
       <dd>The source of the Meta advertising data, and the login used to connect it.</dd>
@@ -428,11 +433,14 @@
 
       <dt>Anthropic</dt>
       <dd>
-        Only if you choose to design reports or set up campaigns using Claude. In that case the
+        Only if you choose to design reports or set up campaigns using Claude. To show you a report
+        and build it with you, Claude receives what that report covers: the account and campaign
+        names and IDs, and the figures Roster reads for it — Google Ads and Meta performance
+        figures, Search Console search figures and Google Analytics totals — together with the
         report definition or campaign draft, the account structure they are based on, the note you
-        wrote for Claude, and the files, client profile and campaign comments Claude reads are
-        processed by Anthropic under its own terms. No Google or Meta token is ever sent to
-        Anthropic.
+        wrote for Claude, and the files, client profile and campaign comments Claude reads. Anthropic
+        processes them under its commercial terms, which do not allow it to train models on them.
+        No Google or Meta token is ever sent to Anthropic.
       </dd>
     </dl>
     <p>
@@ -643,7 +651,7 @@
       delete your personal data, to object to processing, and to complain to a supervisory
       authority. To exercise any of these, email
       <a href="mailto:gauravkr.contact@gmail.com">gauravkr.contact@gmail.com</a>. We will respond
-      within 29 days.
+      within 30 days.
     </p>
     <p>
       One practical note: a single Roster login may be shared by several people at your agency, so
