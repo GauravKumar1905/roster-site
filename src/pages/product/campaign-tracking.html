@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Google Ads and Meta Ads campaign tracking (coming soon) — Roster</title>
-<meta name="description" content="Coming soon: while your campaigns run, Roster will keep an eye on pacing and every ad in Google Ads and Meta, and suggest what to change or pause. You decide. Part of campaign creation." />
+<title>Google Ads and Meta Ads campaign tracking — Roster</title>
+<meta name="description" content="Every morning Roster checks the Google Ads and Meta Ads campaigns you pick and lists what needs you first: delivery stopped, spend off plan, conversions gone quiet, rejected ads, changes from outside your team. It only reads. You decide." />
 <link rel="canonical" href="https://useroster.xyz/campaign-tracking.html" />
 <link rel="icon" type="image/png" href="/img/logo-square-400.png" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Roster" />
 <meta property="og:title" content="Google Ads and Meta Ads campaign tracking — Roster" />
-<meta property="og:description" content="Coming soon: while your campaigns run, Roster will keep an eye on pacing and every ad in Google Ads and Meta, and suggest what to change or pause. You decide. Part of campaign creation." />
+<meta property="og:description" content="Every morning Roster checks the Google Ads and Meta Ads campaigns you pick and lists what needs you first: delivery stopped, spend off plan, conversions gone quiet, rejected ads, changes from outside your team. It only reads. You decide." />
 <meta property="og:url" content="https://useroster.xyz/campaign-tracking.html" />
 <meta property="og:image" content="https://useroster.xyz/img/og.png" />
 <meta property="og:image:width" content="1200" />
@@ -31,7 +31,23 @@
       "name": "Does Roster pause ads by itself?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. It will tell you which ads to pause and why. Nothing changes in the account until you say so."
+        "text": "No. Tracking only reads. Each item says what to do, and you make the change in Google Ads or Ads Manager, or ask Claude."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can it track campaigns Roster didn't set up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Any campaign in a client's connected Google Ads or Meta account. You pick which ones; it never watches a whole account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it email me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not yet. The list is on your Roster dashboard and in Claude."
       }
     },
     {
@@ -39,7 +55,7 @@
       "name": "Which platforms does it watch?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Google Ads and Meta Ads (Facebook and Instagram), when it opens."
+        "text": "Google Ads and Meta Ads (Facebook and Instagram)."
       }
     },
     {
@@ -64,9 +80,9 @@
     <div class="glass" aria-hidden="true"></div>
     <div class="copy">
       <a class="back" href="./#what">← All of Roster</a>
-      <p class="eyebrow">Campaign tracking · coming soon</p>
+      <p class="eyebrow">Campaign tracking</p>
       <h1 id="job-h">After the launch,<span class="easy">still your call.</span></h1>
-      <p class="lede">Coming soon, as part of campaign creation. While your campaigns run, Roster will watch pacing and every ad, and suggest what to change or pause. You decide.</p>
+      <p class="lede">Every morning, Roster checks the campaigns you pick and lists what needs you first. It never changes the account. You decide.</p>
       <div class="brief"><div class="lbl">Watching · 1 ad needs attention</div><p class="txt">Watch the Spring sale. Keep spend on pace and flag any ad that's falling behind.</p></div>
       <div class="cta-row">
         <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="track_first_get_started">Get started free</a>
@@ -77,43 +93,47 @@
 
   <div class="job-body wrap">
     <section class="job-section" data-track="benefit">
-      <p class="eyebrow">Campaign tracking · coming soon</p>
-      <h2>The checking, done for you.</h2>
-      <p class="lede">Budgets drift and ads go stale between check-ins. Roster will keep an eye on every campaign, so you hear about a problem early and spend your time deciding what to do about it.</p>
+      <p class="eyebrow">Campaign tracking</p>
+      <h2>The morning check, done for you.</h2>
+      <p class="lede">No more opening every account one by one to see whether anything broke overnight. Roster checks the campaigns you pick, so you hear about a problem before your client does.</p>
       <div class="points">
         <div class="point">
-          <h3>Pacing against plan</h3>
-          <p>Spend so far against what was planned by today, so a budget never runs out early or sits unspent.</p>
+          <h3>Now, and this week</h3>
+          <p>Anything that stops a campaign or spends money it shouldn't comes first. The rest waits for the week.</p>
         </div>
         <div class="point">
-          <h3>Weak ads, flagged</h3>
-          <p>Every ad's numbers watched against the rest, with the ones falling behind called out.</p>
+          <h3>What it saw, and what to do</h3>
+          <p>Each item shows the figures, why they matter and what to do, with a link to the campaign.</p>
         </div>
         <div class="point">
-          <h3>What to do next</h3>
-          <p>A short list of what to change or pause, and why. Nothing changes in the account until you say so.</p>
+          <h3>Quiet when nothing's wrong</h3>
+          <p>Normal overspend on a single day, campaigns still learning and your own team's edits aren't news. Dismiss an item and it stays quiet for a week.</p>
         </div>
       </div>
     </section>
 
     <section class="job-section" data-track="platforms">
       <h2>For Google Ads and Meta Ads.</h2>
-      <p class="lede">The same way of working in both, in each platform's own terms.</p>
+      <p class="lede">The same checks in both, in each platform's own terms.</p>
       <div class="platforms">
         <div class="platform">
           <h3>Google Ads</h3>
           <ul>
-            <li><b>Budget pacing</b> for every campaign</li>
-            <li><b>Ads and ad groups</b> falling behind the rest</li>
-            <li><b>Budgets</b> about to run out early</li>
+            <li><b>Delivery and billing</b>: an account that stopped, or a campaign that spent nothing yesterday</li>
+            <li><b>Spend</b> against your plan, and budgets that jump</li>
+            <li><b>Conversions</b> that stop while clicks carry on</li>
+            <li><b>Rejected ads</b>, and results off your target</li>
+            <li><b>Changes</b> by anyone outside your team, and recommendations Google applied by itself</li>
           </ul>
         </div>
         <div class="platform">
           <h3>Meta Ads</h3>
           <ul>
-            <li><b>Budget pacing</b> for every campaign</li>
-            <li><b>Ads and ad sets</b> falling behind the rest</li>
-            <li><b>Facebook and Instagram</b>, side by side</li>
+            <li><b>Delivery, spending limits</b> and billing</li>
+            <li><b>Spend</b> against your plan, and budgets that jump</li>
+            <li><b>The pixel</b> or conversions going quiet</li>
+            <li><b>Rejected ads</b>, slow reviews and weak ads in an ad set</li>
+            <li><b>Advantage+ enhancements</b> switching on, and changes by anyone outside your team</li>
           </ul>
         </div>
       </div>
@@ -121,19 +141,19 @@
 
     <section class="job-section" data-track="how">
       <h2>How it works.</h2>
-      <p class="lede">In the Claude desktop app, with the Roster plugin. The <a href="start.html">setup guide</a> walks you through it.</p>
+      <p class="lede">On your Roster dashboard, or in the Claude desktop app with the Roster plugin. The <a href="start.html">setup guide</a> walks you through it.</p>
       <ol class="steps3">
         <li>
-          <h3>Pick what to watch</h3>
-          <p>Tell Claude which campaigns matter and what good looks like: the budget, and the cost per result you're aiming for.</p>
+          <h3>Pick the campaigns</h3>
+          <p>Choose a client's ad account and tick the campaigns to track, any campaign, not only ones Roster set up. Add the budget and the cost per result you're aiming for, if you have them.</p>
         </li>
         <li>
-          <h3>Roster checks</h3>
-          <p>Pacing and every ad's numbers will be checked while the campaign runs.</p>
+          <h3>Roster checks each morning</h3>
+          <p>Early in the account's time zone, weekends too. Check now looks again whenever you like.</p>
         </li>
         <li>
           <h3>You get the short list</h3>
-          <p>What to change or pause, and why. Nothing changes until you say so.</p>
+          <p>On your dashboard and in Claude, which can explain an item and draft a note for the client. Nothing changes in the account.</p>
         </li>
       </ol>
     </section>
@@ -143,15 +163,23 @@
       <div class="qa">
         <details data-q="pauses_ads">
           <summary>Does Roster pause ads by itself?</summary>
-          <p>No. It will tell you which ads to pause and why. Nothing changes in the account until you say so.</p>
+          <p>No. Tracking only reads. Each item says what to do, and you make the change in Google Ads or Ads Manager, or ask Claude.</p>
+        </details>
+        <details data-q="other_campaigns">
+          <summary>Can it track campaigns Roster didn&#x27;t set up?</summary>
+          <p>Yes. Any campaign in a client&#x27;s connected Google Ads or Meta account. You pick which ones; it never watches a whole account.</p>
+        </details>
+        <details data-q="tracking_email">
+          <summary>Does it email me?</summary>
+          <p>Not yet. The list is on your Roster dashboard and in Claude.</p>
         </details>
         <details data-q="platforms_watched">
           <summary>Which platforms does it watch?</summary>
-          <p>Google Ads and Meta Ads (Facebook and Instagram), when it opens.</p>
+          <p>Google Ads and Meta Ads (Facebook and Instagram).</p>
         </details>
         <details data-q="tracking_cost">
           <summary>Does it cost extra?</summary>
-          <p>No. Like every part of Roster, it's free during early access.</p>
+          <p>No. Like every part of Roster, it&#x27;s free during early access.</p>
         </details>
       </div>
     </section>
@@ -159,8 +187,8 @@
     <div class="job-end">
       <aside class="cta-card" data-prompt-hide>
         <p class="cta-k">Campaign tracking</p>
-        <h2>Start with reports today.</h2>
-        <p>Campaign tracking is coming soon. Sign up now and start with client reports, free during early access.</p>
+        <h2>Hear about it before your client does.</h2>
+        <p>Connect your clients' Google Ads and Meta accounts, pick the campaigns, and the next morning's list is waiting. Free during early access.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://app.useroster.xyz/signup" data-cta="track_end_get_started">Get started free</a>
           <a class="text-link" href="start.html">Read the setup guide →</a>
