@@ -1,7 +1,7 @@
 /* The getting-started page.
  *
- * Deliberately terse. Someone reading this wants to be finished with it, so each step is one
- * instruction and one thing to copy — not a paragraph explaining why. */
+ * Deliberately terse. Someone reading this wants to be finished with it, so each step says where
+ * to go in the dashboard and what to press — not a paragraph explaining why. */
 
 .guide {
   padding: calc(var(--nav-h) + 48px) 0 88px;
@@ -119,72 +119,6 @@
   color: var(--ink) !important;
 }
 
-/* ---------- copyable command blocks ---------- */
-
-/* The button sits above the block rather than floating over it. Overlaying meant a long command
-   ran underneath it, which reads as truncated — and nobody pastes a command they cannot fully
-   see. */
-.copyblock {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0 14px;
-}
-
-/* Wrapping rather than scrolling: a command that runs horizontally under the Copy button reads
-   as truncated, and nobody scrolls a code block sideways to check what they are about to paste. */
-.copyblock pre {
-  margin: 0;
-  padding: 16px 18px 16px 18px;
-  background: var(--ink);
-  color: #e8eaed;
-  border-radius: var(--radius);
-  font-size: 13.5px;
-  line-height: 1.7;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
-.copyblock pre code {
-  display: block;
-}
-
-.copyblock.plain pre {
-  background: var(--bg-sunken);
-  color: var(--ink);
-}
-
-.copyblock pre code {
-  background: none;
-  padding: 0;
-  color: inherit;
-  font-family: var(--mono);
-}
-
-.copybtn {
-  order: -1;
-  align-self: flex-end;
-  margin-bottom: 6px;
-  font-family: var(--sans);
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--blue);
-  background: var(--bg-sunken);
-  border: none;
-  border-radius: 4px;
-  padding: 6px 14px;
-  cursor: pointer;
-}
-
-.copybtn:hover {
-  background: var(--blue-soft);
-  color: var(--blue-dark);
-}
-
-.copybtn.copied {
-  background: #e6f4ea;
-  color: var(--green);
-}
-
 .gdetails {
   margin: 0 0 14px;
 }
@@ -235,39 +169,4 @@
   margin-top: 32px;
   font-size: 15px;
   color: var(--ink-faint);
-}
-
-/* ---------- the plugin install path ---------- */
-
-/* Step 5 is a sequence of clicks rather than one instruction, so it carries its own numbering.
-   The numbering runs straight through both halves — installing and connecting are one path the
-   reader walks once, not two things to choose between. */
-.gsub {
-  font-size: 14px !important;
-  font-weight: 500;
-  color: var(--ink) !important;
-  margin: 0 0 8px !important;
-}
-
-.gpath {
-  margin: 0 0 20px;
-  padding-left: 20px;
-  font-size: 15px;
-  color: var(--ink-soft);
-}
-
-.gpath li {
-  margin-bottom: 8px;
-  line-height: 1.55;
-}
-
-/* The menu labels are what the reader hunts for on screen, so they are set in the body ink while
-   the instruction around them stays soft. */
-.gpath strong {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.gpath .copyblock {
-  margin: 10px 0 4px;
 }
