@@ -116,7 +116,7 @@
         website and anything else you add. You fill it in there, or Roster drafts it for you to check
         and save (Let Roster draft it), from the client&rsquo;s files and the public pages of the
         website you give it. Roster&rsquo;s AI reads both when it builds that client&rsquo;s reports
-        or drafts its campaigns, which passes them to our AI provider (section 6). Neither is shown on the links you send your clients. A
+        or drafts its campaigns, which passes them to our AI providers (section 6). Neither is shown on the links you send your clients. A
         file is deleted when you remove it, with its report or client, or when you cancel the
         request it is on.
       </dd>
@@ -209,7 +209,7 @@
         What anyone signed in to your Roster login writes on a campaign&rsquo;s page, with a name
         if they give one, and the comments added there by Claude before 24 November 2026, now
         marked Roster. Roster&rsquo;s AI reads them when it answers a question about that campaign,
-        so they reach our AI provider (section 6). Please don&rsquo;t put personal data about your clients&rsquo;
+        so they reach our AI providers (section 6). Please don&rsquo;t put personal data about your clients&rsquo;
         customers in them. The name you give is remembered in that browser&rsquo;s local storage
         and sent to Roster only with a comment; clearing the browser&rsquo;s data removes it.
       </dd>
@@ -336,8 +336,9 @@
       we do not allow humans to read it except where you have asked us to for support, where it is
       necessary for security or to comply with law, or where the data is aggregated and
       de-identified. We do not use Google user data, or anything derived from it, to develop,
-      improve or train generalised or non-personalised AI or machine-learning models, and we do not
-      allow our AI provider (section 6) to do so.
+      improve or train generalised or non-personalised AI or machine-learning models ourselves. What
+      Roster&rsquo;s AI sends to our AI providers, and what their terms allow them to do with it, is
+      in section 6.
     </p>
     <p>
       You can revoke Roster's access at any time from your
@@ -410,7 +411,8 @@
       <li><strong>To understand how the product is used</strong> — usage analytics with Google Analytics, as described in section 8. Where the law requires consent for the analytics cookie, that is our basis for it, and you can withdraw it at any time.</li>
       <li><strong>To meet legal obligations</strong> — where we are required to retain or disclose information.</li>
     </ul>
-    <p>We do not use your data to train machine learning models, and we do not sell it.</p>
+    <p>We do not use your data to train machine learning models, and we do not sell it. Our AI
+    providers&rsquo; terms are in section 6.</p>
 
     <h2 id="sharing">6. Who we share it with</h2>
     <p>We use a small number of processors, each only for the function named:</p>
@@ -443,19 +445,23 @@
         section 8.
       </dd>
 
-      <dt>Google (Gemini API), our AI provider</dt>
+      <dt>Our AI providers: Google (Gemini API), Groq and NVIDIA</dt>
       <dd>
-        Roster&rsquo;s AI runs on Google&rsquo;s Gemini models, through the Gemini API. To build a
-        report or draft a campaign with you, or to answer a question about one, it receives what
+        Roster&rsquo;s AI runs on Google&rsquo;s Gemini models, through the Gemini API, and when
+        those are busy or have used up their daily allowance, on open models run by Groq and by
+        NVIDIA&rsquo;s API catalog. To build a report or draft a campaign with you, or to answer a
+        question about one, the provider that answers receives what
         that piece of work covers: the account and campaign names and IDs, and the figures Roster
         reads for it — Google Ads and Meta performance figures, Search Console search figures and
         Google Analytics totals — together with the report definition or campaign draft, the
         account structure they are based on, the note you wrote, your answers to its questions, and
         the files, client profile, campaign comments and tracking findings it reads; to draft a
-        client&rsquo;s profile, the text of the website pages it reads. Google processes them under
-        the Gemini API&rsquo;s terms for paid services, which do not allow Google to use them to
-        improve its products or train its models. No Google or Meta token, password or share link
-        is ever sent to it.
+        client&rsquo;s profile, the text of the website pages it reads. We use these services on their
+        free tiers, under each provider&rsquo;s own terms for them. Google&rsquo;s terms for the
+        Gemini API&rsquo;s free tier allow Google to use what it receives to improve its products,
+        and people at Google may read it. Groq and NVIDIA process it under their own terms for their
+        free services. No Google or Meta token, password or share link is ever sent to any of
+        them.
       </dd>
     </dl>
     <p>
