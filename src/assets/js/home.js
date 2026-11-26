@@ -1,10 +1,10 @@
-/* The homepage: the Claude demo on the first page, the sample report it builds, and the side menu
- * of pages. The page itself scrolls the ordinary way — the browser does it, and CSS says where to
- * settle — so nothing here takes over the wheel, the keys or a swipe.
+/* The homepage: the dashboard demo on the first page, the sample report it builds, and the side
+ * menu of pages. The page itself scrolls the ordinary way — the browser does it, and CSS says where
+ * to settle — so nothing here takes over the wheel, the keys or a swipe.
  *
  * Analytics hears about the demo through `roster:demo` events, which analytics.js sends on as
- * `demo_step`: whether people press Send, whether they read the report it builds, and which part
- * of it they open. */
+ * `demo_step`: whether people press Build it (still named `send`, so the history carries on from
+ * the demo before it), whether they read the report it builds, and which part of it they open. */
 (() => {
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -12,47 +12,61 @@ const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const tell = (step, extra) => document.dispatchEvent(new CustomEvent('roster:demo', { detail: { step, ...extra } }));
 const { mount, S } = window.RosterPaper;
 
-/* ---------- page 1: send the message ---------- */
-const heroEl = $('#top'), chat = $('#chat'), sendBtn = $('#send');
+/* ---------- page 1: build the report ---------- */
+const heroEl = $('#top'), dash = $('#dash'), buildBtn = $('#build');
+const state = $('#bstate'), steps = $$('.bsteps li'), approve = $('.approve');
 const liveEl = $('#live'), rscroll = $('#rscroll'), secBtns = $$('.live-side [data-sec]');
-// after Send: the assistant works for 2.9s, the chat sinks quickly into the paper, then the report comes up
-// piece by piece over 3.4s and hands over to the live sample report
-const hero = mount(heroEl, { outs: [], live: liveEl, once: true, spread: .72, steps: [S('send', 2.9), S('absorb', .3), S('rise', 3.4, 0)] });
+// after Build it: Roster works through its steps for 4.2s, the dashboard sinks quickly into the
+// paper, then the report comes up piece by piece over 3.4s and hands over to the live sample report
+const hero = mount(heroEl, { outs: [], live: liveEl, once: true, spread: .72, steps: [S('send', 4.2), S('absorb', .3), S('rise', 3.4, 0)] });
 let heroState = 'idle', heroTimers = [], runs = 0, explored = false;
+const SAY = { start: 'Roster is starting on it…', work: 'Roster is working on it…', check: 'Ready for you to check', done: 'Your report is ready.' };
+
+// a step is working (now), waiting for a yes (wait) or settled (done)
+function mark(i, cls) {
+  steps[i].classList.remove('now', 'wait');
+  steps[i].classList.add(cls);
+}
 
 function send() {
   if (heroState !== 'idle') return;
   heroState = 'running';
   tell(runs++ ? 'replay' : 'send');
-  chat.classList.add('sent');
-  // the chat window is what presses into the paper before the report comes up
-  hero.lines = [hero.boxOf(chat, 22)];
+  dash.classList.add('sent');
+  // the dashboard is what presses into the paper before the report comes up
+  hero.lines = [hero.boxOf(dash, 22)];
   hero.restart();
   const at = (ms, f) => heroTimers.push(setTimeout(f, RM ? 0 : ms));
-  // the assistant works through its steps, ticking each off, before the chat sinks away
-  at(500, () => chat.classList.add('thinking', 'p1'));
-  at(1150, () => chat.classList.add('d1', 'p2'));
-  at(1800, () => chat.classList.add('d2', 'p3'));
-  at(2450, () => chat.classList.add('d3'));
-  at(2900, () => chat.classList.add('gone'));
+  // Roster works out how to build it, then waits for a yes on the pages
+  at(350, () => { state.textContent = SAY.work; mark(0, 'now'); });
+  at(900, () => { state.textContent = SAY.check; mark(0, 'done'); mark(1, 'wait'); });
+  at(1600, () => approve.classList.add('pressed'));
+  // then it builds each page in turn, ticking each off with a line on what's in it
+  at(1850, () => { state.textContent = SAY.work; mark(1, 'done'); mark(2, 'now'); });
+  [2250, 2600, 2950, 3300].forEach((ms, k) => at(ms, () => { mark(k + 2, 'done'); mark(k + 3, 'now'); }));
+  at(3650, () => { state.textContent = SAY.done; mark(6, 'done'); });
+  at(4200, () => dash.classList.add('gone'));
   // the report starts printing as the paper rises, piece by piece; once it's all up it can be clicked
-  at(3200, () => heroEl.classList.add('built'));
-  at(6650, () => { heroState = 'done'; heroEl.classList.add('done'); tell('report_built'); });
+  at(4500, () => heroEl.classList.add('built'));
+  at(7950, () => { heroState = 'done'; heroEl.classList.add('done'); tell('report_built'); });
   // "Run it again" waits a minute, so the first thing on offer is the report, not a replay
-  at(66650, () => heroEl.classList.add('replayable'));
+  at(67950, () => heroEl.classList.add('replayable'));
 }
 
 function replay() {
   heroTimers.forEach(clearTimeout); heroTimers = [];
   heroState = 'idle'; explored = false;
-  chat.className = 'chat'; heroEl.classList.remove('built', 'done', 'replayable');
+  dash.className = 'dash'; heroEl.classList.remove('built', 'done', 'replayable');
+  steps.forEach(li => { li.className = ''; });
+  approve.classList.remove('pressed');
+  state.textContent = SAY.start;
   liveEl.classList.remove('explored');
   hero.t0 = null; hero.sig = ''; hero.lines = [];
   rscroll.style.scrollBehavior = 'auto'; rscroll.scrollTop = 0; rscroll.style.scrollBehavior = '';
   markSection();
 }
 
-sendBtn.addEventListener('click', send);
+buildBtn.addEventListener('click', send);
 $('[data-replay]').addEventListener('click', replay);
 
 /* ---------- the sample report: section menu and scroll position ---------- */

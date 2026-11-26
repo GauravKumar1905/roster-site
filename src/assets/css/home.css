@@ -94,7 +94,7 @@ html {
 
 /* ---------- page 1: try it ---------- */
 
-/* mirrored: the thing to try sits on the left, so Send lands near the middle of the screen */
+/* mirrored: the thing to try sits on the left, so Build it lands near the middle of the screen */
 .hero .glass {
   inset: 0 0 0 auto;
   -webkit-mask-image: linear-gradient(270deg, #000 80%, transparent);
@@ -135,16 +135,14 @@ html {
   opacity: 0;
 }
 
-/* the Claude window: title bar, conversation list, thread, composer */
-.chat {
-  --c-bg: #faf9f5;
-  --c-side: #f3f1ea;
-  --c-ink: #3d3929;
-  --c-soft: rgba(61, 57, 41, 0.7);
-  --c-faint: rgba(61, 57, 41, 0.5);
-  --c-line: rgba(61, 57, 41, 0.13);
-  --c-user: #efece3;
-  --clay: #d97757;
+/* Roster's dashboard: title bar, the menu, then a new report picked and built step by step */
+.dash {
+  --d-bg: #ffffff;
+  --d-side: #f6f7f9;
+  --d-ink: var(--fg);
+  --d-soft: var(--fg-soft);
+  --d-faint: var(--fg-faint);
+  --d-line: rgba(27, 34, 45, 0.11);
   position: absolute;
   inset: 0;
   overflow: hidden;
@@ -152,13 +150,13 @@ html {
   display: flex;
   flex-direction: column;
   border-radius: 14px;
-  background: var(--c-bg);
-  color: var(--c-ink);
-  box-shadow: 0 0 0 1px var(--c-line), 0 40px 80px -40px rgba(61, 57, 41, 0.45);
+  background: var(--d-bg);
+  color: var(--d-ink);
+  box-shadow: 0 0 0 1px var(--d-line), 0 40px 80px -40px rgba(27, 34, 45, 0.45);
   transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
 }
 
-.chat.gone {
+.dash.gone {
   opacity: 0;
   filter: blur(6px);
   transform: scale(0.97);
@@ -171,11 +169,11 @@ html {
   align-items: center;
   height: 40px;
   padding: 0 14px;
-  border-bottom: 1px solid var(--c-line);
-  background: var(--c-side);
+  border-bottom: 1px solid var(--d-line);
+  background: var(--d-side);
   font-size: 12px;
   font-weight: 500;
-  color: var(--c-soft);
+  color: var(--d-soft);
 }
 
 .lights {
@@ -188,29 +186,18 @@ html {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(61, 57, 41, 0.14);
+  background: rgba(27, 34, 45, 0.14);
 }
 
-/* the desktop app's modes; Roster runs in Cowork and in Claude Code */
-.modes {
+/* the dashboard's own address, the one place it lives */
+.addr {
   margin: 0 auto;
-  display: flex;
-  gap: 2px;
-  padding: 3px;
-  border-radius: 9px;
-  background: rgba(61, 57, 41, 0.07);
-}
-
-.modes span {
-  padding: 3px 12px;
-  border-radius: 7px;
-  font-size: 12px;
-}
-
-.modes .on {
-  background: var(--c-bg);
-  color: var(--c-ink);
-  box-shadow: 0 1px 2px rgba(61, 57, 41, 0.15);
+  padding: 4px 16px;
+  border-radius: 8px;
+  background: rgba(27, 34, 45, 0.06);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--d-soft);
 }
 
 .win-bar .end {
@@ -224,53 +211,35 @@ html {
 }
 
 .side {
-  flex: 0 0 214px;
+  flex: 0 0 196px;
   display: flex;
   flex-direction: column;
   gap: 2px;
   padding: 14px 10px 10px;
-  border-right: 1px solid var(--c-line);
-  background: var(--c-side);
+  border-right: 1px solid var(--d-line);
+  background: var(--d-side);
   font-size: 13px;
 }
 
 .side-brand {
   padding: 2px 10px 14px;
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: 19px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 750;
+  letter-spacing: -0.02em;
 }
 
-.newchat {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 16px;
-  padding: 7px 10px;
-  border-radius: 9px;
-  font-weight: 500;
-}
-
-.newchat b {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--clay);
-  color: #fff;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 1;
+.side-brand i {
+  font-style: normal;
+  color: var(--accent);
 }
 
 .side-h {
-  margin: 0 0 4px;
+  margin: 14px 0 4px;
   padding: 0 10px;
   font-size: 11.5px;
   font-weight: 500;
-  color: var(--c-faint);
+  color: var(--d-faint);
 }
 
 .side ul {
@@ -285,21 +254,21 @@ html {
 .side li {
   padding: 7px 10px;
   border-radius: 8px;
-  color: var(--c-soft);
+  color: var(--d-soft);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.side li.new {
-  display: none;
-  background: rgba(61, 57, 41, 0.07);
-  color: var(--c-ink);
+.side-nav li.on {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-weight: 500;
 }
 
-.chat.sent .side li.new {
-  display: block;
-  animation: rise-in 0.35s ease both;
+.side li.new {
+  background: rgba(27, 34, 45, 0.06);
+  color: var(--d-ink);
 }
 
 .side-foot {
@@ -308,7 +277,7 @@ html {
   align-items: center;
   gap: 9px;
   padding: 8px 10px;
-  color: var(--c-soft);
+  color: var(--d-soft);
 }
 
 .me {
@@ -317,211 +286,227 @@ html {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--c-ink);
-  color: var(--c-bg);
+  background: var(--d-ink);
+  color: var(--d-bg);
   font-size: 10.5px;
   font-weight: 600;
 }
 
 .main {
+  position: relative;
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  padding: 22px 28px 14px;
+  padding: 24px 30px 18px;
 }
 
-.thread {
+.pick,
+.build {
   flex: 1;
   min-height: 0;
   width: 100%;
-  max-width: 620px;
+  max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 20px;
-  overflow: hidden;
 }
 
-.hello {
-  margin: auto 0;
-  text-align: center;
+/* the form sits in the middle of the window, so Build it lands near the middle of the screen */
+.pick { justify-content: center; }
+
+.crumbs {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: var(--d-faint);
 }
 
-.hello h3 {
-  margin: 0;
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(24px, 2.3vw, 34px);
-  letter-spacing: -0.01em;
+.main h3 {
+  margin: 0 0 18px;
+  font-family: var(--display);
+  font-weight: 650;
+  font-size: clamp(22px, 2vw, 28px);
+  letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
-.msg.user {
-  display: none;
-  align-self: flex-end;
-  max-width: 80%;
-  padding: 10px 15px;
+/* first: which report, and for which account */
+.flab {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--d-soft);
+}
+
+.kinds {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.kind {
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--d-line);
+  font-size: 13.5px;
+  color: var(--d-soft);
+}
+
+.kind.on {
+  box-shadow: 0 0 0 2px var(--accent);
+  background: var(--accent-soft);
+  color: var(--d-ink);
+  font-weight: 500;
+}
+
+.acct {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--d-line);
+  font-size: 13.5px;
+}
+
+.acct span { color: var(--d-faint); }
+
+.how {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--d-soft);
+}
+
+/* then: Roster's steps, each ticked off with a short line, one waiting for your yes */
+.build { display: none; }
+.dash.sent .pick { display: none; }
+.dash.sent .build { display: flex; animation: rise-in 0.35s ease both; }
+
+.card {
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  padding: 14px 16px;
   border-radius: 14px;
-  background: var(--c-user);
-  font-size: 15px;
-  line-height: 1.45;
+  box-shadow: 0 0 0 1px var(--d-line), 0 10px 24px -18px rgba(27, 34, 45, 0.35);
 }
 
-.bot {
-  display: none;
-  font-family: var(--serif);
-  font-size: 16px;
-  line-height: 1.55;
+.state {
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 14.5px;
 }
 
-.bot p {
-  margin: 0 0 12px;
-}
-
-.steps ul {
+.bsteps {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-family: var(--body);
+  gap: 2px;
 }
 
-.steps li {
-  display: none;
+.bsteps li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  column-gap: 10px;
   align-items: center;
-  gap: 10px;
-  padding: 7px 12px;
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px var(--c-line);
-  font-size: 13.5px;
-  color: var(--c-soft);
+  padding: 5px 8px;
+  border-radius: 9px;
+  font-size: 13px;
+  color: var(--d-faint);
 }
 
-.steps li b {
+.bsteps b {
+  grid-column: 2;
   font-weight: 500;
-  color: var(--c-ink);
 }
 
-.steps li::before {
-  content: "";
-  flex: none;
+.bsteps .ln {
+  grid-column: 2;
+  display: none;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mk {
+  grid-row: 1 / span 2;
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 2px solid rgba(61, 57, 41, 0.14);
-  border-top-color: var(--clay);
+  border: 2px solid rgba(27, 34, 45, 0.16);
+}
+
+.bsteps li.now,
+.bsteps li.wait {
+  background: var(--d-side);
+  color: var(--d-ink);
+}
+
+.bsteps li.now .mk {
+  border-top-color: var(--accent);
   animation: spin 0.8s linear infinite;
 }
+
+.bsteps li.wait .mk { border-color: var(--accent); }
+
+.bsteps li.done { color: var(--d-ink); }
+
+.bsteps li.done .mk {
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: var(--d-ink);
+}
+
+.bsteps li.done .mk::before {
+  content: "✓";
+  color: var(--d-bg);
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.bsteps li.now .ln.now,
+.bsteps li.wait .ln.ready,
+.bsteps li.done .ln.sum { display: block; animation: rise-in 0.3s ease both; }
+
+.bsteps li.done .ln.sum { color: var(--d-soft); }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-.p1 .steps li:nth-child(1),
-.p2 .steps li:nth-child(2),
-.p3 .steps li:nth-child(3) {
-  display: flex;
-  animation: rise-in 0.3s ease both;
+/* the step that needs your yes: its button, pressed */
+.approve {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  display: none;
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px -8px rgba(26, 115, 232, 0.9);
+  transition: transform 0.12s, background 0.2s;
 }
 
-.d1 .steps li:nth-child(1)::before,
-.d2 .steps li:nth-child(2)::before,
-.d3 .steps li:nth-child(3)::before {
-  content: "✓";
-  border: 0;
-  animation: none;
-  display: grid;
-  place-items: center;
-  background: var(--c-ink);
-  color: var(--c-bg);
-  font-size: 8px;
-  font-weight: 700;
-}
-
-.chat.sent .hello { display: none; }
-.chat.sent .msg.user { display: block; animation: rise-in 0.35s ease both; }
-.chat.thinking .bot { display: block; animation: rise-in 0.35s ease both; }
+.bsteps li.wait .approve { display: block; animation: rise-in 0.3s ease both; }
+.bsteps li.wait .approve.pressed { transform: scale(0.93); background: var(--accent-dark); box-shadow: none; }
 
 @keyframes rise-in {
   from { opacity: 0; transform: translateY(8px); }
 }
 
-.composer {
-  position: relative;
-  flex: none;
-  width: 100%;
-  max-width: 620px;
-  margin: 14px auto 0;
-  padding: 14px 12px 10px 16px;
-  border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 0 0 1px var(--c-line), 0 10px 24px -16px rgba(61, 57, 41, 0.3);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.field {
-  min-height: 22px;
-  font-size: 15px;
-}
-
-.field .ph { display: none; color: var(--c-faint); }
-.chat.sent .field .val { display: none; }
-.chat.sent .field .ph { display: inline; }
-
-.tools {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.tool {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 0 0 1px var(--c-line);
-  color: var(--c-soft);
-  font-size: 17px;
-  line-height: 1;
-}
-
-/* Roster shows up as a connected tool inside Claude */
-.ctx {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 10px 5px 6px;
-  border-radius: 9px;
-  box-shadow: 0 0 0 1px var(--c-line);
-  font-size: 12.5px;
-  color: var(--c-soft);
-}
-
-.ctx i {
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  display: grid;
-  place-items: center;
-  background: var(--accent);
-  color: #fff;
-  font-style: normal;
-  font-family: var(--display);
-  font-weight: 750;
-  font-size: 11px;
-}
-
 .sendwrap {
   position: relative;
   flex: none;
-  margin-left: auto;
+  align-self: flex-end;
+  margin-top: 22px;
 }
 
 .send {
@@ -534,11 +519,12 @@ html {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: var(--clay);
+  background: var(--accent);
   color: #fff;
+  font-family: inherit;
   font-size: 14.5px;
   font-weight: 600;
-  box-shadow: 0 8px 18px -8px rgba(217, 119, 87, 0.85);
+  box-shadow: 0 8px 18px -8px rgba(26, 115, 232, 0.85);
   transition: transform 0.15s, background 0.3s, box-shadow 0.3s;
 }
 
@@ -549,7 +535,7 @@ html {
   position: absolute;
   inset: -6px;
   border-radius: 17px;
-  border: 2px solid var(--clay);
+  border: 2px solid var(--accent);
   animation: ring 1.8s ease-out infinite;
   pointer-events: none;
 }
@@ -560,41 +546,38 @@ html {
 }
 
 .send:hover { transform: scale(1.05); }
-.chat.sent .send { background: rgba(217, 119, 87, 0.35); box-shadow: none; cursor: default; }
-.chat.sent .send::after { display: none; }
 
-/* the call to action floats above the button and points at it */
+/* the call to action floats beside the button and points at it */
 .callout {
   position: absolute;
-  right: 8px;
-  bottom: calc(100% + 12px);
+  right: calc(100% + 14px);
+  top: 2px;
   z-index: 2;
   padding: 9px 13px;
   border-radius: 10px;
   white-space: nowrap;
   pointer-events: none;
-  background: var(--c-ink);
-  color: var(--c-bg);
+  background: var(--d-ink);
+  color: var(--d-bg);
   font-size: 13.5px;
   font-weight: 500;
-  box-shadow: 0 10px 24px -10px rgba(61, 57, 41, 0.6);
+  box-shadow: 0 10px 24px -10px rgba(27, 34, 45, 0.6);
   animation: float 1.8s ease-in-out infinite;
 }
 
 .callout::after {
   content: "";
   position: absolute;
-  right: 34px;
-  top: 100%;
+  left: 100%;
+  top: 50%;
+  margin-top: -7px;
   border: 7px solid transparent;
-  border-top-color: var(--c-ink);
+  border-left-color: var(--d-ink);
 }
 
 @keyframes float {
-  50% { transform: translateY(-4px); }
+  50% { transform: translateX(-4px); }
 }
-
-.chat.sent .callout { opacity: 0; transition: opacity 0.2s; }
 
 .pointer {
   position: absolute;
@@ -610,8 +593,6 @@ html {
 @keyframes nudge {
   50% { transform: translate(-6px, -6px); }
 }
-
-.chat.sent .pointer { opacity: 0; transition: opacity 0.2s; }
 
 /* once the report is up: the button to sign up, and the way on down the page */
 .after {
@@ -1465,16 +1446,24 @@ html {
   .charts, .ads { grid-template-columns: minmax(0, 1fr); }
   .rsec p, .next { font-size: 13.5px; }
   .side { display: none; }
-  .modes { display: none; }
   .win-bar { height: 30px; }
+  .addr { padding: 2px 12px; font-size: 10.5px; }
   .win-bar .end { display: none; }
   .main { padding: 12px 12px 10px; }
-  .thread { gap: 10px; }
-  .hello h3 { font-size: 21px; }
-  .msg.user, .bot, .field { font-size: 14px; }
-  .bot p { margin-bottom: 8px; }
-  .steps li { padding: 5px 10px; font-size: 13px; }
-  .composer { margin-top: 10px; padding: 10px 10px 8px 12px; gap: 8px; }
+  .main h3 { margin-bottom: 10px; font-size: 20px; }
+  .crumbs, .how { display: none; }
+  .flab { margin-bottom: 6px; font-size: 12px; }
+  .kinds { gap: 6px; margin-bottom: 10px; }
+  .kind, .acct { padding: 7px 10px; font-size: 12.5px; }
+  .card { padding: 10px; }
+  .state { margin-bottom: 6px; font-size: 13.5px; }
+  .bsteps { gap: 0; }
+  /* one row a step: its name, then its line cut to fit */
+  .bsteps li { grid-template-columns: 14px auto minmax(0, 1fr) auto; padding: 4px 6px; font-size: 12.5px; }
+  .mk { grid-row: 1; }
+  .bsteps .ln { grid-column: 3; grid-row: 1; font-size: 11.5px; }
+  .bsteps li.wait .ln.ready { display: none; }
+  .approve { grid-column: 4; grid-row: 1; padding: 5px 9px; font-size: 11.5px; }
 }
 
 @media (max-width: 760px) {
@@ -1554,8 +1543,8 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .chat, .after, .live { transition: none; }
-  .send::after, .pointer, .callout, .steps li::before, .explore svg,
+  .dash, .after, .live { transition: none; }
+  .send::after, .pointer, .callout, .bsteps li.now .mk, .explore svg,
   .hero.done .live:not(.explored) .live-side button:nth-of-type(2)::after { animation: none; }
   .tile { transition: none; }
 }
